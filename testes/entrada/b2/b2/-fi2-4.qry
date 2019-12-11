@@ -1,0 +1,32 @@
+crd? hnb23.9
+crd? hneb23.9
+crd? hob23.9
+crd? hnob23.9
+crd? hob23.10
+crd? hnob23.10
+crd? hneb23.10
+crd? hnb23.10
+crd? hob23.12
+crd? hnb23.12
+fi 1040.000000 454.000000 10 346.666667
+del hnb23.9
+del hneb23.9
+del hob23.9
+del hnob23.9
+del hob23.10
+del hnob23.10
+del hneb23.10
+del hnb23.10
+del hob23.12
+del hnb23.12
+fi 1040.000000 454.000000 10 346.666667
+crd? hnb23.9
+crd? hneb23.9
+crd? hob23.9
+crd? hnob23.9
+crd? hob23.10
+crd? hnob23.10
+crd? hneb23.10
+crd? hnb23.10
+crd? hob23.12
+crd? hnb23.12

@@ -1,0 +1,32 @@
+crd? hneb67.20
+crd? hnb67.20
+crd? hob67.20
+crd? hnob67.20
+crd? hnob67.21
+crd? hneb67.21
+crd? hnb67.21
+crd? sfb67.21
+crd? hob67.21
+crd? hob67.23
+fi 5070.000000 1634.400000 10 1690.000000
+del hneb67.20
+del hnb67.20
+del hob67.20
+del hnob67.20
+del hnob67.21
+del hneb67.21
+del hnb67.21
+del sfb67.21
+del hob67.21
+del hob67.23
+fi 5070.000000 1634.400000 10 1690.000000
+crd? hneb67.20
+crd? hnb67.20
+crd? hob67.20
+crd? hnob67.20
+crd? hnob67.21
+crd? hneb67.21
+crd? hnb67.21
+crd? sfb67.21
+crd? hob67.21
+crd? hob67.23

@@ -1,0 +1,32 @@
+crd? sfb21.10
+crd? hnob21.14
+crd? hnob21.18
+crd? hneb21.15
+crd? hnb21.19
+crd? hnob21.16
+crd? hneb21.16
+crd? sfb21.12
+crd? hneb21.19
+crd? hnb21.15
+fi 130.000000 817.200000 10 43.333333
+del sfb21.10
+del hnob21.14
+del hnob21.18
+del hneb21.15
+del hnb21.19
+del hnob21.16
+del hneb21.16
+del sfb21.12
+del hneb21.19
+del hnb21.15
+fi 130.000000 817.200000 10 43.333333
+crd? sfb21.10
+crd? hnob21.14
+crd? hnob21.18
+crd? hneb21.15
+crd? hnb21.19
+crd? hnob21.16
+crd? hneb21.16
+crd? sfb21.12
+crd? hneb21.19
+crd? hnb21.15
