@@ -11,7 +11,7 @@
 #include "Retangulo.h"
 #include "Circulo.h"
 #include "Svg.h"
-
+#include "Hash.h"
 
 typedef struct {
     Lista lQua;
@@ -23,6 +23,7 @@ typedef struct {
     Lista lMur;
     int cirQntd;
     int retQntd;
+
 }cidade;
 
 typedef struct {

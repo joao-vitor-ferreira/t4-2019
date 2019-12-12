@@ -8,6 +8,7 @@
 #include "Svg.h"
 #include "Vector.h"
 #include "Vertice.h"
+#include "Hash.h"
 
 int main (int argc, char **argv){
 	FILE *svgMain, *svgQry;
@@ -46,6 +47,8 @@ int main (int argc, char **argv){
 	svgW += 100.0;
 	fprintf(svgMain, "<svg width=\"%f\" height=\"%f\">\n", svgW, svgH);
 	fclose(svgMain);
+	//colocar -ec -pm -col
+	
 	str = pegaParametro(argc, argv, "-q");
 	if (str != NULL){
 		str = funcSvg(argc, argv);

@@ -1,11 +1,13 @@
-siguel: siguel.o Vector.o Retangulo.o Circulo.o Calculos.o Comandos.o Svg.o Cidade.o Lista.o Quadra.o Semaforo.o Hidrante.o Torre.o Segmento.o Vertice.o Ponto.o Predio.o Muro.o Ordenacao.o
-	gcc -o siguel siguel.o Vector.o Circulo.o Retangulo.o Calculos.o Comandos.o Svg.o Cidade.o Lista.o Quadra.o Semaforo.o Hidrante.o Torre.o Segmento.o Vertice.o Ponto.o  Predio.o Muro.o Ordenacao.o -lm -std=c99 -fstack-protector-all
+siguel: siguel.o Vector.o Retangulo.o Circulo.o Calculos.o Comandos.o Svg.o Cidade.o Lista.o Quadra.o Semaforo.o Hidrante.o Torre.o Segmento.o Vertice.o Ponto.o Predio.o Muro.o Ordenacao.o ListaDinamica.o EstabelecimentoComercial.o Morador.o
+	gcc -o siguel siguel.o Vector.o Circulo.o Retangulo.o Calculos.o Comandos.o Svg.o Cidade.o Lista.o Quadra.o Semaforo.o Hidrante.o Torre.o Segmento.o Vertice.o Ponto.o  Predio.o Muro.o Ordenacao.o ListaDinamica.o EstabelecimentoComercial.o Morador.o -lm -std=c99 -fstack-protector-all
 siguel.o: siguel.c
 	gcc -o siguel.o -c siguel.c -g -std=c99 -fstack-protector-all
 Cidade.o: Cidade.c Cidade.h
 	gcc -o Cidade.o -c Cidade.c -g -std=c99 -fstack-protector-all
 Lista.o: Lista.c Lista.h
 	gcc -o Lista.o -c Lista.c -g -std=c99 -fstack-protector-all
+ListaDinamica.o: ListaDinamica.c ListaDinamica.h
+	gcc -o ListaDinamica.o -c ListaDinamica.c -g -std=c99 -fstack-protector-all
 Comandos.o: Comandos.c Comandos.h
 	gcc -o Comandos.o -c Comandos.c -g -std=c99 -fstack-protector-all
 Vector.o: Vector.c Vector.h
@@ -38,5 +40,15 @@ Ordenacao.o: Ordenacao.c Ordenacao.h
 	gcc -o Ordenacao.o -c Ordenacao.c -g -std=c99 -fstack-protector-all
 Ponto.o: Ponto.c Ponto.h
 	gcc -o Ponto.o -c Ponto.c -g -std=c99 -fstack-protector-all
+Hash.o: Hash.c Hash.h
+	gcc -o Hash.o -c Hash.c -g -std=c99 -fstack-protector-all
+TipoEC.o: TipoEC.c TipoEC.h
+	gcc -o TipoEC.o -c TipoEC.c -g -std=c99 -fstack-protector-all
+EstabelecimentoComercial.o: EstabelecimentoComercial.c EstabelecimentoComercial.h
+	gcc -o EstabelecimentoComercial.o -c EstabelecimentoComercial.c -lm -g -std=c99 -fstack-protector-all
+Pessoa.o: Pessoa.c Pessoa.h
+	gcc -o Pessoa.o -c Pessoa.c -lm -g -std=c99 -fstack-protector-all
+Morador.o: Morador.c Morador.h
+	gcc -o Morador.o -c Morador.c -lm -g -std=c99 -fstack-protector-all
 clear:
 	rm -rf *.o vgcore*
