@@ -10,6 +10,10 @@
 #include "Circulo.h"
 #include "Muro.h"
 #include "Predio.h"
+#include "Pessoa.h"
+#include "Morador.h"
+#include "TipoEC.h"
+#include "EstabelecimentoComercial.h"
 #include "Svg.h"
 
     typedef void *Cidade;
@@ -26,6 +30,10 @@ void addHidrante(Cidade city, Item info);
 void addForma(Cidade city, Item info, int type);
 void addMuro(Cidade city, Muro m);
 void addPredio(Cidade city, Predio p);
+void addTipoEC(Cidade city, TipoEC tp);
+void addEstabCom(Cidade city, Estab ec);
+void addPessoa(Cidade city, Pessoa ps);
+void addMorador(Cidade city, Morador m);
 Item getObjForma(Cidade city, Posic p);
 Item getObjQuadra(Cidade city, Posic p);
 Item getObjHidrante(Cidade city, Posic p);
@@ -39,12 +47,13 @@ void removeQuadra(Cidade city, Posic p);
 void removeTorre(Cidade city, Posic p);
 void removeSemaforo(Cidade city, Posic p);
 void removeHidrante(Cidade city, Posic p);
+Pessoa searchPessoaXCpf(Cidade city, char *cpf);
 Posic searchQuadra(Cidade city, char *cep);
 Posic searchSemaforo(Cidade city, char *id);
 Posic searchHidrante(Cidade city, char *id);
 Posic searchTorre(Cidade city, char *id);
 Posic searchForma(Cidade city, int id, int *type);
-Posic searchPredio(Cidade city, char *cep);
+Posic searchPredio(Cidade city, char *cep, char face, int num);
 Posic searchEquipUrban(Cidade city, char *id, char *type);
 void printSvgCidade(Cidade city, FILE *svg);
 void throughCity (Cidade city, Function f, ...);

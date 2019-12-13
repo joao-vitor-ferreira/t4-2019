@@ -3,7 +3,7 @@
 
 	typedef void *Estab;
 
-Estab createEstab(char *cnpj, char *cpf, char *codt, char *cep, char *face, int num, char *nome); //retorna um estabelecimento com cnpj, codigo de tipo TRANSFORMADO EM DESCRICAO, cep, face(Norte, Leste, ...), numero e Nome
+Estab createEstab(char *cnpj, char *cpf, char *codt, char *cep, char face, int num, char *nome); //retorna um estabelecimento com cnpj, codigo de tipo TRANSFORMADO EM DESCRICAO, cep, face(Norte, Leste, ...), numero e Nome
 char *getEstabNome(Estab e); //retorna nome do estabelecimento comercial e
 char *getEstabTipo(Estab e); //retorna tipo do estabelecimento comercial e
 char *getEstabCep(Estab e); //retorna Cep do estabelecimento comercial e

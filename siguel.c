@@ -39,6 +39,8 @@ int main (int argc, char **argv){
 	funcFree(&str);
 	fprintf(svgMain, "                                                                  ");
 	leituraGeo(argc, argv, &svgH, &svgW, svgMain, &city, lseg, vetVert);
+	leituraEC(argc, argv, &city);
+	leituraPM(argc, argv, &city);
 	printSvgCidade(city, svgMain);
 	funcFree(&str);
 	fprintf(svgMain, "</svg>");

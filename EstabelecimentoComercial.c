@@ -13,7 +13,7 @@ typedef struct{
 	char *nome;
 } estab;
 
-Estab createEstab(char *cnpj, char *cpf, char *tipo, char *cep, char *face, int num, char *nome){
+Estab createEstab(char *cnpj, char *cpf, char *tipo, char *cep, char face, int num, char *nome){
 	
 	estab *newEstab;
 	newEstab = (estab*)malloc(sizeof(estab));

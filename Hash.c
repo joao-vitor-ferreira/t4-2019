@@ -22,7 +22,7 @@ Hash createHash(int TABLE_SIZE){
     newHash->size = TABLE_SIZE;
     ListaDinamica list;
     for(int i = 0; i<TABLE_SIZE; i++){
-        list = createList(TABLE_SIZE);
+        list = createDinamicList();
         newHash->vet[i] = list;
     }
     return newHash; 
@@ -49,7 +49,7 @@ void deleteHashElement(Hash ha, char *id, ID func){
     hash *newHash = (hash*)ha;
     PosicLD p;
     int key = functionHash(id, newHash->size);
-    if (length(newHash->vet[key]) == 0){
+    if (DinamicListlength(newHash->vet[key]) == 0){
         return;
     } else {
         for(p = getFirstDinamicList(newHash->vet[key]); p!=NULL; p = getNextDinamicList(p)){
@@ -63,7 +63,7 @@ void *searchHash(Hash ha, char *id, ID func){
     hash *newHash = (hash*)ha;
         PosicLD p;
         int key = functionHash(id, newHash->size);
-        if (length(newHash->vet[key]) == 0){
+        if (DinamicListlength(newHash->vet[key]) == 0){
             return NULL;
         } 
         else {
@@ -97,7 +97,7 @@ void freeHashAll(Hash ha){
     hash *newHash = (hash*)ha;
     int size = newHash->size;
     for (int i = 0; i<size; i++){
-        deleteListComplete(newHash->vet[i], NULL);
+        deleteDinamicListComplete(newHash->vet[i], NULL);
     }
     if (newHash->vet != NULL)
         free(newHash->vet);

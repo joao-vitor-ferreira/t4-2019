@@ -14,12 +14,12 @@ typedef struct{
 	char *cpf;
 	char *nome;
 	char *sobrenome;
-	char *sexo; 
+	char sexo; 
 	char *nasc;
 	endereco *endereco;
 } pessoa;
 
-Pessoa createPessoa(char *cpf, char *nome, char *sobrenome, char *sexo, char *nasc){
+Pessoa createPessoa(char *cpf, char *nome, char *sobrenome, char sexo, char *nasc){
 	pessoa *newPessoa;
 	newPessoa = (pessoa*)malloc(sizeof(pessoa));
 	newPessoa->cpf = cpf;
@@ -61,7 +61,7 @@ char *getPessoaSobreNome(Pessoa p){
 	return newPessoa->sobrenome;
 }
 
-char *getPessoaSexo(Pessoa p){
+char getPessoaSexo(Pessoa p){
 	pessoa *newPessoa = (pessoa*) p;
 	return newPessoa->sexo;
 }
@@ -134,8 +134,6 @@ void freePessoa(Pessoa p){
 		free(newPessoa->nome);
 	if (newPessoa->sobrenome != NULL)
 		free(newPessoa->sobrenome);
-	if (newPessoa->sexo != NULL)
-		free(newPessoa->sexo);
 	if (newPessoa->nasc != NULL)
 		free(newPessoa->nasc);
 	if (newPessoa->endereco != NULL)

@@ -5,7 +5,7 @@
 
     typedef void *Morador;
 
-Morador createMorador(Pessoa ps, Predio pr, char *compl);
+Morador createMorador(Pessoa ps, Predio pr, char *cpf, char *cep, char face, int numero, char *compl);
 char *getMoradorCpf(Morador m);
 char *getMoradorCep(Morador m);
 char getMoradorFace(Morador m);

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 #include "Comandos.h"
 #include "Lista.h"
 #include "Quadra.h"
@@ -16,7 +17,8 @@
 #include "Vertice.h"
 #include "Ponto.h"
 #include "Ordenacao.h"
-#include <stdarg.h>
+#include "TipoEC.h"
+#include "Pessoa.h"
 
 void funcFree(char **a){
 	if (a == NULL){
@@ -497,14 +499,16 @@ void leituraGeo(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain
 	fclose(entrada);
 }
 
-void leituraEC(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain, Cidade *city){
+void leituraEC(int argc, char **argv, Cidade *city){
 	FILE *entrada;
+	TipoEC tp1;
+	Estab ec;
+	int num;
 	char face;
-	char line[200], word[30], cep[20], *aux = NULL, *aux2 = NULL, *aux3 = NULL;
+	char line[200], word[30], cep[20], suf[20], cnpj[20], cpf[20], codt[20], nome[20], *aux = NULL, *aux2 = NULL, *aux3 = NULL, *aux4 = NULL, *aux5 = NULL;
 	double raio, x, y, height, width, sw, swc, swr, swq, swt, sws, swh, prof, mrg, frt, xa, ya;
 	aux = colocaBarra(pegaParametro(argc, argv, "-e"));
 	aux2 = concatena(aux, pegaParametro(argc, argv, "-ec"));
-	printf("%s\n", aux2);
 	entrada = fopen(aux2, "r");
 		if(entrada == NULL){
 		printf("DIRETÓRIO OU ARQUIVO INVÁLIDOS\n");
@@ -516,10 +520,90 @@ void leituraEC(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain,
 		fscanf(entrada, "%[^\n]\n", line);
 		sscanf(line, "%s", word);
 		if (strcmp(word, "t") == 0)	{
+			sscanf(line, "%s %s %s", word, cep, suf);
+			aux = (char*)malloc(sizeof(char)*(strlen(cep) + 1));
+			strcpy(aux, cep);
+			aux2 = (char*)malloc(sizeof(char)*(strlen(suf) + 1));
+			strcpy(aux2, suf);
+			tp1 = createTipoEc(aux, aux2);
+			addTipoEC(*city, tp1);
+		} else if  (strcmp(word, "e") == 0){
+			sscanf(line, "%s %s %s %s %s %c %d %s", word, cnpj, cpf, codt, cep, &face, &num, nome);
 			
+			aux = (char*)malloc(sizeof(char)*(strlen(cnpj) + 1));
+			strcpy(aux, cnpj);
+			aux2 = (char*)malloc(sizeof(char)*(strlen(cpf) + 1));
+			strcpy(aux2, cpf);
+			aux3 = (char*)malloc(sizeof(char)*(strlen(codt) + 1));
+			strcpy(aux3, codt);
+			aux4 = (char*)malloc(sizeof(char)*(strlen(cep) + 1));
+			strcpy(aux4, cep);
+			aux5 = (char*)malloc(sizeof(char)*(strlen(nome) + 1));
+			strcpy(aux5, nome);
+			ec = createEstab(aux, aux2, aux3, aux4, face, num, aux5);
+
+			addEstabCom(*city, ec);
 		}
 	}
-	
+	getchar();
+}
+
+void leituraPM(int argc, char **argv, Cidade *city){
+	FILE *entrada;
+	Pessoa ps1;
+	Predio pr1;
+	Morador mr1;
+	Posic p1, p2;
+	int num;
+	char face;
+	char line[200], word[30], cep[20], suf[20], cnpj[20], cpf[20], codt[20], nome[20], sexo, nasc[20], *aux = NULL, *aux2 = NULL, *aux3 = NULL, *aux4 = NULL, *aux5 = NULL;
+	double raio, x, y, height, width, sw, swc, swr, swq, swt, sws, swh, prof, mrg, frt, xa, ya;
+	aux = colocaBarra(pegaParametro(argc, argv, "-e"));
+	aux2 = concatena(aux, pegaParametro(argc, argv, "-pm"));
+	entrada = fopen(aux2, "r");
+		if(entrada == NULL){
+		printf("DIRETÓRIO OU ARQUIVO INVÁLIDOS\n");
+		return;
+	}
+	funcFree(&aux);
+	funcFree(&aux2);
+	while (!feof(entrada)){
+		fscanf(entrada, "%[^\n]\n", line);
+		sscanf(line, "%s", word);
+		if (strcmp(word, "p") == 0)	{
+			sscanf(line, "%s %s %s %s %c %s", word, cpf, nome, suf, &sexo, nasc);
+			aux = (char*)malloc(sizeof(char)*(strlen(cpf) + 1));
+			strcpy(aux, cpf);
+			aux2 = (char*)malloc(sizeof(char)*(strlen(nome) + 1));
+			strcpy(aux2, nome);
+			aux3 = (char*)malloc(sizeof(char)*(strlen(suf) + 1));
+			strcpy(aux3, suf);
+			aux5 = (char*)malloc(sizeof(char)*(strlen(nasc) + 1));
+			strcpy(aux5, nasc);
+			ps1 = createPessoa(aux, aux2, aux3, sexo, aux5);
+			addPessoa(*city, ps1);
+			ps1 = searchPessoaXCpf(*city, cpf);
+
+		} else if  (strcmp(word, "m") == 0){
+			sscanf(line, "%s %s %s %c %d %s", word, cpf, cep, &face, &num, suf);
+			aux = (char*)malloc(sizeof(char)*(strlen(suf) + 1));
+			strcpy(aux, suf);
+			aux2 = (char*)malloc(sizeof(char)*(strlen(cpf) + 1));
+			strcpy(aux2, cpf);
+			aux3 = (char*)malloc(sizeof(char)*(strlen(cep) + 1));
+			strcpy(aux3, cep);						
+			ps1 = searchPessoaXCpf(*city, cpf);
+			p1 = searchPredio(*city, cep, face, num);
+			if (p1 < 0)
+				pr1 = NULL;
+			else
+				pr1 = getObjPredio(*city, p1);
+			mr1 = createMorador(ps1, pr1, cpf, cep, face, num, aux);
+			addMorador(*city, mr1);
+		}
+	}
+	printf("calmae\n");
+	getchar();
 }
 
 char *funcSvgBb(int argc, char **argv, char *suf){
@@ -1572,6 +1656,15 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 			calcViewBoxSvg(*city, svgW, svgH);
 			sscanf(line, "%s %lf %lf", word, &x, &y);
 
+		} else if (strcmp(word, "dm?") == 0){
+			sscanf(line, "%s %s", word, suf);
+			Pessoa ps1 = searchPessoaXCpf(*city, suf);
+			if (txt == NULL){
+				aux = funcTxt(argc, argv);
+				txt = fopen(aux, "a");
+				funcFree(&aux);
+			}	
+			fprintf(txt, "Nome: %s | Cpf: %s ")			
 		}
 	}
 	calcViewBoxSvg(*city, svgW, svgH);

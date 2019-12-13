@@ -1,2 +1,2 @@
-valgrind ./siguel -e /home/joao/Documentos/Computação/Estrutura\ de\ Dados/2019/t3-2019/testes/entrada/b0 -f b0.geo -q ./b0/teste.qry -o /home/joao/Documentos/Computação/Estrutura\ de\ Dados/2019/t3-2019/testes/saida/b0
+valgrind ./siguel -e /home/joao/Documentos/Computação/Estrutura\ de\ Dados/2019/t4-2019/testes/entrada/c1 -f c1.geo -q ./c1/teste.qry -o /home/joao/Documentos/Computação/Estrutura\ de\ Dados/2019/t4-2019/testes/saida/c1
 

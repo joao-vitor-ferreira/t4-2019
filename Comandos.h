@@ -20,5 +20,7 @@ char *pegaNomeBase(char *str);
 void printSvgVector(Vector vetor, FILE *svg);
 char *funcSvg(int argc, char **argv);
 int cmpRaio(Vector vet, int indice, double raio);
+void leituraPM(int argc, char **argv, Cidade *city);
+void leituraEC(int argc, char **argv, Cidade *city);
 
 #endif

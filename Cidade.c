@@ -10,8 +10,13 @@
 #include "Hidrante.h"
 #include "Retangulo.h"
 #include "Circulo.h"
+#include "Pessoa.h"
+#include "TipoEC.h"
+#include "Morador.h"
+#include "EstabelecimentoComercial.h"
 #include "Svg.h"
 #include "Hash.h"
+#include "Rbtree.h"
 
 typedef struct {
     Lista lQua;
@@ -23,6 +28,13 @@ typedef struct {
     Lista lMur;
     int cirQntd;
     int retQntd;
+    Hash hTipoECXCodt;
+    Hash hPessoaXCpf;
+    Hash hMoradorXCep;
+    Hash hTipoEcXEC;
+    Hash hECXCnpj;
+    Hash hECXTipoEC;
+    Rbtree aTor;
 
 }cidade;
 
@@ -45,6 +57,14 @@ Cidade createCidade(int i, int nq, int nh, int ns, int nt, int np, int nm){
     city->lMur = createList(nm);
     city->cirQntd = 0;
     city->retQntd = 0;
+    city->hMoradorXCep = createHash(10000);
+    city->hPessoaXCpf = createHash(10000);
+    city->hTipoECXCodt = createHash(10000);
+    city->hTipoEcXEC = createHash(10000);
+    city->hECXCnpj = createHash(10000);
+    city->hECXTipoEC = createHash(10000);
+    city->aTor = createTree();
+
     return city;
 }
 
@@ -69,6 +89,28 @@ Lista getList(Cidade city, char t){
     printf("Paramento \"t\" incorreto\n");
     return NULL;
 }
+
+void addTipoEC(Cidade city, TipoEC tp){
+    cidade *newCity = (cidade*)city;
+    addHash(newCity->hTipoECXCodt, tp, getTipoECCodt(tp));
+}
+
+void addEstabCom(Cidade city, Estab ec){
+    cidade *newCity = (cidade*)city;
+    addHash(newCity->hECXCnpj, ec, getEstabCNPJ(ec));
+    addHash(newCity->hECXTipoEC, ec, getEstabTipo(ec));
+}
+
+void addPessoa(Cidade city, Pessoa ps){
+    cidade *newCity = (cidade*)city;
+    addHash(newCity->hPessoaXCpf, ps, getPessoaCpf(ps));
+}
+
+void addMorador(Cidade city, Morador m){
+    cidade *newCity = (cidade*)city;
+    addHash(newCity->hMoradorXCep, m, getMoradorCep(m));
+}
+
 
 void addForma(Cidade city, Item info, int type){
     cidade *newCity = (cidade*)city;
@@ -106,6 +148,7 @@ void addSemaforo(Cidade city, Semaforo s){
 void addTorre(Cidade city, Torre t){
     cidade *newCity = (cidade*)city;
     insertList(newCity->lTor, t);
+    // insertRbtree(newCity->aTor, t, getTorreX(t), getTorreY(t));
 }
 
 void addHidrante(Cidade city, Hidrante h){
@@ -144,13 +187,20 @@ Predio getObjPredio(Cidade city, Posic p){
     return getObjList(newCity->lPre, p);
 }
 
-Posic searchPredio(Cidade city, char *cep){
+
+
+Pessoa searchPessoaXCpf(Cidade city, char *cpf){
+    cidade *newCity = (cidade*)city;
+    return (Pessoa)searchHash(newCity->hPessoaXCpf, cpf, getPessoaCpf);
+}
+
+Posic searchPredio(Cidade city, char *cep, char face, int num){
     cidade *newCity = (cidade*)city;
     Predio pre;
     Posic pos;
     for(pos = getFirst(newCity->lPre); pos >= 0; pos = getNext(newCity->lPre, pos)){
         pre = getObjList(newCity->lPre, pos);
-        if (strcmp(cep, getPredioCep(pre)) == 0){
+        if ((strcmp(cep, getPredioCep(pre)) == 0) && face == (getPredioFace(pre)) && (num == getPredioNumero(pre))){
             return pos;
         }
     }

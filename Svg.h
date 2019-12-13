@@ -10,6 +10,7 @@
 #include "Hidrante.h"
 #include "Predio.h"
 #include "Muro.h"
+#include "EstabelecimentoComercial.h"
 #include "Ponto.h"
 
 	typedef void (*Print)(FILE **svg, void *);
@@ -22,5 +23,6 @@ void printSvgTorre(FILE **svg, Torre t);
 void printSvgSemaforo(FILE **svg, Semaforo s);
 void printSvgPredio(FILE **svg, Predio p);
 void printSvgMuro(FILE **svg, Muro m);
+// void printSvgEstabCom(FILE **svg, Estab e);
 void printSvgLine(FILE **svg, double x1, double y1, double x2, double y2);
 #endif
