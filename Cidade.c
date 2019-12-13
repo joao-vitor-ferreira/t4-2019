@@ -35,6 +35,12 @@ typedef struct {
     Hash hECXCnpj;
     Hash hECXTipoEC;
     Rbtree aTor;
+    Rbtree aQua;
+    Rbtree aSem;
+    Rbtree aHid;
+    Rbtree aFor;
+    Rbtree aPre;
+    Rbtree aMur;
 
 }cidade;
 
@@ -64,6 +70,11 @@ Cidade createCidade(int i, int nq, int nh, int ns, int nt, int np, int nm){
     city->hECXCnpj = createHash(10000);
     city->hECXTipoEC = createHash(10000);
     city->aTor = createTree();
+    city->aSem = createTree();
+    city->aQua = createTree();
+    city->aHid = createTree();
+    city->aPre = createTree();
+    city->aMur = createTree();
 
     return city;
 }
@@ -118,10 +129,13 @@ void addForma(Cidade city, Item info, int type){
     forma->thing = info;
     forma->type = type;
     insertList(newCity->lFor, forma);
-    if (type == 0)
+    if (type == 0){
         newCity->cirQntd++;
-    else
+        insertRbtree(newCity->aFor, forma, getCirculoX(info), getCirculoY(info));
+    } else {
         newCity->retQntd++;
+        insertRbtree(newCity->aFor, forma, getRetanguloX(info), getRetanguloY(info));
+    }
 }
 
 void addMuro(Cidade city, Muro m){
@@ -148,7 +162,7 @@ void addSemaforo(Cidade city, Semaforo s){
 void addTorre(Cidade city, Torre t){
     cidade *newCity = (cidade*)city;
     insertList(newCity->lTor, t);
-    // insertRbtree(newCity->aTor, t, getTorreX(t), getTorreY(t));
+    insertRbtree(newCity->aTor, t, getTorreX(t), getTorreY(t));
 }
 
 void addHidrante(Cidade city, Hidrante h){
@@ -187,11 +201,23 @@ Predio getObjPredio(Cidade city, Posic p){
     return getObjList(newCity->lPre, p);
 }
 
-
+Rbtree getCidadeRbtree(Cidade city, char type){
+    cidade *newCity = (cidade*)city;
+    if (type == 't')
+        return (Rbtree)newCity->aTor;
+    
+    return NULL;
+}
 
 Pessoa searchPessoaXCpf(Cidade city, char *cpf){
     cidade *newCity = (cidade*)city;
     return (Pessoa)searchHash(newCity->hPessoaXCpf, cpf, getPessoaCpf);
+}
+
+Estab searchEstabCom(Cidade city, char *cnpj){
+    cidade *newCity = (cidade*)city;
+    Estab ec;
+    return (Estab)searchHash(newCity->hECXCnpj, cnpj, getEstabCNPJ);
 }
 
 Posic searchPredio(Cidade city, char *cep, char face, int num){

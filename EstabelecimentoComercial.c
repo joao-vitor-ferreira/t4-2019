@@ -8,7 +8,7 @@ typedef struct{
 	char *cpf;
 	char *tipo;
 	char *cep;
-	char *face; 
+	char face; 
 	int num;
 	char *nome;
 } estab;
@@ -63,7 +63,7 @@ char *getEstabCep(Estab e){
 	return newEstab->cep;
 }
 
-char *getEstabFace(Estab e){
+char getEstabFace(Estab e){
 	estab *newEstab = (estab*)e;
 	return newEstab->face;
 }
@@ -86,8 +86,6 @@ void freeEstab(Estab e){
 		free(newEstab->tipo);
 	if (newEstab->cep != NULL)
 		free(newEstab->cep);
-	if (newEstab->face != NULL)
-		free(newEstab->face);
 	if (newEstab->nome != NULL)
 		free(newEstab->nome);
 	if (newEstab->cpf != NULL)

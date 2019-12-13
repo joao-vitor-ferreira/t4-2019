@@ -19,7 +19,7 @@ Rbtree createTree();
 PosicTree getRoot(Rbtree tree);
 
 // Função utilitária para inserir novo nó na árvore Red Black
-void insertRbtree(Rbtree *tree, Item data,double x, double y);
+void insertRbtree(Rbtree tree, Item data,double x, double y);
 
 // Uma função utilitária para percorrer a árvore Vermelho-Preto de maneira inorder
 void printTree(Rbtree tree);

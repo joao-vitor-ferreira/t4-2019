@@ -243,14 +243,14 @@ Item getObjRbtree(Rbtree tree, PosicTree p){
 
 
 /* INSERE ELEMENTO */
-void insertRbtree(Rbtree *tree, Item data,double x, double y){
+void insertRbtree(Rbtree tree, Item data,double x, double y){
     // Alocar memória para novo nó
     struct node *z = (struct node*)malloc(sizeof(struct node));
     z->data = data;
     z->x = x;
     z->y = y;
     z->left = z->right = z->parent = NULL;
-    struct head *cabeca = (struct head *)*tree;
+    struct head *cabeca = (struct head *)tree;
     struct node *root = cabeca->root;
      //se root for nulo, faça z como root
     (cabeca->qtd)++;
@@ -298,6 +298,7 @@ void insertRbtree(Rbtree *tree, Item data,double x, double y){
         insertFixUp(&cabeca->root,z);
     }
 }
+
 /* FIM INSERE ELEMENTO */
 
 

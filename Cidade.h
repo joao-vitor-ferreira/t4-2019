@@ -15,6 +15,7 @@
 #include "TipoEC.h"
 #include "EstabelecimentoComercial.h"
 #include "Svg.h"
+#include "Rbtree.h"
 
     typedef void *Cidade;
     typedef void (*Function)(void *, ...);
@@ -41,6 +42,7 @@ Item getObjSemaforo(Cidade city, Posic p);
 Item getObjHidrante(Cidade city, Posic p);  
 Item getObjTorre(Cidade city, Posic p);
 Predio getObjPredio(Cidade city, Posic p);
+Rbtree getCidadeRbtree(Cidade city, char type);
 void removeForma(Cidade city, Posic p);
 void removePredio(Cidade city, Posic p);
 void removeQuadra(Cidade city, Posic p);
@@ -48,6 +50,7 @@ void removeTorre(Cidade city, Posic p);
 void removeSemaforo(Cidade city, Posic p);
 void removeHidrante(Cidade city, Posic p);
 Pessoa searchPessoaXCpf(Cidade city, char *cpf);
+Estab searchEstabCom(Cidade city, char *cnpj);
 Posic searchQuadra(Cidade city, char *cep);
 Posic searchSemaforo(Cidade city, char *id);
 Posic searchHidrante(Cidade city, char *id);

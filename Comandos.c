@@ -19,6 +19,7 @@
 #include "Ordenacao.h"
 #include "TipoEC.h"
 #include "Pessoa.h"
+#include "Rbtree.h"
 
 void funcFree(char **a){
 	if (a == NULL){
@@ -479,8 +480,9 @@ void leituraGeo(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain
 			mur = createMuro(p1, p2);
 			addMuro(*city, mur);
 		}
-		
 	}
+			printTree(getCidadeRbtree(*city, 't'));
+		getchar();
 	calcViewBoxSvg(*city, svgW, svgH);
 	funcFree(&cep);
 	funcFree(&cqf);
@@ -1664,7 +1666,21 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 				txt = fopen(aux, "a");
 				funcFree(&aux);
 			}	
-			fprintf(txt, "Nome: %s | Cpf: %s ")			
+			fprintf(txt, "Nome: %s | Cpf: %s | Sexo: %c | Data de Nascimento: %s\n", getPessoaNome(ps1), getPessoaCpf(ps1), getPessoaSexo(ps1), getPessoaNasc(ps1));
+		} else if (strcmp(word, "de?") == 0){
+			sscanf(line, "%s %s", word, suf);
+			Estab ec = searchEstabCom(*city, suf);
+			if (txt == NULL){
+				aux = funcTxt(argc, argv);
+				txt = fopen(aux, "a");
+				funcFree(&aux);
+			}
+			if (ec != NULL){
+				fprintf(txt, "Nome: %s | Cnpj: %s | Tipo: %s | Cep: %s | Face: %c | Numero: %d",
+				getEstabNome(ec), getEstabCNPJ(ec), getEstabTipo(ec), getEstabCep(ec), getEstabFace(ec), getEstabNum(ec));				
+			}
+		} else if (strcmp(word, "mud") == 0){
+
 		}
 	}
 	calcViewBoxSvg(*city, svgW, svgH);
