@@ -1,4 +1,5 @@
 #include "Rbtree.h"
+#include <stdlib.h>
 
 typedef struct forma{
     double x,y;
@@ -14,21 +15,22 @@ typedef struct node{
 typedef struct head{
     int qtd;
     struct node *root;
+    node *null;
 }head;
 
 
 /* DECLARACAO LOCAL PARA TIRAR IMPLICIDADE */
-void inorder(struct node *root);
-int counterTree(struct node *root);
-struct node* deleteNode(struct node* sroot, int data);
+void inorder(Rbtree tree, struct node *root);
+int counterTree(Rbtree tree, struct node *root);
+struct node* deleteNode(Rbtree tree, struct node* root, int data);
 
 /* UTILITY FUNCTIONS */
 /* Compute the "height" of a tree -- the number of 
     nodes along the longest path from the root node 
     down to the farthest leaf node.*/
-int height(struct node* node);
+int height(Rbtree tree, struct node* node);
 /* Get width of a given level */
-int getWidth(struct node* root, int level);
+int getWidth(Rbtree tree, struct node* root, int level);
 
 /* Function to get the maximum width of a binary tree*/
 int getMaxWidth(Rbtree tree);
@@ -42,8 +44,16 @@ Rbtree createTree(){
     head *newHead;
     node *root;
     newHead = (head*)malloc(sizeof(head));
+    newHead->null = (node*)malloc(sizeof(node));
+    (newHead->null)->color = 'B';
+    (newHead->null)->data = NULL;
+    (newHead->null)->left = NULL;
+    (newHead->null)->right = NULL;
+    (newHead->null)->parent = NULL;
+    (newHead->null)->x = 0;
+    (newHead->null)->y = 0;
     newHead->qtd = 0;
-    newHead->root = NULL;
+    newHead->root = newHead->null;
     return newHead;
 }
 Forma createForma(double x, double y){
@@ -58,7 +68,26 @@ PosicTree getRoot(Rbtree tree){
     head *newHead = (head*)tree;
     return newHead->root;
 }
-void LeftRotate(struct node **root,struct node *x) {
+
+PosicTree getRbtreeNull(Rbtree tree){
+    head *newHead = (head*)tree;
+    return newHead->null;
+}
+
+PosicTree getRbtreeLeft(Rbtree tree, PosicTree p){
+    head *newHead = (head*)tree;
+    node *no = (node*)p;
+    return (PosicTree)no->left;
+}
+
+PosicTree getRbtreeRight(Rbtree tree, PosicTree p){
+    head *newHead = (head*)tree;
+    node *no = (node*)p;
+    return (PosicTree)no->right;
+}
+
+void LeftRotate(Rbtree tree, struct node **root,struct node *x) {
+    head *newHead = (head*)tree;
     if (!x || !x->right)
         return ;
     //y ponteiro armazenado do filho certo de x
@@ -68,14 +97,14 @@ void LeftRotate(struct node **root,struct node *x) {
     x->right = y->left;
 
     //atualizar o ponteiro pai da direita de x
-    if (x->right != NULL)
+    if (x->right != newHead->null)
         x->right->parent = x;
 
     //atualizar o ponteiro pai de y
     y->parent = x->parent;
 
     // se o pai de x for nulo, faça y como raiz da árvore
-    if (x->parent == NULL)
+    if (x->parent == newHead->null)
         (*root) = y;
 
     // armazene y no local de x
@@ -89,15 +118,18 @@ void LeftRotate(struct node **root,struct node *x) {
     //atualizar ponteiro pai de x
     x->parent = y;
 }
-void rightRotate(struct node **root,struct node *y){
-    if (!y || !y->left)
-        return ;
+void rightRotate(Rbtree tree, struct node **root,struct node *y){
+    head *newHead = (head*)tree;
+    // if (!y || !y->left)
+    //     return ;
+    if (y != newHead->null || y->left != newHead->null)
+        return;
     struct node *x = y->left;
     y->left = x->right;
-    if (x->right != NULL)
+    if (x->right != newHead->null)
         x->right->parent = y;
     x->parent =y->parent;
-    if (x->parent == NULL)
+    if (x->parent == newHead->null)
         (*root) = x;
     else if (y == y->parent->left)
         y->parent->left = x;
@@ -105,7 +137,9 @@ void rightRotate(struct node **root,struct node *y){
     x->right = y;
     y->parent = x;
 }
-void insertFixUp(struct node **root,struct node *z){
+void insertFixUp(Rbtree tree, struct node *z){
+    head *newHead = (head*)tree;
+    struct node **root = &(newHead->root);
     // itere até z não ser a raiz e a cor pai de z ser vermelha
     while (z != *root && z != (*root)->left && z != (*root)->right && z->parent->color == 'R'){
         struct node *y;
@@ -140,7 +174,7 @@ void insertFixUp(struct node **root,struct node *z){
                 char ch = z->parent->color ;
                 z->parent->color = z->parent->parent->color;
                 z->parent->parent->color = ch;
-                rightRotate(root,z->parent->parent);
+                rightRotate(tree, root,z->parent->parent);
             }
 
             // Caso Esquerda-Direita (LR), faça o seguinte
@@ -153,8 +187,8 @@ void insertFixUp(struct node **root,struct node *z){
                 char ch = z->color ;
                 z->color = z->parent->parent->color;
                 z->parent->parent->color = ch;
-                LeftRotate(root,z->parent);
-                rightRotate(root,z->parent->parent);
+                LeftRotate(tree, root,z->parent);
+                rightRotate(tree, root,z->parent->parent);
             }
 
             // Caso Direito-Direito (RR), faça o seguinte
@@ -167,7 +201,7 @@ void insertFixUp(struct node **root,struct node *z){
                 char ch = z->parent->color ;
                 z->parent->color = z->parent->parent->color;
                 z->parent->parent->color = ch;
-                LeftRotate(root,z->parent->parent);
+                LeftRotate(tree, root,z->parent->parent);
             }
 
             // Caso Direita-Esquerda (RL), faça o seguinte
@@ -180,18 +214,19 @@ void insertFixUp(struct node **root,struct node *z){
                 char ch = z->color ;
                 z->color = z->parent->parent->color;
                 z->parent->parent->color = ch;
-                rightRotate(root,z->parent);
-                LeftRotate(root,z->parent->parent);
+                rightRotate(tree, root,z->parent);
+                LeftRotate(tree, root,z->parent->parent);
             }
         }
     }
     (*root)->color = 'B'; // mantém a raiz sempre preta
 }
-struct node * minValueNode(struct node* node){
+struct node * minValueNode(Rbtree tree, struct node *node){
+    head *newHead = (head*)tree;
     struct node* current = node; 
   
     // vai rodando pra esquerda até achar o menor valor (filho) 
-    while (current && current->left != NULL) 
+    while (current && current->left != newHead->null) 
         current = current->left; 
   
     return current; 
@@ -200,39 +235,41 @@ int getMaxWidth(Rbtree tree){
   int maxWidth = 0;    
   int width; 
   struct node *root = ((head *)tree)->root;
-  int h = height(root); 
+  int h = height(tree, root); 
   int i; 
     
   /* Pega a largura de cada nivel, e compara para pegar o maior */
   for(i=1; i<=h; i++){ 
-    width = getWidth(root, i); 
+    width = getWidth(tree, root, i); 
     if(width > maxWidth) 
       maxWidth = width; 
   }      
     
   return maxWidth; 
 }  
-int getWidth(struct node* root, int level){
-  if(root == NULL) 
+int getWidth(Rbtree tree, struct node* root, int level){
+    head *newHead = (head*)tree;
+  if(root == newHead->null) 
     return 0; 
     
   if(level == 1) 
     return 1; 
               
   else if (level > 1) 
-    return getWidth(root->left, level-1) +  
-             getWidth(root->right, level-1); 
+    return getWidth(tree, root->left, level-1) +  
+             getWidth(tree, root->right, level-1); 
 }
 int getMaxHeight(Rbtree tree){
     struct node *root = ((head *)tree)->root;
-    return height(root);
+    return height(tree, root);
 }
-int height(struct node* node){ 
-   if (node==NULL) 
+int height(Rbtree tree, struct node* node){ 
+    head *newHead = (head*)tree;
+   if (node==newHead->null) 
      return 0; 
    else{ 
-     int lHeight = height(node->left); 
-     int rHeight = height(node->right);   
+     int lHeight = height(tree, node->left); 
+     int rHeight = height(tree, node->right);   
      return (lHeight > rHeight)? (lHeight+1): (rHeight+1); 
    } 
 }
@@ -249,22 +286,22 @@ void insertRbtree(Rbtree tree, Item data,double x, double y){
     z->data = data;
     z->x = x;
     z->y = y;
-    z->left = z->right = z->parent = NULL;
     struct head *cabeca = (struct head *)tree;
+    z->left = z->right = z->parent = cabeca->null;
     struct node *root = cabeca->root;
      //se root for nulo, faça z como root
     (cabeca->qtd)++;
-    if (root == NULL){
+    if (root == cabeca->null){
         z->color = 'B';
         cabeca->root = z;
 
     }
     else{
-        struct node *y = NULL;
+        struct node *y = cabeca->null;
         struct node *x = root;
 
         // Siga as etapas de inserção padrão do BST para inserir primeiro o nó
-        while (x != NULL){
+        while (x != cabeca->null){
             y = x;
             if (z->x < x->x)
                 x = x->left;
@@ -305,32 +342,33 @@ void insertRbtree(Rbtree tree, Item data,double x, double y){
 /* DELETA ELEMENTO */
 void delete(Rbtree tree, int data){
     head *root = (head*)tree;
-    deleteNode(root->root,data);
+    deleteNode(tree, root->root, data);
 }
-struct node* deleteNode(struct node* root, int data) {
+struct node* deleteNode(Rbtree tree, struct node* root, int data) {
+    head *newHead = (head*)tree;
     // caso base 
-    if (root == NULL)
+    if (root == newHead->null)
         return root;
     // nó com apenas um filho ou nenhum filho
-    if (root->left == NULL){
+    if (root->left == newHead->null){
         struct node *temp = root->right; 
         free(root); 
         return temp; 
     } 
-    else if (root->right == NULL) { 
+    else if (root->right == newHead->null) { 
         struct node *temp = root->left; 
         free(root); 
         return temp; 
     }
     // nó com dois filhos: obtenha o sucessor inorder (menor
     // na subárvore direita)
-    struct node* temp = minValueNode(root->right); 
+    struct node* temp = minValueNode(tree, root->right); 
 
     // Copie o conteúdo do sucessor da ordem de entrada para este nó
     root->data = temp->data; 
 
     // Excluir o sucessor da ordem de entrada
-    root->right = deleteNode(temp,data); 
+    root->right = deleteNode(tree, temp,data); 
     return root; 
 }
 
@@ -348,15 +386,16 @@ struct node* deleteNode(struct node* root, int data) {
 /* IMPRESSAO DA ARVORE*/
 void printTree(Rbtree tree){
     head *root = (head *)tree;
-    inorder(root->root);
+    inorder(tree, root->root);
 }
-void inorder(struct node *root) {
-    if (root == NULL)
+void inorder(Rbtree tree, struct node *root) {
+    head *newHead = (head *)tree;
+    if (root == newHead->null);
         return;
-    inorder(root->left);
+    inorder(tree, root->left);
     printf("%.2lf%C ", ((forma *)root->data)->x,root->color);
 
-    inorder(root->right);
+    inorder(tree, root->right);
 }
 /* FIM DA IMPRESSAO DA ARVORE*/
 
@@ -364,15 +403,16 @@ void inorder(struct node *root) {
 /* CONTADOR DE ELEMENTOS*/
 int qtdRbtree(Rbtree tree){
     head *root = (head *)tree;
-    return counterTree(root->root);
+    return counterTree(tree, root->root);
 }
-int counterTree(struct node *root) {
-    if(root == NULL)      
+int counterTree(Rbtree tree, struct node *root) {
+    head *newHead = (head *)tree;
+    if(root == newHead->null)      
         return 0;  
-    if(root->left == NULL && root->right == NULL)  
+    if(root->left == newHead->null && root->right == newHead->null)  
         return 1;
     else
-        return 1 + counterTree(root->left) + counterTree(root->right);  
+        return 1 + counterTree(tree, root->left) + counterTree(tree, root->right);  
 }
 /* FIM CONTADOR ELEMENTOS*/
 

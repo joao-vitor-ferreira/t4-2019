@@ -18,6 +18,9 @@ Rbtree createTree();
 // Dado umvoid poiter tree (head), retorna o void pointer para a raiz
 PosicTree getRoot(Rbtree tree);
 
+//Retorna o filha da esquerda do PosicTree
+PosicTree getRbtreeLeft(Rbtree tree, PosicTree p);
+
 // Função utilitária para inserir novo nó na árvore Red Black
 void insertRbtree(Rbtree tree, Item data,double x, double y);
 

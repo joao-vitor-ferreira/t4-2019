@@ -38,7 +38,7 @@ void setEstabNum(Estab e, int num){
 	newEstab->num = num;
 }
 
-void setEstabFace(Estab e, char *face){
+void setEstabFace(Estab e, char face){
 	estab *newEstab = (estab*)e;
 	newEstab->face = face;
 }

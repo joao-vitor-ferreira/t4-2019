@@ -141,22 +141,26 @@ void addForma(Cidade city, Item info, int type){
 void addMuro(Cidade city, Muro m){
     cidade *newCity = (cidade*)city;
     insertList(newCity->lMur, m);
+    insertRbtree(newCity->aMur, m, getPontoX(getMuroPontoInicial(m)), getPontoY(getMuroPontoInicial(m)));
 }
 
 void addPredio(Cidade city, Predio p){
     cidade *newCity = (cidade*)city;
     insertList(newCity->lPre, p);
+    insertRbtree(newCity->aPre, p, getPontoX(getPredioPoint(p, 1)), getPontoY(getPredioPoint(p, 1)));
 }
 
 void addQuadra(Cidade city, Quadra q){
     Posic p;
     cidade *newCity = (cidade*)city;
     p = insertList(newCity->lQua, q);
+    insertRbtree(newCity->aQua, q, getQuadraX(q), getQuadraY(q));
 }
 
 void addSemaforo(Cidade city, Semaforo s){
     cidade *newCity = (cidade*)city;
     insertList(newCity->lSem, s);
+    insertRbtree(newCity->aSem, s, getSemaforoX(s), getSemaforoY(s));
 }
 
 void addTorre(Cidade city, Torre t){
@@ -168,6 +172,7 @@ void addTorre(Cidade city, Torre t){
 void addHidrante(Cidade city, Hidrante h){
     cidade *newCity = (cidade*)city;
     insertList(newCity->lHid, h);
+    insertRbtree(newCity->aHid, h, getHidranteX(h), getHidranteY(h));
 }
 
 Item getObjForma(Cidade city, Posic p){
@@ -288,14 +293,16 @@ Posic searchSemaforo(Cidade city, char *id){
 Posic searchTorre(Cidade city, char *id){
     cidade *newCity = (cidade*)city;
     Torre t1;
-    Posic p1;
-    for (p1 = getFirst(newCity->lTor); p1 >= 0; p1 = getNext(newCity->lTor, p1)){
-        t1 = getObjList(newCity->lTor, p1);
-        if (strcmp(getTorreId(t1), id) == 0){
-            return p1;
-        }
-    }
-    return -1;
+    PosicTree p1;
+    
+    // Posic p1;
+    // for (p1 = getFirst(newCity->lTor); p1 >= 0; p1 = getNext(newCity->lTor, p1)){
+    //     t1 = getObjList(newCity->lTor, p1);
+    //     if (strcmp(getTorreId(t1), id) == 0){
+    //         return p1;
+    //     }
+    // }
+    // return -1;
 }
 
 Posic searchHidrante(Cidade city, char *id){
