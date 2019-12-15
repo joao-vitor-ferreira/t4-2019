@@ -39,5 +39,7 @@
 	/* Dado uma lista, esta função retorna o objeto referente ao Posic p*/
 	void printSvgList(Lista L, FILE *svg, svgColor printElement);
 	/* imprime no arquivo svg o determinado objeto da lista*/
+	int listaPosicVazio(Posic p);
+	/*retorna 1 se p é vazio senão 0 */
 #endif
 

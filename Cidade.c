@@ -30,7 +30,7 @@ typedef struct {
     int retQntd;
     Hash hTipoECXCodt;
     Hash hPessoaXCpf;
-    Hash hMoradorXCep;
+    Hash hMoradorXCpf;
     Hash hTipoEcXEC;
     Hash hECXCnpj;
     Hash hECXTipoEC;
@@ -63,12 +63,14 @@ Cidade createCidade(int i, int nq, int nh, int ns, int nt, int np, int nm){
     city->lMur = createList(nm);
     city->cirQntd = 0;
     city->retQntd = 0;
-    city->hMoradorXCep = createHash(10000);
+
+    city->hMoradorXCpf = createHash(10000);
     city->hPessoaXCpf = createHash(10000);
     city->hTipoECXCodt = createHash(10000);
     city->hTipoEcXEC = createHash(10000);
     city->hECXCnpj = createHash(10000);
     city->hECXTipoEC = createHash(10000);
+
     city->aTor = createTree();
     city->aSem = createTree();
     city->aQua = createTree();
@@ -101,6 +103,10 @@ Lista getList(Cidade city, char t){
     return NULL;
 }
 
+int posicVazio(Posic p){
+    return listaPosicVazio(p);
+}
+
 void addTipoEC(Cidade city, TipoEC tp){
     cidade *newCity = (cidade*)city;
     addHash(newCity->hTipoECXCodt, tp, getTipoECCodt(tp));
@@ -119,7 +125,7 @@ void addPessoa(Cidade city, Pessoa ps){
 
 void addMorador(Cidade city, Morador m){
     cidade *newCity = (cidade*)city;
-    addHash(newCity->hMoradorXCep, m, getMoradorCep(m));
+    addHash(newCity->hMoradorXCpf, m, getMoradorCpf(m));
 }
 
 
@@ -131,48 +137,48 @@ void addForma(Cidade city, Item info, int type){
     insertList(newCity->lFor, forma);
     if (type == 0){
         newCity->cirQntd++;
-        insertRbtree(newCity->aFor, forma, getCirculoX(info), getCirculoY(info));
+        // insertRbtree(newCity->aFor, forma, NULL);
     } else {
         newCity->retQntd++;
-        insertRbtree(newCity->aFor, forma, getRetanguloX(info), getRetanguloY(info));
+        // insertRbtree(newCity->aFor, forma, NULL);
     }
 }
 
 void addMuro(Cidade city, Muro m){
     cidade *newCity = (cidade*)city;
     insertList(newCity->lMur, m);
-    insertRbtree(newCity->aMur, m, getPontoX(getMuroPontoInicial(m)), getPontoY(getMuroPontoInicial(m)));
+    // insertRbtree(newCity->aMur, m, NULL);
 }
 
 void addPredio(Cidade city, Predio p){
     cidade *newCity = (cidade*)city;
     insertList(newCity->lPre, p);
-    insertRbtree(newCity->aPre, p, getPontoX(getPredioPoint(p, 1)), getPontoY(getPredioPoint(p, 1)));
+    // insertRbtree(newCity->aPre, p, NULL);
 }
 
 void addQuadra(Cidade city, Quadra q){
     Posic p;
     cidade *newCity = (cidade*)city;
     p = insertList(newCity->lQua, q);
-    insertRbtree(newCity->aQua, q, getQuadraX(q), getQuadraY(q));
+    // insertRbtree(newCity->aQua, q, NULL);
 }
 
 void addSemaforo(Cidade city, Semaforo s){
     cidade *newCity = (cidade*)city;
     insertList(newCity->lSem, s);
-    insertRbtree(newCity->aSem, s, getSemaforoX(s), getSemaforoY(s));
+    // insertRbtree(newCity->aSem, s, NULL);
 }
 
 void addTorre(Cidade city, Torre t){
     cidade *newCity = (cidade*)city;
     insertList(newCity->lTor, t);
-    insertRbtree(newCity->aTor, t, getTorreX(t), getTorreY(t));
+    // insertRbtree(newCity->aTor, t, torreCompare);
 }
 
 void addHidrante(Cidade city, Hidrante h){
     cidade *newCity = (cidade*)city;
     insertList(newCity->lHid, h);
-    insertRbtree(newCity->aHid, h, getHidranteX(h), getHidranteY(h));
+    // insertRbtree(newCity->aHid, h, NULL);
 }
 
 Item getObjForma(Cidade city, Posic p){
@@ -219,6 +225,11 @@ Pessoa searchPessoaXCpf(Cidade city, char *cpf){
     return (Pessoa)searchHash(newCity->hPessoaXCpf, cpf, getPessoaCpf);
 }
 
+Morador searchMoradorCpf(Cidade city, char *cpf){
+    cidade *newCity = (cidade*)city;
+    return (Morador)searchHash(newCity->hMoradorXCpf, cpf, getMoradorCpf);
+}
+
 Estab searchEstabCom(Cidade city, char *cnpj){
     cidade *newCity = (cidade*)city;
     Estab ec;
@@ -231,7 +242,8 @@ Posic searchPredio(Cidade city, char *cep, char face, int num){
     Posic pos;
     for(pos = getFirst(newCity->lPre); pos >= 0; pos = getNext(newCity->lPre, pos)){
         pre = getObjList(newCity->lPre, pos);
-        if ((strcmp(cep, getPredioCep(pre)) == 0) && face == (getPredioFace(pre)) && (num == getPredioNumero(pre))){
+        printf("%s %c %d\n", getPredioCep(pre), getPredioFace(pre), getPredioNumero(pre));
+        if ((strcmp(cep, getPredioCep(pre)) == 0) && (face == getPredioFace(pre)) && (num == getPredioNumero(pre))){
             return pos;
         }
     }

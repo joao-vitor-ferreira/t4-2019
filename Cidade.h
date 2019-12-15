@@ -24,6 +24,7 @@
 
 Cidade createCidade(int i, int nq, int nh, int ns, int nt, int np, int nm);
 Lista getList(Cidade city, char t);
+int posicVazio(Posic p);
 void addQuadra(Cidade city, Item info);
 void addSemaforo(Cidade city, Item info);
 void addTorre(Cidade city, Item info);
@@ -50,6 +51,7 @@ void removeTorre(Cidade city, Posic p);
 void removeSemaforo(Cidade city, Posic p);
 void removeHidrante(Cidade city, Posic p);
 Pessoa searchPessoaXCpf(Cidade city, char *cpf);
+Morador searchMoradorCpf(Cidade city, char *cpf);
 Estab searchEstabCom(Cidade city, char *cnpj);
 Posic searchQuadra(Cidade city, char *cep);
 Posic searchSemaforo(Cidade city, char *id);
@@ -58,6 +60,7 @@ Posic searchTorre(Cidade city, char *id);
 Posic searchForma(Cidade city, int id, int *type);
 Posic searchPredio(Cidade city, char *cep, char face, int num);
 Posic searchEquipUrban(Cidade city, char *id, char *type);
+
 void printSvgCidade(Cidade city, FILE *svg);
 void throughCity (Cidade city, Function f, ...);
 /* Dado uma cidade esta função percorre-a elemento por elemento e faz a função determinada func, a partir de alguma das listas determinnadas por t */

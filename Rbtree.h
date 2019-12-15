@@ -11,6 +11,7 @@ typedef void *Rbtree;
 typedef void *PosicTree;
 typedef void *Item;
 typedef void *Forma;
+typedef int (*RbtreeCompare)(Item a, Item b);
 
 // Cria a arvoree retora um Rbtree (void pointer)
 Rbtree createTree();
@@ -22,7 +23,7 @@ PosicTree getRoot(Rbtree tree);
 PosicTree getRbtreeLeft(Rbtree tree, PosicTree p);
 
 // Função utilitária para inserir novo nó na árvore Red Black
-void insertRbtree(Rbtree tree, Item data,double x, double y);
+void insertRbtree(Rbtree tree, Item data, RbtreeCompare comp);
 
 // Uma função utilitária para percorrer a árvore Vermelho-Preto de maneira inorder
 void printTree(Rbtree tree);
@@ -32,7 +33,11 @@ int qtdRbtree(Rbtree tree);
 
 /* Dada uma árvore de pesquisa binária e uma chave, essa função exclui a chave
     e retorna a nova raiz */
-void delete(Rbtree tree, int data);
+// void delete(Rbtree tree, int data);
 
 Item getObjRbtree(Rbtree tree, PosicTree p);
+
+int posicTreeVazio(Rbtree tree, PosicTree p);
+
 void removeRbtree(Rbtree tree, PosicTree p);
+

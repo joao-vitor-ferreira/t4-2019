@@ -1,2 +1,58 @@
 Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
 Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: N numero: 10
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: N numero: 10
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: N numero: 10
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: N numero: 10

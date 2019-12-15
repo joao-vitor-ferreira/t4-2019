@@ -6,6 +6,8 @@
 #include "Circulo.h"
 #include "Ponto.h"
 #include "Vector.h"
+#include "Poligono.h"
+
 #define PI 3.1415926535
 
 
@@ -329,6 +331,21 @@ int interseccaoSegmento(Segmento s1, Segmento s2, Ponto interseccao){
 	}
 	return 0;
 }
+
+int pontoInternoPoligono(Poligono pol, Ponto point){
+	Ponto p1, p2;
+	Vertice v1, v2;
+	Segmento s1;
+	Rbtree tree;
+
+	PosicTree pos1 = getRoot(pol);
+
+}
+
+// int auxUp(PosicTree atual){
+// 	if (posicTreeVazio(atual))
+// 		return;
+// }
 
 // int interseccaoSegmento(Segmento s1, Segmento s2, Ponto interseccao){
 // 	Ponto pS1i, pS1f, pS2i, pS2f;

@@ -52,6 +52,31 @@ char *getMoradorCompl(Morador m){
     return newMorador->compl;
 }
 
+void setMoradorPredio(Morador m, Predio p, char *cep, char *compl, char face, int numero){
+    morador *newMorador = (morador*)m;
+    newMorador->pr = p;
+    newMorador->compl = compl;
+    newMorador->cep = cep;
+    newMorador->face = face;
+    newMorador->numero = numero;
+}
+
+void setMoradorPessoa(Morador m, Pessoa ps, char *cpf){
+    morador *newMorador = (morador*)m;
+    newMorador->ps = ps;
+    newMorador->cpf = cpf;
+}
+
+Pessoa getMoradorPessoa(Morador m){
+    morador *newMorador = (morador*)m;
+    return newMorador->ps;
+}
+
+Pessoa getMoradorPredio(Morador m){
+    morador *newMorador = (morador*)m;
+    return newMorador->pr;
+}
+
 void freeMorador(Morador m){
     morador *newMorador = (morador*)m;
     if (newMorador->compl != NULL)

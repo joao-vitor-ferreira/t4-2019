@@ -62,12 +62,14 @@ void deleteHashElement(Hash ha, char *id, ID func){
 void *searchHash(Hash ha, char *id, ID func){
     hash *newHash = (hash*)ha;
         PosicLD p;
-        int key = functionHash(id, newHash->size);
+        int key = functionHash(id, newHash->size), i;
         if (DinamicListlength(newHash->vet[key]) == 0){
             return NULL;
         } 
         else {
-            for(p = getFirstDinamicList(newHash->vet[key]); p!=NULL; p = getNextDinamicList(p)){
+            for(p = getFirstDinamicList(newHash->vet[key]), i = 0; p!=NULL && i < DinamicListlength(newHash->vet[key]); p = getNextDinamicList(p)){
+                if (func(getObjtDinamicList(p)) == NULL)
+                    printf("fffffff\n");
                 if (strcmp(id, func(getObjtDinamicList(p))) == 0)
                     return getObjtDinamicList(p);
             }  

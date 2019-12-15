@@ -20,6 +20,7 @@
 #include "TipoEC.h"
 #include "Pessoa.h"
 #include "Rbtree.h"
+#include "Poligono.h"
 
 void funcFree(char **a){
 	if (a == NULL){
@@ -312,7 +313,8 @@ void calcViewBoxSvg(Cidade city, double *svgW, double *svgH){
 // }
 
 void leituraGeo(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain, Cidade *city, Lista lseg, Vector vetVert){
-	int NQ = 1000, NS = 1000, NH = 1000, NR = 1000, NF = 1000, NP = 1000, NM = 1000, i, type;
+	int NQ = 1000, NS = 10000, NH = 10000, NR = 10000, NF = 10000, NP = 10000, NM = 10000, i, type;
+	*city = createCidade(NF, NQ, NH, NS, NR, NP, NM);
 	FILE *entrada = NULL;
 	Circulo c1 = NULL;
 	Posic p1;
@@ -358,7 +360,7 @@ void leituraGeo(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain
 			sscanf(line, "%s %lf %lf", word, &swc, &swr);
 		}else if (strcmp(word, "nx") == 0){
 			sscanf(line, "%s %d %d %d %d %d %d %d", word, &NF, &NQ, &NH, &NS, &NR, &NP, &NM);
-			*city = createCidade(NF, NQ, NH, NS, NR, NP, NM);
+			// *city = createCidade(NF, NQ, NH, NS, NR, NP, NM);
 		}else if (strcmp(word, "cq") == 0){
 			funcFree(&cqf);
 			funcFree(&cqs);
@@ -481,8 +483,9 @@ void leituraGeo(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain
 			addMuro(*city, mur);
 		}
 	}
-			printTree(getCidadeRbtree(*city, 't'));
-		getchar();
+		// printTree(getCidadeRbtree(*city, 't'));
+		// printf("acabo arvore\n");
+		// getchar();
 	calcViewBoxSvg(*city, svgW, svgH);
 	funcFree(&cep);
 	funcFree(&cqf);
@@ -584,7 +587,6 @@ void leituraPM(int argc, char **argv, Cidade *city){
 			strcpy(aux5, nasc);
 			ps1 = createPessoa(aux, aux2, aux3, sexo, aux5);
 			addPessoa(*city, ps1);
-			ps1 = searchPessoaXCpf(*city, cpf);
 
 		} else if  (strcmp(word, "m") == 0){
 			sscanf(line, "%s %s %s %c %d %s", word, cpf, cep, &face, &num, suf);
@@ -600,12 +602,10 @@ void leituraPM(int argc, char **argv, Cidade *city){
 				pr1 = NULL;
 			else
 				pr1 = getObjPredio(*city, p1);
-			mr1 = createMorador(ps1, pr1, cpf, cep, face, num, aux);
+			mr1 = createMorador(ps1, pr1, aux2, aux3, face, num, aux);
 			addMorador(*city, mr1);
 		}
 	}
-	printf("calmae\n");
-	getchar();
 }
 
 char *funcSvgBb(int argc, char **argv, char *suf){
@@ -1266,7 +1266,7 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 	Torre t1, t2;
 	Posic p1, p2;	
 	char *line = NULL, *word = NULL, *cor = NULL, *suf = NULL, 
-	*aux = NULL, *aux2 = NULL, *aux3 = NULL, *text = NULL, *id = NULL;
+	*aux = NULL, *aux2 = NULL, *aux3 = NULL, *text = NULL, *id = NULL, cpf[20], cnpj[20], compl[20], face, cep[20];
 	double raio, x, y, height, width, dx, dy;
 	id = (char*)malloc(sizeof(char)*20);
 	line = (char*)malloc(sizeof(char)*200);
@@ -1275,6 +1275,8 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 	suf = (char*)malloc(sizeof(char)*20);
 	aux = colocaBarra(pegaParametro(argc, argv, "-e"));
 	aux2 = concatena(aux, pegaParametro(argc, argv, "-q"));
+	printf("jhajajaj %s\n", aux2);
+	getchar();
 	entrada = fopen(aux2, "r");
 	if(entrada == NULL){
 		printf("DIRETÓRIO OU ARQUIVO INVÁLIDOS\n");
@@ -1660,13 +1662,13 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 
 		} else if (strcmp(word, "dm?") == 0){
 			sscanf(line, "%s %s", word, suf);
-			Pessoa ps1 = searchPessoaXCpf(*city, suf);
+			Morador mr1 = searchMoradorCpf(*city, suf);
 			if (txt == NULL){
 				aux = funcTxt(argc, argv);
 				txt = fopen(aux, "a");
 				funcFree(&aux);
 			}	
-			fprintf(txt, "Nome: %s | Cpf: %s | Sexo: %c | Data de Nascimento: %s\n", getPessoaNome(ps1), getPessoaCpf(ps1), getPessoaSexo(ps1), getPessoaNasc(ps1));
+			fprintf(txt, "Nome: %s | Cpf: %s | Sexo: %c | Data de Nascimento: %s\n", getPessoaNome(getMoradorPessoa(mr1)), getMoradorCpf(mr1), getPessoaSexo(getMoradorPessoa(mr1)), getPessoaNasc(getMoradorPessoa(mr1)));
 		} else if (strcmp(word, "de?") == 0){
 			sscanf(line, "%s %s", word, suf);
 			Estab ec = searchEstabCom(*city, suf);
@@ -1680,7 +1682,45 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 				getEstabNome(ec), getEstabCNPJ(ec), getEstabTipo(ec), getEstabCep(ec), getEstabFace(ec), getEstabNum(ec));				
 			}
 		} else if (strcmp(word, "mud") == 0){
-
+			sscanf(line, "%s %s %s %c %d %s", word, cpf, cep, &face, &i, compl);
+			Pessoa ps1 = searchPessoaXCpf(*city, cpf);
+			Morador mr1 = searchMoradorCpf(*city, cpf);
+			Posic pos1 = searchPredio(*city, cep, face, i);
+			Predio pr1 = NULL;
+			if (!posicVazio(pos1)){
+				pr1 = getObjPredio(*city, pos1);
+			}
+			if (mr1 != NULL){
+				if (pr1 == NULL){
+					printf("Endereço sem predio\n");
+				} else {
+					fprintf(txt, "Comando \"mud\"\nNome: %s Cpf: %s\nEndereço antigo\nCep: %s Face: %c numero: %d\n", getPessoaNome(ps1), getPessoaCpf(ps1), getMoradorCep(mr1), getMoradorFace(mr1), getMoradorNumero(mr1));
+					setMoradorPredio(mr1, pr1, cep, compl, face, i);
+				}
+			} else {
+				aux = (char*)malloc(sizeof(char)*(strlen(cpf) + 1));
+				strcpy(aux, cpf);
+				aux2 = (char*)malloc(sizeof(char)*(strlen(cep) + 1));
+				strcpy(aux, cep);
+				aux3 = (char*)malloc(sizeof(char)*(strlen(compl) + 1));
+				strcpy(aux, compl);						
+				mr1 = createMorador(ps1, pr1, aux, aux2, face, i, aux3);
+			}
+			if (txt == NULL){
+				aux = funcTxt(argc, argv);
+				txt = fopen(aux, "a");
+				funcFree(&aux);
+			}
+			fprintf(txt, "Comando \"mud\"\nNome: %s Cpf: %s\nEndereço novo\nCep: %s Face: %c numero: %d\n", getPessoaNome(ps1), getPessoaCpf(ps1), cep, face, i);
+		} else if (strcmp(word, "mplg?") == 0){
+			sscanf(line, "%s %s", word, suf);
+			aux = colocaBarra(pegaParametro(argc, argv, "-e"));
+			aux2 = concatena(aux, suf);
+			printf("%s\n", aux2);
+			getchar();
+			FILE *arq_pol = fopen(aux2, "r");
+			Poligono pol1 = createPoligono(arq_pol);
+			
 		}
 	}
 	calcViewBoxSvg(*city, svgW, svgH);

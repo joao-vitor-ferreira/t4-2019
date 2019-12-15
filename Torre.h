@@ -20,6 +20,7 @@ void setTorreY(Torre t, double y);
 int torreInternaRetangulo(FILE **txt, Torre t, Retangulo r);
 int torreInternaCirculo(FILE **txt, Torre t, Circulo c);
 int cmpTorre(Torre t1, char *id);
+int torreCompare(Torre t1, Torre t2);
 void freeTorre(Torre t);
 
 #endif

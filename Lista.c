@@ -135,6 +135,13 @@ void deleteList(Lista L){
 		free(newHead);
 }
 
+int listaPosicVazio(Posic p){
+	if (p < 0)
+		return 1;
+	else
+		return 0;
+}
+
 void printSvgList(Lista L, FILE *svg, svgColor printElement){
 	head *newHead = (head*)L;
 	Posic p1, p2;

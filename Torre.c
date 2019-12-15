@@ -97,6 +97,20 @@ int torreInternaCirculo(FILE **txt, Torre t, Circulo c){
 	return 0;
 }
 
+int torreCompare(Torre t1, Torre t2){
+	if (doubleEquals(getTorreX(t1), getTorreX(t2))){
+		if (getTorreY(t1) >= getTorreY(t2)){
+			return 1;
+		} else {
+			return -1;
+		}
+	} else if (getTorreX(t1) > getTorreX(t2)){
+		return 1;
+	} else {
+		return -1;
+	}
+}
+
 int cmpTorre(Torre t1, char *id){
 	if (strcmp(getTorreId(t1), id) == 0)
 		return 1;
