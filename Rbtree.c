@@ -1,5 +1,6 @@
 #include "Rbtree.h"
 #include <stdlib.h>
+#include <string.h>
 #include "Calculos.h"
 
 typedef struct forma{
@@ -709,75 +710,150 @@ void freeTree(Rbtree tree){
 /* FIM CONTADOR ELEMENTOS*/
 
 
-// double funcAbs(double value){
+double funcAbs(double value){
 	
-// 	if (value < 0.0)
-// 		return value*(-1);
-// 	return value;
-// }
+	if (value < 0.0)
+		return value*(-1);
+	return value;
+}
 
-// /*comparação de numeros de ponto flutuante*/
+/*comparação de numeros de ponto flutuante*/
 
-// int doubleEquals(double a, double b){
-// 	double dif = a - b;
-// 	// printf("dif : %f\n", dif);
-// 	dif = funcAbs(dif);
-// 	if (dif < 0.00001)
-// 		return 1;
-// 	return 0;
+int doubleEquals(double a, double b){
+	double dif = a - b;
+	// printf("dif : %f\n", dif);
+	dif = funcAbs(dif);
+	if (dif < 0.00001)
+		return 1;
+	return 0;
 	
-// }
+}
 
-// int cmpData(Item x, Item y){
-//     forma *a = (forma*)x;
-//     forma *b = (forma*)y;
-//     printf("a %f b %f\n", a->x, b->x);
-//     if (doubleEquals(a->x, b->x)){
-//         if (a->y >= b->y){
-//             return 1;
-//         } else {
-//             return -1;
-//         }
-//     } else if (a->x > b->x){
-//         return 1;
-//     } else {
-//         return -1;
-//     }
+int cmpData(Item x, Item y){
+    forma *a = (forma*)x;
+    forma *b = (forma*)y;
+    printf("a %f b %f\n", a->x, b->x);
+    if (doubleEquals(a->x, b->x)){
+        if (a->y >= b->y){
+            return 1;
+        } else {
+            return -1;
+        }
+    } else if (a->x > b->x){
+        return 1;
+    } else {
+        return -1;
+    }
     
-// }
+}
 
-// int main() {
-//     int i;
-//     Rbtree head = createTree();
-//     Forma coisa;
-//     PosicTree p1;
+int cp(Rbtree tree, PosicTree at, int a){
+    head *newHead = (head*)tree;
+    node *no = (node*)at;    
+    if (posicTreeVazio(tree, at))
+        return a+0;
+    a = cp(tree, getRbtreeLeft(tree, at), a);
+    a = cp(tree, getRbtreeRight(tree, at), a);
 
-//     for (i=0; i<100; ++i){
-//         // printf("1\n");
-//         coisa = createForma(random()/100000000.123,random()/100000000.43412);
-// 		insertRbtree(head,coisa, cmpData);
-//         // printf("3\n");
-//     }
-//     printf("antes\n");
-//     removeRbtree(head, getRoot(head));
-//     printf("depois\n");
-//     getchar();
+    return a+1;
+}
 
-//     // for (i=0; i<5; ++i){
-//     //     coisa = createForma(random()/100000000.123,random()/100000000.43412);
+int countt(Rbtree tree){
+    head *newHead = (head*)tree;
+    int c = cp(tree, newHead->root, 0);
+    return c;
+}
+
+void printNodeSvg(FILE *svg, Rbtree tree, PosicTree root, int width, int height, double x_ant, double y_ant, int *es){
+    head *newHead = (head*)tree;
+    node *no = (node*)root;
+    char cor[20];
+    if (posicTreeVazio(tree, root))
+        return;
+    printNodeSvg(svg, tree, getRbtreeLeft(tree, root), width -1, height + 20, width*(10.0), height*(1.1), es);
+    printNodeSvg(svg, tree, getRbtreeRight(tree, root), width +1, height + 20, width*(10.0), height*(1.1), es);
+    if(no->color == 'R')
+        strcpy(cor, "red");
+    else
+        strcpy(cor, "black");
+    if (es)
+        width -= 5;
+    fprintf(svg, "<circle cx = \"%f\" cy = \"%f\" r = \"5\" fill = \"%s\" stroke=\"%s\" stroke-width=\"1\" fill-opacity = \"1\"/>\n", width*(10.0), height*(1.1), cor, cor);
+    fprintf(svg, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"4\" stroke=\"darkgreen\" />\n", width*(10.0), height*(1.1), x_ant, y_ant);
+    if (no == newHead->root){
+        fprintf(svg, "<text x=\"%f\" y=\"%f\" font-family= \"Verdana\"  font-size=\"40\">root</text>\n", width*(10.0) + 10, height*(1.1));
+        printf("aki\n");
+        *es = 0;
+    }
+}
+
+void printTreeSvg(FILE *svg, Rbtree tree){
+    head *newHead = (head*)tree;
+    node *atual = (node*)newHead->root;
+    int width = getMaxWidth(tree), height = getMaxHeight(tree), es = 1;
+    
+    printNodeSvg(svg, tree, getRoot(tree), width/2 + 1, 30, (width/2 + 1)*(10), 30*(1.1), &es);
+}
+
+void deletaTudo(Rbtree tree, PosicTree root, int *count){
+    head *newHead = (head*)tree;
+    node *atual = (node*)root;
+    if (posicTreeVazio(tree, root))
+        return;
+    deletaTudo(tree, atual->left, count);
+    deletaTudo(tree, atual->right, count);
+    removeRbtree(tree, atual);
+    (*count)++;
+    printf("%d\n", *count);
+}
+
+int main() {
+    int i, count = 0;
+    Rbtree head = createTree();
+    Forma coisa;
+    PosicTree p1;
+    FILE *arq;
+    for (i=0; i<1000; ++i){
+        // printf("1\n");
+        coisa = createForma(random()/100000000.123,random()/100000000.43412);
+		insertRbtree(head,coisa, cmpData);
+        // printf("3\n");
+    }
+    // printf("sss %d\n", countt(head));
+    // getchar();
+    arq = fopen("./testes/saida/c1/arv.svg", "w");
+    if (arq == NULL){
+        printf("se...\n");
+        return 0;
+    }
         
-//     // }
-    
-//     printTree(head);
-//     printf("\n");
+    fprintf(arq, "<svg>\n");    
+    printTreeSvg(arq, head);
+    fprintf(arq, "</svg>\n");    
+    // getchar();
+    fclose(arq);
+    // getchar();
+    // printf("antes\n");
+    // deletaTudo(head, getRoot(head), &count);
+    // deletaTudo(head, getRoot(head));
+    // printf("depois\n");
+    // getchar();
 
-//     printf("Quantidade de elementos: %d\n",qtdRbtree(head));
-//     printf("Maxima largura: %d \n", getMaxWidth(head));
-//     printf("Maxima altura: %d \n", getMaxHeight(head));
+    // for (i=0; i<5; ++i){
+    //     coisa = createForma(random()/100000000.123,random()/100000000.43412);
+        
+    // }
     
-//     // freeTree(getRoot(head));
+    printTree(head);
+    printf("\n");
+
+    printf("Quantidade de elementos: %d\n",qtdRbtree(head));
+    printf("Maxima largura: %d \n", getMaxWidth(head));
+    printf("Maxima altura: %d \n", getMaxHeight(head));
+    
+    // freeTree(getRoot(head));
     
 
-//     free(head);
-//     return 0;
-// }
+    free(head);
+    return 0;
+}

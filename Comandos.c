@@ -1723,7 +1723,8 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 				txt = fopen(aux, "a");
 				funcFree(&aux);
 			}
-			fprintf(txt, "Comando \"mud\"\nNome: %s Cpf: %s\nEndereço novo\nCep: %s Face: %c numero: %d\n", getPessoaNome(ps1), getPessoaCpf(ps1), cep, face, i);
+			if (ps1 != NULL)
+				fprintf(txt, "Comando \"mud\"\nNome: %s Cpf: %s\nEndereço novo\nCep: %s Face: %c numero: %d\n", getPessoaNome(ps1), getPessoaCpf(ps1), cep, face, i);
 		} else if (strcmp(word, "mplg?") == 0){
 			sscanf(line, "%s %s", word, suf);
 

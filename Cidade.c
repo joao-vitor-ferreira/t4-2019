@@ -463,7 +463,7 @@ void removeForma(Cidade city, PosicTree p){
     }
     free(forma);
     // removeList(newCity->lFor, p);
-    // removeRbtree(newCity->aFor, p);
+    removeRbtree(newCity->aFor, p);
 }
 
 void removeQuadra(Cidade city, Posic p){
@@ -550,7 +550,7 @@ void freeCidade(Cidade city){
     cidade *newCity = (cidade*)city;
     // printf("lista for\n");
     // deleteListCity(city, newCity->lFor, &removeForma);
-    // deleteTreeCity(city, newCity->aFor, &removeForma);
+    deleteTreeCity(city, newCity->aFor, &removeForma);
     // printf("lista hid\n");
     deleteListCity(city, newCity->lHid, &removeHidrante);
     // printf("lista qua\n");

@@ -39,10 +39,13 @@ int main (int argc, char **argv){
 	funcFree(&str);
 	fprintf(svgMain, "                                                                  ");
 	leituraGeo(argc, argv, &svgH, &svgW, svgMain, &city, lseg, vetVert);
-	leituraEC(argc, argv, &city);
-	leituraPM(argc, argv, &city);
-	printSvgCidade(city, svgMain);
 	funcFree(&str);
+	str = pegaParametro(argc, argv, "-ec");
+	if (str != NULL)
+		leituraEC(argc, argv, &city);
+	if (str != NULL)
+		leituraPM(argc, argv, &city);
+	printSvgCidade(city, svgMain);
 	fprintf(svgMain, "</svg>");
 	rewind(svgMain);
 	svgH += 10.0;
