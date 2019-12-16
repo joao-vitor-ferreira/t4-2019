@@ -11,5 +11,6 @@ double getCirculoRaio(Circulo c);
 int getCirculoId(Circulo c);
 char *getCirculoCorPreenchimento(Circulo c);
 char *getCirculoCorContorno(Circulo c);
+int cmpCirculoTree(Circulo c1, Circulo c2);
 void freeCirculo(Circulo c);
 #endif

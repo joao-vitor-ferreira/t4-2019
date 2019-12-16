@@ -13,6 +13,7 @@ double getRetanguloX(Retangulo r);
 double getRetanguloY(Retangulo r);
 char *getRetanguloCorPreenchimento(Retangulo r);
 char *getRetanguloCorContorno(Retangulo r);
+int cmpRetanguloTree(Retangulo r1, Retangulo r2);
 void freeCor(Retangulo r);
 void freeRetangulo(Retangulo r);
 

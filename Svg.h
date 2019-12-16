@@ -12,6 +12,8 @@
 #include "Muro.h"
 #include "EstabelecimentoComercial.h"
 #include "Ponto.h"
+#include "Poligono.h"
+#include "Segmento.h"
 
 	typedef void (*Print)(FILE **svg, void *);
 
@@ -25,4 +27,5 @@ void printSvgPredio(FILE **svg, Predio p);
 void printSvgMuro(FILE **svg, Muro m);
 // void printSvgEstabCom(FILE **svg, Estab e);
 void printSvgLine(FILE **svg, double x1, double y1, double x2, double y2);
+void printSvgSegmento(FILE **svg, Segmento seg);
 #endif

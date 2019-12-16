@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "Morador.h"
 #include "Pessoa.h"
 #include "Predio.h"
@@ -87,4 +88,11 @@ void freeMorador(Morador m){
         free(newMorador->cpf);        
     if (newMorador != NULL)
         free(newMorador);
+}
+
+int cmpMoradorTree(Morador m1, Morador m2){
+    if (strcmp(getMoradorCpf(m1), getMoradorCpf(m2)) >= 0)
+        return 1;
+    else 
+        return 0;
 }

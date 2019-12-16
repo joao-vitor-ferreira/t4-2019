@@ -550,7 +550,6 @@ void leituraEC(int argc, char **argv, Cidade *city){
 			addEstabCom(*city, ec);
 		}
 	}
-	getchar();
 }
 
 void leituraPM(int argc, char **argv, Cidade *city){
@@ -558,6 +557,7 @@ void leituraPM(int argc, char **argv, Cidade *city){
 	Pessoa ps1;
 	Predio pr1;
 	Morador mr1;
+	Quadra q1;
 	Posic p1, p2;
 	int num;
 	char face;
@@ -603,6 +603,11 @@ void leituraPM(int argc, char **argv, Cidade *city){
 			else
 				pr1 = getObjPredio(*city, p1);
 			mr1 = createMorador(ps1, pr1, aux2, aux3, face, num, aux);
+			p1 = searchQuadra(*city, cep);
+			if (!posicVazio(p1)){
+				q1 = getObjQuadra(*city, p1);
+				addQuadraMorador(q1, mr1);
+			}
 			addMorador(*city, mr1);
 		}
 	}
@@ -670,8 +675,7 @@ void dqL1(Quadra q, ...){
 	city = va_arg(ap3, Cidade);	
 	txt = va_arg(ap3, FILE*);
 	if (q == NULL){
-		printf("ja era\n");
-		getchar();
+		// printf("ja era\n");
 	}
 	dist = distPointsL1(x, y, getQuadraX(q), getQuadraY(q));
 	if (dist <= raio){
@@ -707,8 +711,7 @@ void dqL2(Quadra q, ...){
 	city = va_arg(ap3, Cidade);	
 	txt = va_arg(ap3, FILE*);
 	if (q == NULL){
-		printf("ja era\n");
-		getchar();
+		// printf("ja era\n");
 	}
 	dist = distanciaEntrePontos(x, y, getQuadraX(q), getQuadraY(q));
 	if (dist <= raio){
@@ -1165,7 +1168,7 @@ Ponto *detonaBomba(Cidade city, double x, double y, double *svgH, double *svgW){
 		}
 		freePonto(pI);
 	}
-	getchar();
+	
 	//juntar lista lVer com lVerNew, ou seja, os vertices novos com os vertice ja calculados
 	int tamanho_aVer = qtdList(lVer) + qtdList(lVerNew);
 	Vertice *aVer = (Vertice*)malloc(sizeof(Vertice)*tamanho_aVer);
@@ -1254,6 +1257,16 @@ Ponto *detonaBomba(Cidade city, double x, double y, double *svgH, double *svgW){
 	}
 }
 
+int cmd_M(Rbtree tree, PosicTree p1, FILE *txt){
+	if (posicTreeVazio(tree, p1))
+		return -1;
+	cmd_M(tree, getRbtreeLeft(tree, p1), txt);
+	cmd_M(tree, getRbtreeRight(tree, p1), txt);
+	Morador m1 = getObjRbtree(tree, p1);
+	fprintf(txt, "Comando m?\nNome %s cpf %s cep %s face %c numero %d complemento %s", getPessoaCpf(getMoradorPessoa(m1)), getMoradorCpf(m1), getMoradorCep(m1), getMoradorFace(m1), getMoradorNumero(m1), getMoradorCompl(m1));
+	return 0;
+}
+
 void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry, Cidade *city, Lista lseg, Vector vetVert){
 	FILE *entrada = NULL, *txt = NULL, *svgBb;
 	Item it;
@@ -1264,7 +1277,8 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 	Quadra q1, q2;
 	Semaforo s1, s2;
 	Torre t1, t2;
-	Posic p1, p2;	
+	Posic p1, p2;
+	PosicTree pa, pb;
 	char *line = NULL, *word = NULL, *cor = NULL, *suf = NULL, 
 	*aux = NULL, *aux2 = NULL, *aux3 = NULL, *text = NULL, *id = NULL, cpf[20], cnpj[20], compl[20], face, cep[20];
 	double raio, x, y, height, width, dx, dy;
@@ -1275,8 +1289,6 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 	suf = (char*)malloc(sizeof(char)*20);
 	aux = colocaBarra(pegaParametro(argc, argv, "-e"));
 	aux2 = concatena(aux, pegaParametro(argc, argv, "-q"));
-	printf("jhajajaj %s\n", aux2);
-	getchar();
 	entrada = fopen(aux2, "r");
 	if(entrada == NULL){
 		printf("DIRETÓRIO OU ARQUIVO INVÁLIDOS\n");
@@ -1292,15 +1304,15 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 		if (strcmp(word, "i?") == 0){
 			var = 0;
 			sscanf(line, "%s %d %lf %lf", word, &j, &x, &y);
-			p1 = searchForma(*city, j, &i);
+			pa = searchForma(*city, j, &i);
 			if (i == 1){
-				r1 = (Retangulo)getObjForma(*city, p1);
+				r1 = (Retangulo)getObjForma(*city, pa);
 				if (r1 != NULL)
 					var = pontoInternoRetangulo(r1, x, y);
 				else
 					var = -1;
 			} else if(i == 0){
-				c1 = (Circulo)getObjForma(*city, p1);
+				c1 = (Circulo)getObjForma(*city, pa);
 				if (c1 != NULL)
 					var = pontoInternoCirculo(c1, x, y);
 				else
@@ -1330,41 +1342,41 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 			xme = -1.0;
 			yme = -1.0;
 			sscanf(line, "%s %d %d", word, &i, &j);
-			p1 = searchForma(*city, i, &tipo1);
-			if (p1 < 0){
+			pa = searchForma(*city, i, &tipo1);
+			if (posicTreeVazio(getTree(*city, 'f'), pa)){
 				printf("Não achei %d", i);
 				break;
 			}
-			p2 = searchForma(*city, j, &tipo2);
-			if (p2 < 0){
+			pb = searchForma(*city, j, &tipo2);
+			if (posicTreeVazio(getTree(*city, 'f'), pb)){
 				printf("Não achei %d", j);
 				break;
 			}
 			if (tipo1 == 1){
 				if (tipo2 == 1){
-					r1 = getObjForma(*city, p1);
-					r2 = getObjForma(*city, p2);
+					r1 = getObjForma(*city, pa);
+					r2 = getObjForma(*city, pb);
 					var = sobreposicaoRetanguloRetangulo(r1, r2);
 					cmpRet(r1, &xma, &xme, &yma, &yme);
 					cmpRet(r2, &xma, &xme, &yma, &yme);
 				} else{
-					r1 = getObjForma(*city, p1);
-					c1 = getObjForma(*city, p2);
+					r1 = getObjForma(*city, pa);
+					c1 = getObjForma(*city, pb);
 					var = sobreposicaoCirculoRetangulo(c1, r1);
 					cmpRet(r1, &xma, &xme, &yma, &yme);
 					cmpCir(c1, &xma, &xme, &yma, &yme);
 				}
 			} else{
 				if (tipo2 == 1){
-					c1 = getObjForma(*city, p1);
-					r1 = getObjForma(*city, p2);
+					c1 = getObjForma(*city, pa);
+					r1 = getObjForma(*city, pb);
 					var = sobreposicaoCirculoRetangulo(c1, r1);
 					cmpRet(r1, &xma, &xme, &yma, &yme);
 					cmpCir(c1, &xma, &xme, &yma, &yme);
 					
 				} else{
-					c1 = getObjForma(*city, p1);
-					c2 = getObjForma(*city, p2);
+					c1 = getObjForma(*city, pa);
+					c2 = getObjForma(*city, pb);
 					var  = sobreposicaoCirculoCirculo(c1, c2);
 					cmpCir(c1, &xma, &xme, &yma, &yme);
 					cmpCir(c2, &xma, &xme, &yma, &yme);
@@ -1388,18 +1400,18 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 				*svgH = yme + (yma - yme);
 		} else if (strcmp(word, "d?") == 0){
 			sscanf(line, "%s %d %d", word, &i, &j);
-			p1 = searchForma(*city, i, &tipo1);
-			p2 = searchForma(*city, j, &tipo2);
+			pa = searchForma(*city, i, &tipo1);
+			pb = searchForma(*city, j, &tipo2);
 			if (tipo1 == 0){
 				if (tipo2 == 0){
-					c1 = getObjForma(*city, p1);
-					c2 = getObjForma(*city, p2);
+					c1 = getObjForma(*city, pa);
+					c2 = getObjForma(*city, pb);
 					x = distanciaEntrePontos(getCirculoX(c1), getCirculoY(c1), getCirculoX(c2), getCirculoY(c2));
 					fprintf(svgQry, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"2\" stroke=\"brown\" />", getCirculoX(c1), getCirculoY(c1), getCirculoX(c2), getCirculoY(c2));
 					fprintf(svgQry, "<text x=\"%f\" y=\"%f\" font-family=\"Verdana\" font-size=\"5\">%f</text>\n", (getCirculoX(c1) + getCirculoX(c2))/2, (getCirculoY(c1) + getCirculoY(c2))/2, x);
 				}else{
-					c1 = getObjForma(*city, p1);
-					r1 = getObjForma(*city, p2);
+					c1 = getObjForma(*city, pa);
+					r1 = getObjForma(*city, pb);
 					x = distanciaEntrePontos(getCirculoX(c1), getCirculoY(c1), getRetanguloX(r1) + getRetanguloWidth(r1)/2, getRetanguloY(r1) + getRetanguloHeight(r1)/2);
 					fprintf(svgQry, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"2\" stroke=\"brown\" />", getCirculoX(c1), getCirculoY(c1), getRetanguloX(r1) + getRetanguloWidth(r1)/2, getRetanguloY(r1) + getRetanguloHeight(r1)/2);
 					fprintf(svgQry, "<text x=\"%f\" y=\"%f\" font-family=\"Verdana\" font-size=\"5\">%f</text>\n",(getCirculoX(c1) + (getRetanguloX(r1) + getRetanguloWidth(r1)/2))/2, (getCirculoY(c1) + (getRetanguloY(r1) + getRetanguloHeight(r1)/2))/2, x);
@@ -1407,14 +1419,14 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 				}
 			} else{
 				if (tipo2==0){
-					r1 = getObjForma(*city, p1);
-					c1 = getObjForma(*city, p2);
+					r1 = getObjForma(*city, pa);
+					c1 = getObjForma(*city, pb);
 					x = distanciaEntrePontos(getCirculoX(c1), getCirculoY(c1), getRetanguloX(r1) - getRetanguloWidth(r1)/2, getRetanguloY(r1) - getRetanguloHeight(r1)/2);
 					fprintf(svgQry, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"2\" stroke=\"brown\" />", getCirculoX(c1), getCirculoY(c1), getRetanguloX(r1) + getRetanguloWidth(r1)/2, getRetanguloY(r1) + getRetanguloHeight(r1)/2);
 					fprintf(svgQry, "<text x=\"%f\" y=\"%f\" font-family=\"Verdana\" font-size=\"5\">%f</text>\n",(getCirculoX(c1) + (getRetanguloX(r1) + getRetanguloWidth(r1)/2))/2, (getCirculoY(c1) + (getRetanguloY(r1) + getRetanguloHeight(r1)/2))/2, x);
 				}else{
-					r1 = getObjForma(*city, p1);
-					r2 = getObjForma(*city, p2);
+					r1 = getObjForma(*city, pa);
+					r2 = getObjForma(*city, pb);
 					x = distanciaEntrePontos(getRetanguloX(r1) - getRetanguloWidth(r1)/2, getRetanguloY(r1) - getRetanguloHeight(r1)/2, getRetanguloX(r2) - getRetanguloWidth(r2)/2, getRetanguloY(r2) - getRetanguloHeight(r2)/2);
 					fprintf(svgQry, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"2\" stroke=\"brown\" />", getRetanguloX(r2) + getRetanguloWidth(r2)/2, getRetanguloY(r2) + getRetanguloHeight(r2)/2, getRetanguloX(r1) + getRetanguloWidth(r1)/2, getRetanguloY(r1) + getRetanguloHeight(r1)/2);
 					fprintf(svgQry, "<text x=\"%f\" y=\"%f\" font-family=\"Verdana\" font-size=\"5\">%f</text>\n",((getRetanguloX(r2) + getRetanguloWidth(r2)/2) + (getRetanguloX(r1) + getRetanguloWidth(r1)/2))/2, ((getRetanguloY(r2) + getRetanguloHeight(r2)/2) + (getRetanguloY(r1) + getRetanguloHeight(r1)/2))/2, x);
@@ -1471,7 +1483,7 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 				y = getTorreY(t1);
 				idE = getTorreId(t1);
 			} else{
-				printf("não encontrado\n");
+				// printf("não encontrado\n");
 			}
 			if (txt == NULL){
 				aux = funcTxt(argc, argv);
@@ -1692,7 +1704,7 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 			}
 			if (mr1 != NULL){
 				if (pr1 == NULL){
-					printf("Endereço sem predio\n");
+					// printf("Endereço sem predio\n");
 				} else {
 					fprintf(txt, "Comando \"mud\"\nNome: %s Cpf: %s\nEndereço antigo\nCep: %s Face: %c numero: %d\n", getPessoaNome(ps1), getPessoaCpf(ps1), getMoradorCep(mr1), getMoradorFace(mr1), getMoradorNumero(mr1));
 					setMoradorPredio(mr1, pr1, cep, compl, face, i);
@@ -1714,13 +1726,28 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 			fprintf(txt, "Comando \"mud\"\nNome: %s Cpf: %s\nEndereço novo\nCep: %s Face: %c numero: %d\n", getPessoaNome(ps1), getPessoaCpf(ps1), cep, face, i);
 		} else if (strcmp(word, "mplg?") == 0){
 			sscanf(line, "%s %s", word, suf);
+
 			aux = colocaBarra(pegaParametro(argc, argv, "-e"));
 			aux2 = concatena(aux, suf);
-			printf("%s\n", aux2);
-			getchar();
+			funcFree(&aux);
 			FILE *arq_pol = fopen(aux2, "r");
 			Poligono pol1 = createPoligono(arq_pol);
-			
+			Ponto p1 = createPonto(350, 250);
+			fclose(arq_pol);
+			i = pontoInternoPoligono(pol1, p1);
+			printPoligono(svgQry, pol1);
+		} else if (strcmp(word, "m?") == 0){
+			sscanf(line, "%s %s", word, cep);
+			p1 = searchQuadra(*city, cep);
+			if (!posicVazio(p1)){
+				q1 = getObjQuadra(*city, p1);
+				if (txt == NULL){
+					aux = funcTxt(argc, argv);
+					txt = fopen(aux, "a");
+					funcFree(&aux);
+				}			
+				cmd_M(getQuadraArvoreMorador(q1), getRoot(getQuadraArvoreMorador(q1)), txt);
+			}
 		}
 	}
 	calcViewBoxSvg(*city, svgW, svgH);

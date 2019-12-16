@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Ponto.h"
+#include "Calculos.h"
 
 typedef struct reg{
     double x;
@@ -38,6 +39,19 @@ void setPontoX(Ponto p, double x){
 void setPontoY(Ponto p, double y){
     ponto *newPonto = (ponto*)p;
     newPonto->y = y;
+}
+
+int cmpPontoTree(Ponto a, Ponto b){
+    
+    if (doubleEquals(getPontoX(a), getPontoX(b))){
+        if (getPontoY(a) >= getPontoY(b))
+            return 1;
+        else 
+            return -1;
+    } else if (getPontoX(a) > getPontoX(b))
+        return 1;
+    else 
+        return -1;
 }
 
 void freePonto(Ponto p){

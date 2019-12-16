@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "Retangulo.h"
 #include <stdlib.h>
+#include "Calculos.h"
 typedef struct {
 	int id;
 	double w;
@@ -74,6 +75,20 @@ void freeCor(Retangulo r){
 	if (newretangulo->corPreenchimento != NULL){
 		free(newretangulo->corPreenchimento);
 	}
+}
+
+int cmpRetanguloTree(Retangulo r1, Retangulo r2){
+	if (doubleEquals(getRetanguloX(r1), getRetanguloX(r2))){
+		if (getRetanguloY(r1) >= getRetanguloY(r2)){
+			return 1;
+		} else {
+			return -1;
+		}
+	} else if (getRetanguloX(r1) > getRetanguloX(r2)){
+		return 1;
+	} else {
+		return -1;
+	}	
 }
 
 void freeRetangulo(Retangulo r){

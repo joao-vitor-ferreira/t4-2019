@@ -7,4 +7,5 @@
 
 Poligono createPoligono(FILE *arq_pol);
 Rbtree getPoligonoArvore(Poligono p);
+void printPoligono(FILE *svg, Poligono pol);
 #endif

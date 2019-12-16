@@ -10,6 +10,7 @@ double getPontoY(Ponto p);
 // void *getPontoObj(Ponto p);
 void setPontoX(Ponto p, double x);
 void setPontoY(Ponto p, double y);
+int cmpPontoTree(Ponto a, Ponto b);
 void freePonto(Ponto p);
 
 #endif

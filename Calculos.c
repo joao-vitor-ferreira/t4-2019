@@ -332,20 +332,47 @@ int interseccaoSegmento(Segmento s1, Segmento s2, Ponto interseccao){
 	return 0;
 }
 
+int auxUp(Rbtree tree, PosicTree atual, Ponto point, int *sentido);
+
 int pontoInternoPoligono(Poligono pol, Ponto point){
 	Ponto p1, p2;
 	Vertice v1, v2;
 	Segmento s1;
-	Rbtree tree;
-
-	PosicTree pos1 = getRoot(pol);
-
+	
+	int sentido = -39, cmp; //valor inicial aleatório de sentido para saber qndo começar
+	Rbtree tree = getPoligonoArvore(pol);
+	PosicTree pos1 = getRoot(tree);
+	cmp = auxUp(tree, pos1, point, &sentido);
 }
 
-// int auxUp(PosicTree atual){
-// 	if (posicTreeVazio(atual))
-// 		return;
-// }
+int auxUp(Rbtree tree, PosicTree atual, Ponto point, int *sentido){
+	if (posicTreeVazio(tree, atual)){
+		return -1;
+	}
+	int cmp, sentido_atual;
+	cmp = auxUp(tree, getRbtreeLeft(tree, atual), point, sentido);
+	if (cmp == 0)
+		return 0;
+	else {
+		cmp = auxUp(tree, getRbtreeRight(tree, atual), point, sentido);
+		if (cmp == 0)
+			return 0;
+		else {
+			Segmento s1 = getObjRbtree(tree, atual);
+			if (*sentido == -39){
+				*sentido = funcLado(getVerticePonto(getSegmentoVerticeInicial(s1)), getVerticePonto(getSegmentoVerticeFinal(s1)), point);
+				cmp = 1;
+			} else {
+				sentido_atual = funcLado(getVerticePonto(getSegmentoVerticeInicial(s1)), getVerticePonto(getSegmentoVerticeFinal(s1)), point);
+				if (sentido_atual == *sentido)
+					cmp = 1;
+				else 
+					return 0;
+			}
+		}
+	}
+	return 1;	
+}
 
 // int interseccaoSegmento(Segmento s1, Segmento s2, Ponto interseccao){
 // 	Ponto pS1i, pS1f, pS2i, pS2f;

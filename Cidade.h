@@ -24,6 +24,7 @@
 
 Cidade createCidade(int i, int nq, int nh, int ns, int nt, int np, int nm);
 Lista getList(Cidade city, char t);
+Rbtree getTree(Cidade city, char t);
 int posicVazio(Posic p);
 void addQuadra(Cidade city, Item info);
 void addSemaforo(Cidade city, Item info);
@@ -36,7 +37,7 @@ void addTipoEC(Cidade city, TipoEC tp);
 void addEstabCom(Cidade city, Estab ec);
 void addPessoa(Cidade city, Pessoa ps);
 void addMorador(Cidade city, Morador m);
-Item getObjForma(Cidade city, Posic p);
+Item getObjForma(Cidade city, PosicTree p);
 Item getObjQuadra(Cidade city, Posic p);
 Item getObjHidrante(Cidade city, Posic p);
 Item getObjSemaforo(Cidade city, Posic p);
@@ -44,7 +45,7 @@ Item getObjHidrante(Cidade city, Posic p);
 Item getObjTorre(Cidade city, Posic p);
 Predio getObjPredio(Cidade city, Posic p);
 Rbtree getCidadeRbtree(Cidade city, char type);
-void removeForma(Cidade city, Posic p);
+void removeForma(Cidade city, PosicTree p);
 void removePredio(Cidade city, Posic p);
 void removeQuadra(Cidade city, Posic p);
 void removeTorre(Cidade city, Posic p);
@@ -57,7 +58,7 @@ Posic searchQuadra(Cidade city, char *cep);
 Posic searchSemaforo(Cidade city, char *id);
 Posic searchHidrante(Cidade city, char *id);
 Posic searchTorre(Cidade city, char *id);
-Posic searchForma(Cidade city, int id, int *type);
+PosicTree searchForma(Cidade city, int id, int *type);
 Posic searchPredio(Cidade city, char *cep, char face, int num);
 Posic searchEquipUrban(Cidade city, char *id, char *type);
 

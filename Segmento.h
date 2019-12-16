@@ -15,5 +15,6 @@ void setSegmentoVerticeFinal(Segmento seg, void *vIni);
 void setSegmentoId(Segmento s, int id);
 int getSegmentoId(Segmento s);
 void freeSegmento(Segmento seg);
+int cmpSegmentoTree(Segmento a, Segmento b);
 
 #endif

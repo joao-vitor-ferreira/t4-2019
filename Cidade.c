@@ -17,6 +17,7 @@
 #include "Svg.h"
 #include "Hash.h"
 #include "Rbtree.h"
+#include "Calculos.h"
 
 typedef struct {
     Lista lQua;
@@ -77,6 +78,7 @@ Cidade createCidade(int i, int nq, int nh, int ns, int nt, int np, int nm){
     city->aHid = createTree();
     city->aPre = createTree();
     city->aMur = createTree();
+    city->aFor = createTree();
 
     return city;
 }
@@ -100,6 +102,26 @@ Lista getList(Cidade city, char t){
     }
     
     printf("Paramento \"t\" incorreto\n");
+    return NULL;
+}
+
+Rbtree getTree(Cidade city, char t){
+    cidade *newCity = (cidade*)city;
+    if (t == 'q'){
+        return newCity->aQua;
+    } else if (t == 't'){
+        return newCity->aTor;
+    } else if (t == 'h'){
+        return newCity->aHid;
+    } else if (t == 's'){
+        return newCity->aSem;
+    } else if (t == 'f'){
+        return newCity->aFor;
+    } else if (t == 'p'){
+        return newCity->aPre;
+    } else if (t == 'm'){
+        return newCity->aMur;
+    }
     return NULL;
 }
 
@@ -128,6 +150,35 @@ void addMorador(Cidade city, Morador m){
     addHash(newCity->hMoradorXCpf, m, getMoradorCpf(m));
 }
 
+int cmpFormaTree(Item a, Item b){
+    forms *f1 = (forms*)a;
+    forms *f2 = (forms*)b;
+    if (f1->type == 0 && f2->type == 0)
+        return cmpCirculoTree(f1->thing, f2->thing);
+    else if (f1->type == 1 && f2->type == 1)
+        return cmpRetanguloTree(f1->thing, f2->thing);
+    else if (f1->type == 0 && f2->type == 1){
+        if (doubleEquals(getCirculoX(f1->thing), getRetanguloX(f2->thing))){
+            if (getCirculoY(f1->thing) >= getRetanguloY(f2->thing))
+                return 1;
+            else 
+                return-1;
+        } else if (getCirculoX(f1->thing) > getRetanguloX(f2->thing))
+            return 1;
+        else 
+            return -1;
+    } else {
+        if (doubleEquals(getCirculoX(f2->thing), getRetanguloX(f1->thing))){
+            if (getCirculoY(f2->thing) <= getRetanguloY(f1->thing))
+                return 1;
+            else 
+                return-1;
+        } else if (getCirculoX(f2->thing) < getRetanguloX(f1->thing))
+            return 1;
+        else 
+            return -1;        
+    }
+}
 
 void addForma(Cidade city, Item info, int type){
     cidade *newCity = (cidade*)city;
@@ -135,12 +186,11 @@ void addForma(Cidade city, Item info, int type){
     forma->thing = info;
     forma->type = type;
     insertList(newCity->lFor, forma);
+    insertRbtree(newCity->aFor, forma, cmpFormaTree);
     if (type == 0){
         newCity->cirQntd++;
-        // insertRbtree(newCity->aFor, forma, NULL);
     } else {
         newCity->retQntd++;
-        // insertRbtree(newCity->aFor, forma, NULL);
     }
 }
 
@@ -181,9 +231,9 @@ void addHidrante(Cidade city, Hidrante h){
     // insertRbtree(newCity->aHid, h, NULL);
 }
 
-Item getObjForma(Cidade city, Posic p){
+Item getObjForma(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
-    forms *forma = getObjList(newCity->lFor, p);
+    forms *forma = /*getObjList(newCity->lFor, p);*/getObjRbtree(newCity->aFor, p);
     return forma->thing;
 }
 ;
@@ -242,7 +292,6 @@ Posic searchPredio(Cidade city, char *cep, char face, int num){
     Posic pos;
     for(pos = getFirst(newCity->lPre); pos >= 0; pos = getNext(newCity->lPre, pos)){
         pre = getObjList(newCity->lPre, pos);
-        printf("%s %c %d\n", getPredioCep(pre), getPredioFace(pre), getPredioNumero(pre));
         if ((strcmp(cep, getPredioCep(pre)) == 0) && (face == getPredioFace(pre)) && (num == getPredioNumero(pre))){
             return pos;
         }
@@ -250,6 +299,39 @@ Posic searchPredio(Cidade city, char *cep, char face, int num){
     return -1;
 }
 
+int searchFormaRec(Rbtree tree, PosicTree pos, PosicTree *search, int *type, int id){
+    forms *forma;
+    Cidade c1;
+    Retangulo r1;
+    if (posicTreeVazio(tree, pos))
+        return -1;
+    searchFormaRec(tree, getRbtreeLeft(tree, pos), search, type, id);
+    searchFormaRec(tree, getRbtreeRight(tree, pos), search, type, id);
+    forma = (forms*)getObjRbtree(tree, pos);
+    if (forma->type == 0){
+        c1 = forma->thing;
+        if (getCirculoId(c1) == id){
+            *type = forma->type;
+            *search = pos;
+        } 
+    } else{
+        r1 = forma->thing;
+        if (getRetanguloId(r1) == id){
+            *type = forma->type;
+            *search = pos;
+        }
+    }
+    return 0;
+}
+
+PosicTree searchForma(Cidade city, int id, int *type){
+    cidade *newCity = (cidade*)city;
+    PosicTree search = getNullTree(newCity->aFor);
+    searchFormaRec(newCity->aFor, getRoot(newCity->aFor), &search, type, id);
+    return search;
+}
+
+/*
 Posic searchForma(Cidade city, int id, int *type){
     cidade *newCity = (cidade*)city;
     Circulo c1;
@@ -275,6 +357,7 @@ Posic searchForma(Cidade city, int id, int *type){
     *type = -1;
     return -1;
 }
+*/
 
 Posic searchQuadra(Cidade city, char *cep){
     cidade *newCity = (cidade*)city;
@@ -356,9 +439,9 @@ Posic searchEquipUrban(Cidade city, char *id, char *type){
     return -1;
 }
 
-void removeForma(Cidade city, Posic p){
+void removeForma(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
-    forms *forma = getObjList(newCity->lFor, p);
+    forms *forma = getObjRbtree(newCity->aFor, p);
     Circulo c1;
     Retangulo r1;
     if (forma->type == 0){
@@ -379,7 +462,8 @@ void removeForma(Cidade city, Posic p){
         newCity->retQntd--;
     }
     free(forma);
-    removeList(newCity->lFor, p);
+    // removeList(newCity->lFor, p);
+    // removeRbtree(newCity->aFor, p);
 }
 
 void removeQuadra(Cidade city, Posic p){
@@ -446,10 +530,27 @@ void deleteListCity(Cidade city, Lista list, removeElement func){
     deleteList(list);
 }
 
+typedef void (*removeElementTree)(Cidade, PosicTree);
+
+int delTree(Cidade city, Rbtree tree, PosicTree atual, removeElementTree func){
+    if (posicTreeVazio(tree, atual))
+        return -1;
+    delTree(city, tree, getRbtreeLeft(tree, atual), func);
+    delTree(city, tree, getRbtreeRight(tree, atual), func);
+    func(city, atual);
+    return 0;
+}
+
+void deleteTreeCity(Cidade city, Rbtree tree, removeElementTree func){
+    delTree(city, tree, getRoot(tree), func);
+    freeTree(tree);
+}
+
 void freeCidade(Cidade city){
     cidade *newCity = (cidade*)city;
     // printf("lista for\n");
-    deleteListCity(city, newCity->lFor, &removeForma);
+    // deleteListCity(city, newCity->lFor, &removeForma);
+    // deleteTreeCity(city, newCity->aFor, &removeForma);
     // printf("lista hid\n");
     deleteListCity(city, newCity->lHid, &removeHidrante);
     // printf("lista qua\n");

@@ -4,6 +4,8 @@
 #include <string.h>	
 #include "Calculos.h"
 #include "Retangulo.h"
+#include "Rbtree.h"
+#include "Morador.h"
 
 typedef struct{
 	double x;
@@ -14,6 +16,7 @@ typedef struct{
 	char *corPreenchimento;
 	char *corContorno;
 	double especura_borda;
+	Rbtree aMorador;
 } quadra;
 
 Quadra createQuadra(double x, double y, double width, double height, char *cep, double sw){
@@ -27,7 +30,13 @@ Quadra createQuadra(double x, double y, double width, double height, char *cep, 
 	newQuadra->corContorno = NULL;
 	newQuadra->corPreenchimento = NULL;
 	newQuadra->especura_borda = sw;
+	newQuadra->aMorador = createTree();
 	return (Quadra) newQuadra;
+}
+
+Rbtree getQuadraArvoreMorador(Quadra q){
+	quadra *newQuadra = (quadra*)q;
+	return newQuadra->aMorador;
 }
 
 double getQuadraSW(Quadra q){
@@ -159,4 +168,9 @@ void freeQuadra(Quadra q){
 		free(newQuadra->corContorno);
 	if (newQuadra->cep != NULL)
 		free(newQuadra->cep);
+}
+
+void addQuadraMorador(Quadra q, Morador m){
+	quadra *newQuadra = (quadra*)q;
+	insertRbtree(newQuadra->aMorador, m, cmpMoradorTree);
 }

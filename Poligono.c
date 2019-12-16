@@ -2,6 +2,7 @@
 #include "Calculos.h"
 #include "Rbtree.h"
 #include <stdlib.h>
+#include "Svg.h"
 
 typedef struct {
     Rbtree arvoreSegmentos;
@@ -32,7 +33,7 @@ Poligono createPoligono(FILE *arq_pol){
             if (x < newPol->x_min) newPol->x_min = x;
             if (y < newPol->y_min) newPol->y_min = y;
 
-            Ponto p1 = createPonto(previous_x, previous_y)  ;
+            Ponto p1 = createPonto(previous_x, previous_y);
             Vertice v1 = createVertice(p1, 'o', 'i', NULL);
             Ponto p2 = createPonto(x, y);
             Vertice v2 = createVertice(p2, 'o', 'f', NULL);
@@ -40,7 +41,7 @@ Poligono createPoligono(FILE *arq_pol){
             setVerticeSegmento(v1, s1);
             setVerticeSegmento(v2, s1);
 
-            insertRbtree(newPol->arvoreSegmentos, s1);
+            insertRbtree(newPol->arvoreSegmentos, s1, cmpSegmentoTree);
             previous_x = x;
             previous_y = y;
         }
@@ -53,7 +54,7 @@ Poligono createPoligono(FILE *arq_pol){
     Segmento s1 = createSegmento(v1, v2);
     setVerticeSegmento(v1, s1);
     setVerticeSegmento(v2, s1);    
-    insertRbtree(newPol->arvoreSegmentos, s1);
+    insertRbtree(newPol->arvoreSegmentos, s1, cmpSegmentoTree);
 
     return newPol;
 }
@@ -61,4 +62,21 @@ Poligono createPoligono(FILE *arq_pol){
 Rbtree getPoligonoArvore(Poligono p){
     poligono *newPol = (poligono*)p;
     return newPol->arvoreSegmentos;
+}
+
+int printAux(FILE *svg, Rbtree tree, PosicTree atual){
+    if (posicTreeVazio(tree, atual))
+        return -1;
+    printAux(svg, tree, getRbtreeLeft(tree, atual));
+    printAux(svg, tree, getRbtreeRight(tree, atual));
+    Segmento s1 = getObjRbtree(tree, atual);
+    printSvgSegmento(&svg, s1);
+    return 0;
+}
+
+
+void printPoligono(FILE *svg, Poligono pol){
+    Rbtree tree = getPoligonoArvore(pol);
+    PosicTree root = getRoot(tree);
+    printAux(svg, tree, root);
 }

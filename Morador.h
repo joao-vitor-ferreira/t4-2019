@@ -16,5 +16,6 @@ char *getMoradorCompl(Morador m);
 void freeMorador(Morador m);
 void setMoradorPredio(Morador m, Predio p, char *cep, char *compl, char face, int numero);
 void setMoradorPessoa(Morador m, Pessoa ps, char *cpf);
+int cmpMoradorTree(Morador m1, Morador m2);
 
 #endif

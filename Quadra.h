@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include "Circulo.h"
 #include "Lista.h"
+#include "Rbtree.h"
+
 
 	typedef void *Quadra;
 /* Quadra é uma estrutura composta pelo ponto ancora, altura e largura, cores de preenchimento e contorno e seu identificador, seu cep, na qual será disposta num plano que chamaremos de cidade*/
@@ -21,9 +23,12 @@ double getQuadraSW(Quadra q);
 double getQuadraY(Quadra q);
 double getQuadraWidth(Quadra q);
 double getQuadraHeight(Quadra q);
+Rbtree getQuadraArvoreMorador(Quadra q);
 int quadraInternaRetangulo(FILE **txt, Quadra q, Retangulo r);
 int verificaQuadraInternaRegiaoRet(Quadra q, double x, double y, double w, double h);
 int quadraInternaCirculo(FILE **txt, Quadra q, Circulo c);
 int comparaQuadra(Quadra q1, char *id);
+void addQuadraMorador(Quadra q, void *m);
 void freeQuadra(Quadra q);
+
 #endif

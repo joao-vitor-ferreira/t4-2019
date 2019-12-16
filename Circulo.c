@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "Circulo.h"
 #include <stdlib.h>
+#include "Calculos.h"
 
 typedef struct {
 	int id;
@@ -58,6 +59,20 @@ char *getCirculoCorPreenchimento(Circulo c){
 char *getCirculoCorContorno(Circulo c){
 	circulo *newCirculo = (circulo*)c;
 	return newCirculo->corContorno;
+}
+
+int cmpCirculoTree(Circulo c1, Circulo c2){
+	if (doubleEquals(getCirculoX(c1), getCirculoY(c2))){
+		if (getCirculoY(c1) >= getCirculoY(c2)){
+			return 1;
+		} else {
+			return -1;
+		}
+	} else if (getCirculoY(c1) > getCirculoY(c2)){
+		return 1;
+	} else {
+		return -1;
+	}	
 }
 
 void freeCirculo(Circulo c){

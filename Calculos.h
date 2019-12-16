@@ -9,6 +9,7 @@
 #include "Ponto.h"
 #include "Segmento.h"
 #include "Vertice.h"
+#include "Poligono.h"
 	
 /*CALCULA A DISTÂNCIA ENTRE DOIS PONTOS NO PLANO CARTESIANO*/
 double distanciaEntrePontos(double xa, double ya, double xb, double yb);
@@ -48,4 +49,6 @@ int interseccaoSegmento(Segmento s1, Segmento s2, Ponto interseccao);
 double anguloPonto(Ponto p1, Ponto bomba);
 /*retorna 1 se são iguais, 0 se são diferentes*/
 int doubleEquals(double a, double b);
+/*retorna 1 se o Ponto point estiver interno do Poligono pol, senão retorna 0*/
+int pontoInternoPoligono(Poligono pol, Ponto point);
 #endif

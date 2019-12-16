@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "Ponto.h"
 #include "Segmento.h"
+#include "Vertice.h"
 
 typedef struct {
     int id;
@@ -46,6 +47,12 @@ int getSegmentoId(Segmento s){
 void setSegmentoId(Segmento s, int id){
     segmento *newSeg = (segmento*)s;
     newSeg->id = id;
+}
+
+int cmpSegmentoTree(Segmento a, Segmento b){
+    Ponto p1 = getVerticePonto(getSegmentoVerticeInicial(a));
+    Ponto p2 = getVerticePonto(getSegmentoVerticeInicial(b));
+    return cmpPontoTree(p1, p2);
 }
 
 void freeSegmento(Segmento seg){

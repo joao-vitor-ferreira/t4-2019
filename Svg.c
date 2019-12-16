@@ -73,3 +73,15 @@ void printSvgMuro(FILE **svg, Muro m){
 	fprintf(*svg, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"1\" stroke=\"black\" />\n",
 	getPontoX(p1), getPontoY(p1), getPontoX(p2), getPontoY(p2));
 }
+
+void printSvgSegmento(FILE **svg, Segmento seg){
+	Ponto p1, p2;
+	p1 = getVerticePonto(getSegmentoVerticeInicial(seg));
+	p2 = getVerticePonto(getSegmentoVerticeFinal(seg));
+	fprintf(*svg, "<circle cx = \"%f\" cy = \"%f\" r = \"%f\" fill = \"#006400\" stroke=\"#006400\" stroke-width=\"1\" fill-opacity = \"1\"/>\n",
+	getPontoX(p1), getPontoY(p1), 5.0);
+	fprintf(*svg, "<circle cx = \"%f\" cy = \"%f\" r = \"%f\" fill = \"#006400\" stroke=\"#006400\" stroke-width=\"1\" fill-opacity = \"1\"/>\n",
+	getPontoX(p2), getPontoY(p2), 5.0);
+	fprintf(*svg, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"4\" stroke=\"#006400\" />\n",
+	getPontoX(p1), getPontoY(p1), getPontoX(p2), getPontoY(p2));
+}

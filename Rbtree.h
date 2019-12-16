@@ -22,6 +22,7 @@ PosicTree getRoot(Rbtree tree);
 //Retorna o filha da esquerda do PosicTree
 PosicTree getRbtreeLeft(Rbtree tree, PosicTree p);
 
+PosicTree getRbtreeRight(Rbtree tree, PosicTree p);
 // Função utilitária para inserir novo nó na árvore Red Black
 void insertRbtree(Rbtree tree, Item data, RbtreeCompare comp);
 
@@ -38,6 +39,10 @@ int qtdRbtree(Rbtree tree);
 Item getObjRbtree(Rbtree tree, PosicTree p);
 
 int posicTreeVazio(Rbtree tree, PosicTree p);
+
+PosicTree getNullTree(Rbtree tree);
+
+void freeTree(Rbtree tree);
 
 void removeRbtree(Rbtree tree, PosicTree p);
 
