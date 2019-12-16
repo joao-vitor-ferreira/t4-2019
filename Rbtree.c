@@ -732,7 +732,7 @@ int doubleEquals(double a, double b){
 int cmpData(Item x, Item y){
     forma *a = (forma*)x;
     forma *b = (forma*)y;
-    printf("a %f b %f\n", a->x, b->x);
+    // printf("a %f b %f\n", a->x, b->x);
     if (doubleEquals(a->x, b->x)){
         if (a->y >= b->y){
             return 1;
@@ -768,20 +768,36 @@ void printNodeSvg(FILE *svg, Rbtree tree, PosicTree root, int width, int height,
     head *newHead = (head*)tree;
     node *no = (node*)root;
     char cor[20];
+    int lar = 15;
     if (posicTreeVazio(tree, root))
         return;
-    printNodeSvg(svg, tree, getRbtreeLeft(tree, root), width -1, height + 20, width*(10.0), height*(1.1), es);
-    printNodeSvg(svg, tree, getRbtreeRight(tree, root), width +1, height + 20, width*(10.0), height*(1.1), es);
+    if (*es){
+        printNodeSvg(svg, tree, getRbtreeLeft(tree, root), width -1, height + 40, width*(lar+0.1), height*(1.1), es);
+    } else {
+        if (no == newHead->root)
+            printNodeSvg(svg, tree, getRbtreeLeft(tree, root), width - 1, height + 40, width*(lar+0.1), height*(1.1), es);
+        else
+            printNodeSvg(svg, tree, getRbtreeLeft(tree, root), width, height + 40, width*(lar+0.1), height*(1.1), es);
+    }
+    if (no == newHead->root)
+        *es = 0;
+    if (*es){
+        if (no == newHead->root)
+            printNodeSvg(svg, tree, getRbtreeRight(tree, root), width + 1, height + 40, width*(lar+0.1), height*(1.1), es);
+        else
+            printNodeSvg(svg, tree, getRbtreeRight(tree, root), width, height + 40, width*(lar+0.1), height*(1.1), es);
+    } else {
+        printNodeSvg(svg, tree, getRbtreeRight(tree, root), width + 1, height + 40, width*(lar+0.1), height*(1.1), es);
+    }
     if(no->color == 'R')
         strcpy(cor, "red");
     else
         strcpy(cor, "black");
-    if (es)
-        width -= 5;
-    fprintf(svg, "<circle cx = \"%f\" cy = \"%f\" r = \"5\" fill = \"%s\" stroke=\"%s\" stroke-width=\"1\" fill-opacity = \"1\"/>\n", width*(10.0), height*(1.1), cor, cor);
-    fprintf(svg, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"4\" stroke=\"darkgreen\" />\n", width*(10.0), height*(1.1), x_ant, y_ant);
+    printf("%d\n", lar);
+    fprintf(svg, "<circle cx = \"%f\" cy = \"%f\" r = \"5\" fill = \"%s\" stroke=\"%s\" stroke-width=\"1\" fill-opacity = \"1\"/>\n", width*(lar+0.1), height*(1.1), cor, cor);
+    fprintf(svg, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"4\" stroke=\"darkgreen\" />\n", width*(lar+0.1), height*(1.1), x_ant, y_ant);
     if (no == newHead->root){
-        fprintf(svg, "<text x=\"%f\" y=\"%f\" font-family= \"Verdana\"  font-size=\"40\">root</text>\n", width*(10.0) + 10, height*(1.1));
+        fprintf(svg, "<text x=\"%f\" y=\"%f\" font-family= \"Verdana\"  font-size=\"40\">root</text>\n", width*(lar+0.1) + 10, height*(1.1));
         printf("aki\n");
         *es = 0;
     }
@@ -813,7 +829,7 @@ int main() {
     Forma coisa;
     PosicTree p1;
     FILE *arq;
-    for (i=0; i<1000; ++i){
+    for (i=0; i<200; ++i){
         // printf("1\n");
         coisa = createForma(random()/100000000.123,random()/100000000.43412);
 		insertRbtree(head,coisa, cmpData);
@@ -844,12 +860,12 @@ int main() {
         
     // }
     
-    printTree(head);
-    printf("\n");
+    // printTree(head);
+    // printf("\n");
 
-    printf("Quantidade de elementos: %d\n",qtdRbtree(head));
-    printf("Maxima largura: %d \n", getMaxWidth(head));
-    printf("Maxima altura: %d \n", getMaxHeight(head));
+    // printf("Quantidade de elementos: %d\n",qtdRbtree(head));
+    // printf("Maxima largura: %d \n", getMaxWidth(head));
+    // printf("Maxima altura: %d \n", getMaxHeight(head));
     
     // freeTree(getRoot(head));
     
