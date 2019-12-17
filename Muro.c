@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "Muro.h"
+#include "Calculos.h"
 
 typedef struct{
     Ponto pIni;
@@ -23,4 +24,19 @@ Ponto getMuroPontoInicial(Muro m){
 Ponto getMuroPontoFinal(Muro m){
     muro *newMuro = (muro*)m;
     return newMuro->pFim;
+}
+
+int cmpMuroTree(Muro m1, Muro m2){
+    Ponto p1 = getMuroPontoInicial(m1);
+    Ponto p2 = getMuroPontoFinal(m2);
+    if (doubleEquals(getPontoX(p1), getPontoX(p2))){
+        if (getPontoY(p1) >= getPontoY(p2))
+            return 1;
+        else
+            return -1;
+    } else if (getPontoX(p1) > getPontoX(p2)){
+        return 1;
+    } else {
+        return -1;
+    }
 }

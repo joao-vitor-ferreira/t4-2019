@@ -174,3 +174,15 @@ void addQuadraMorador(Quadra q, Morador m){
 	quadra *newQuadra = (quadra*)q;
 	insertRbtree(newQuadra->aMorador, m, cmpMoradorTree);
 }
+
+int cmpQuadraTree(Quadra q1, Quadra q2){
+	if (doubleEquals(getQuadraX(q1), getQuadraX(q2))){
+		if (getQuadraY(q1) > getQuadraY(q2))
+			return 1;
+		else
+			return -1;
+	} else if (getQuadraX(q1) > getQuadraX(q2))
+		return 1;
+	else
+		return -1;
+}

@@ -14,5 +14,6 @@ double getPredioProfundidade(Predio p);
 double getPredioMargem(Predio p);
 Quadra getPredioQuadra(Predio p);
 Ponto getPredioPoint(Predio p, int point);
+int cmpPredioTree(Predio prd1, Predio prd2);
 
 #endif

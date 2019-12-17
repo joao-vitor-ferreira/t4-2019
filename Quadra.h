@@ -30,5 +30,5 @@ int quadraInternaCirculo(FILE **txt, Quadra q, Circulo c);
 int comparaQuadra(Quadra q1, char *id);
 void addQuadraMorador(Quadra q, void *m);
 void freeQuadra(Quadra q);
-
+int cmpQuadraTree(Quadra q1, Quadra q2);
 #endif

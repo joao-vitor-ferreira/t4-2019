@@ -597,11 +597,11 @@ void leituraPM(int argc, char **argv, Cidade *city){
 			aux3 = (char*)malloc(sizeof(char)*(strlen(cep) + 1));
 			strcpy(aux3, cep);						
 			ps1 = searchPessoaXCpf(*city, cpf);
-			p1 = searchPredio(*city, cep, face, num);
-			if (p1 < 0)
+			PosicTree pa1 = searchPredio(*city, cep, face, num);
+			if (posicTreeVazio(getCidadeRbtree(*city, 'p'), pa1))
 				pr1 = NULL;
 			else
-				pr1 = getObjPredio(*city, p1);
+				pr1 = getObjPredio(*city, pa1);
 			mr1 = createMorador(ps1, pr1, aux2, aux3, face, num, aux);
 			p1 = searchQuadra(*city, cep);
 			if (!posicVazio(p1)){
@@ -1697,9 +1697,9 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 			sscanf(line, "%s %s %s %c %d %s", word, cpf, cep, &face, &i, compl);
 			Pessoa ps1 = searchPessoaXCpf(*city, cpf);
 			Morador mr1 = searchMoradorCpf(*city, cpf);
-			Posic pos1 = searchPredio(*city, cep, face, i);
+			PosicTree pos1 = searchPredio(*city, cep, face, i);
 			Predio pr1 = NULL;
-			if (!posicVazio(pos1)){
+			if (posicTreeVazio(getCidadeRbtree(*city, 'p'), pos1) == 0){
 				pr1 = getObjPredio(*city, pos1);
 			}
 			if (mr1 != NULL){

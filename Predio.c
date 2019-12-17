@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Predio.h"
+#include "Calculos.h"
 
 typedef struct{
     char face;
@@ -128,4 +129,18 @@ Ponto getPredioPoint(Predio p, int point){
         // printf("-----------------------------\n");
 
     return createPonto(x, y);
+}
+
+int cmpPredioTree(Predio prd1, Predio prd2){
+    Ponto p1 = getPredioPoint(prd1, 1), p2 = getPredioPoint(prd2, 1);
+    if (doubleEquals(getPontoX(p1), getPontoX(p2))){
+        if (getPontoY(p1) >= getPontoY(p2))
+            return 1;
+        else
+            return -1;
+    } else if (getPontoX(p1) > getPontoX(p2)){
+        return 1;
+    } else {
+        return -1;
+    }    
 }

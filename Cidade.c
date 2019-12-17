@@ -185,7 +185,7 @@ void addForma(Cidade city, Item info, int type){
     forms *forma = (forms*)malloc(sizeof(forms));
     forma->thing = info;
     forma->type = type;
-    insertList(newCity->lFor, forma);
+    // insertList(newCity->lFor, forma);
     insertRbtree(newCity->aFor, forma, cmpFormaTree);
     if (type == 0){
         newCity->cirQntd++;
@@ -197,20 +197,20 @@ void addForma(Cidade city, Item info, int type){
 void addMuro(Cidade city, Muro m){
     cidade *newCity = (cidade*)city;
     insertList(newCity->lMur, m);
-    // insertRbtree(newCity->aMur, m, NULL);
+    insertRbtree(newCity->aMur, m, cmpMuroTree);
 }
 
 void addPredio(Cidade city, Predio p){
     cidade *newCity = (cidade*)city;
-    insertList(newCity->lPre, p);
-    // insertRbtree(newCity->aPre, p, NULL);
+    // insertList(newCity->lPre, p);
+    insertRbtree(newCity->aPre, p, cmpPredioTree);
 }
 
 void addQuadra(Cidade city, Quadra q){
     Posic p;
     cidade *newCity = (cidade*)city;
     p = insertList(newCity->lQua, q);
-    // insertRbtree(newCity->aQua, q, NULL);
+    insertRbtree(newCity->aQua, q, cmpQuadraTree);
 }
 
 void addSemaforo(Cidade city, Semaforo s){
@@ -257,16 +257,18 @@ Item getObjTorre(Cidade city, Posic p){
     return getObjList(newCity->lTor, p);
 }
 
-Predio getObjPredio(Cidade city, Posic p){
+Predio getObjPredio(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
-    return getObjList(newCity->lPre, p);
+    // return getObjList(newCity->lPre, p);
+    return getObjRbtree(newCity->aPre, p);
 }
 
 Rbtree getCidadeRbtree(Cidade city, char type){
     cidade *newCity = (cidade*)city;
     if (type == 't')
         return (Rbtree)newCity->aTor;
-    
+    else if (type == 'p')
+        return(Rbtree)newCity->aPre;
     return NULL;
 }
 
@@ -286,17 +288,38 @@ Estab searchEstabCom(Cidade city, char *cnpj){
     return (Estab)searchHash(newCity->hECXCnpj, cnpj, getEstabCNPJ);
 }
 
-Posic searchPredio(Cidade city, char *cep, char face, int num){
+int searchPA(Rbtree tree, PosicTree atual, PosicTree *search, char *cep, char face, int num){
+    int i;
+    if (posicTreeVazio(tree, atual))
+        return -1;
+    i = searchPA(tree, getRbtreeLeft(tree, atual), search, cep, face, num);
+    if (i == 0)
+        return 0;
+    i = searchPA(tree, getRbtreeRight(tree, atual), search, cep, face, num);
+    if (i == 0)
+        return 0;
+
+    Predio p1 = getObjRbtree(tree, atual);
+    if (strcmp(cep, getPredioCep(p1)) == 0 && getPredioFace(p1) == face && getPredioNumero(p1) == num){
+        *search = atual;
+        return 0;
+    }
+}
+
+PosicTree searchPredio(Cidade city, char *cep, char face, int num){
     cidade *newCity = (cidade*)city;
     Predio pre;
-    Posic pos;
-    for(pos = getFirst(newCity->lPre); pos >= 0; pos = getNext(newCity->lPre, pos)){
-        pre = getObjList(newCity->lPre, pos);
-        if ((strcmp(cep, getPredioCep(pre)) == 0) && (face == getPredioFace(pre)) && (num == getPredioNumero(pre))){
-            return pos;
-        }
-    }
-    return -1;
+    PosicTree pos, search = getNullTree(newCity->aPre);
+    searchPA(newCity->aPre, getRoot(newCity->aPre), &search, cep, face, num);
+    return search;
+
+    // for(pos = getFirst(newCity->lPre); pos >= 0; pos = getNext(newCity->lPre, pos)){
+    //     pre = getObjList(newCity->lPre, pos);
+    //     if ((strcmp(cep, getPredioCep(pre)) == 0) && (face == getPredioFace(pre)) && (num == getPredioNumero(pre))){
+    //         return pos;
+    //     }
+    // }
+    // return -1;
 }
 
 int searchFormaRec(Rbtree tree, PosicTree pos, PosicTree *search, int *type, int id){
@@ -359,17 +382,19 @@ Posic searchForma(Cidade city, int id, int *type){
 }
 */
 
-Posic searchQuadra(Cidade city, char *cep){
+PosicTree searchQuadra(Cidade city, char *cep){
     cidade *newCity = (cidade*)city;
     Quadra q1;
-    Posic p1;
-    for (p1 = getFirst(newCity->lQua); p1 >= 0; p1 = getNext(newCity->lQua, p1)){
-        q1 = getObjList(newCity->lQua, p1);
-        if (strcmp(getQuadraCep(q1), cep) == 0){
-            return p1;
-        }
-    }
-    return -1;
+    PosicTree pt1;
+    
+    // Posic p1;
+    // for (p1 = getFirst(newCity->lQua); p1 >= 0; p1 = getNext(newCity->lQua, p1)){
+    //     q1 = getObjList(newCity->lQua, p1);
+    //     if (strcmp(getQuadraCep(q1), cep) == 0){
+    //         return p1;
+    //     }
+    // }
+    // return -1;
 }
 
 Posic searchSemaforo(Cidade city, char *id){
@@ -518,6 +543,11 @@ void removeHidrante(Cidade city, Posic p){
     removeList(newCity->lHid, p);
 }
 
+void removePredio(Cidade city, PosicTree p){
+    cidade *newCity = (cidade*)city;
+    removeRbtree(newCity->aPre, p);
+}
+
 typedef void (*removeElement)(Cidade, Posic);
 
 void deleteListCity(Cidade city, Lista list, removeElement func){
@@ -551,6 +581,7 @@ void freeCidade(Cidade city){
     // printf("lista for\n");
     // deleteListCity(city, newCity->lFor, &removeForma);
     deleteTreeCity(city, newCity->aFor, &removeForma);
+    deleteTreeCity(city, newCity->aPre, &removePredio);
     // printf("lista hid\n");
     deleteListCity(city, newCity->lHid, &removeHidrante);
     // printf("lista qua\n");
