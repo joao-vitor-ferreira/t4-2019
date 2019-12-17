@@ -1,6 +1,7 @@
 #include "Rbtree.h"
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "Calculos.h"
 
 typedef struct forma{
@@ -93,7 +94,7 @@ PosicTree getRbtreeParent(Rbtree tree, PosicTree p){
     node *no = (node*)p;
     return (PosicTree)no->parent;    
 }
-void LeftRotate(Rbtree tree, struct node *x){
+void leftRotate(Rbtree tree, struct node *x){
     head *newHead = (head*)tree;
     struct node *y = x->right;
     x->right = y->left;
@@ -116,36 +117,6 @@ void LeftRotate(Rbtree tree, struct node *x){
     if (x != newHead->null){
         x->parent = y;
     }
-
-    // if (x != newHead->null || x->right != newHead->null)
-    //     return ;
-    // //y ponteiro armazenado do filho certo de x
-    // struct node *y = x->right;
-
-    // //armazena o ponteiro esquerdo da subárvore esquerda como filho direito de x
-    // x->right = y->left;
-
-    // //atualizar o ponteiro pai da direita de x
-    // if (x->right != newHead->null)
-    //     x->right->parent = x;
-
-    // //atualizar o ponteiro pai de y
-    // y->parent = x->parent;
-
-    // // se o pai de x for nulo, faça y como raiz da árvore
-    // if (x->parent == newHead->null)
-    //     (newHead->root) = y;
-
-    // // armazene y no local de x
-    // else if (x == x->parent->left)
-    //     x->parent->left = y;
-    // else    x->parent->right = y;
-
-    // // faça x como filho esquerdo de y
-    // y->left = x;
-
-    // //atualizar ponteiro pai de x
-    // x->parent = y;
 }
 void rightRotate(Rbtree tree, struct node *x){
     head *newHead = (head*)tree;
@@ -153,7 +124,7 @@ void rightRotate(Rbtree tree, struct node *x){
     struct node *y = x->left;
     x->left = y->right;
     if (y->right != newHead->null){
-        (y->right)->parent = x;
+        y->right->parent = x;
     }
 
     if (y != newHead->null){
@@ -163,31 +134,14 @@ void rightRotate(Rbtree tree, struct node *x){
     if (x->parent == newHead->null){
         newHead->root = y;
     } else if (x == (x->parent)->right){
-        (x->parent)->right = y;
+        x->parent->right = y;
     } else {
-        (x->parent)->left = y;
+        x->parent->left = y;
     }
     y->right = x;
     if (x != newHead->null){
         x->parent = y;
     }
-
-    // if (y != newHead->null || y->left != newHead->null)
-    //     return ;
-    // if (y != newHead->null || y->left != newHead->null)
-    //     return;
-    // struct node *x = y->left;
-    // y->left = x->right;
-    // if (x->right != newHead->null)
-    //     x->right->parent = y;
-    // x->parent =y->parent;
-    // if (x->parent == newHead->null)
-    //     (newHead->root) = x;
-    // else if (y == y->parent->left)
-    //     y->parent->left = x;
-    // else y->parent->right = x;
-    // x->right = y;
-    // y->parent = x;
 }
 void insertFixUp(Rbtree tree, struct node *z){
     struct node *y, *x;
@@ -203,7 +157,7 @@ void insertFixUp(Rbtree tree, struct node *z){
             } else {
                 if (z == (z->parent)->right){
                     z = z->parent;
-                    LeftRotate(tree, z);
+                    leftRotate(tree, z);
                 }
                 (z->parent)->color = 'B';
                 ((z->parent)->parent)->color = 'R';
@@ -223,96 +177,14 @@ void insertFixUp(Rbtree tree, struct node *z){
                 }
                 (z->parent)->color = 'B';
                 ((z->parent)->parent)->color = 'R';
-                LeftRotate(tree, (z->parent)->parent);
+                leftRotate(tree, (z->parent)->parent);
             }
         }
-        if (z == newHead->root)
-            break;
+        // if (z == newHead->root)
+        //     break;
         
     }
     (newHead->root)->color = 'B';
-    
-    // struct node **root = &(newHead->root);
-    // // itere até z não ser a raiz e a cor pai de z ser vermelha
-    // while (z != *root && z != (*root)->left && z != (*root)->right && z->parent->color == 'R'){
-    //     struct node *y;
-
-    //     // Encontre o tio e guarde o tio em y
-    //     if (z->parent && z->parent->parent && z->parent == z->parent->parent->left)
-    //         y = z->parent->parent->right;
-    //     else
-    //         y = z->parent->parent->left;
-
-    //     // Se o tio for VERMELHO, faça o seguinte
-    //     // (i) Mude a cor do pai e do tio como PRETO
-    //     // (ii) Alterar a cor dos avós como VERMELHO
-    //     // (iii) Mover z para avô
-    //     if (!y)
-    //         z = z->parent->parent;
-    //     else if (y->color == 'R'){
-    //         y->color = 'B';
-    //         z->parent->color = 'B';
-    //         z->parent->parent->color = 'R';
-    //         z = z->parent->parent;
-    //     }
-
-    //     // Tio é preto, existem quatro casos (LL, LR, RL and RR)
-    //     else{
-    //         // Caso Esquerda-Esquerda (LL), faça o seguinte
-    //         // (i) Troque a cor dos pais e avós
-    //         // (ii) Girar à direita avô
-    //         if (z->parent == z->parent->parent->left &&
-    //             z == z->parent->left){
-
-    //             char ch = z->parent->color ;
-    //             z->parent->color = z->parent->parent->color;
-    //             z->parent->parent->color = ch;
-    //             rightRotate(tree, root,z->parent->parent);
-    //         }
-
-    //         // Caso Esquerda-Direita (LR), faça o seguinte
-    //         // (i) Troque a cor do nó atual e dos avós
-    //         // (ii) Girar pai à esquerda
-    //         // (iii) Girar à direita Grand Parent
-    //         if (z->parent && z->parent->parent && z->parent == z->parent->parent->left &&
-    //             z == z->parent->right){
-
-    //             char ch = z->color ;
-    //             z->color = z->parent->parent->color;
-    //             z->parent->parent->color = ch;
-    //             LeftRotate(tree, z->parent);
-    //             rightRotate(tree, z->parent->parent);
-    //         }
-
-    //         // Caso Direito-Direito (RR), faça o seguinte
-    //         // (i) Troque a cor dos pais e avós
-    //         // (ii) Girar à esquerda avô
-    //         if (z->parent && z->parent->parent &&
-    //             z->parent == z->parent->parent->right &&
-    //             z == z->parent->right){
-
-    //             char ch = z->parent->color ;
-    //             z->parent->color = z->parent->parent->color;
-    //             z->parent->parent->color = ch;
-    //             LeftRotate(tree, root,z->parent->parent);
-    //         }
-
-    //         // Caso Direita-Esquerda (RL), faça o seguinte
-    //         // (i) Troque a cor do nó atual e dos avós
-    //         // (ii) Girar pai à direita
-    //         // (iii) Girar à esquerda Grand Parent
-    //         if (z->parent && z->parent->parent && z->parent == z->parent->parent->right &&
-    //             z == z->parent->left){
-                
-    //             char ch = z->color ;
-    //             z->color = z->parent->parent->color;
-    //             z->parent->parent->color = ch;
-    //             rightRotate(tree, root,z->parent);
-    //             LeftRotate(tree, root,z->parent->parent);
-    //         }
-    //  }
-    // }
-    // (*root)->color = 'B'; // mantém a raiz sempre preta
 }
 
 struct node * minValueNode(Rbtree tree, struct node *node){
@@ -469,139 +341,217 @@ void insertRbtree(Rbtree tree, Item data, RbtreeCompare comp){
 
 /* DELETA ELEMENTO */
 
-void removeRbtree(Rbtree tree, PosicTree pObj){
-    struct node *x, *y, *w, *ppObj;
-    ppObj = (node*)pObj;
-    head *cabeca = (head*)tree;
-    int x_esquerda;
-    if (ppObj == cabeca->null)
-        return;
-    if (ppObj->left == cabeca->null && ppObj->right == cabeca->null) {
+void rbtreeTransplant(Rbtree tree, PosicTree a, PosicTree b){
+    head *newHead = (head*)tree;
+    node *u = (node*)a, *v = (node*)b;
+    if (u->parent == newHead->null)
+        newHead->root = v;
+    else if (u == u->parent->left)
+        u->parent->left = v;
+    else
+        u->parent->right = v;
+    v->parent = u->parent;
+}
 
-        y = cabeca->null;
-        x = cabeca->null;
-        x->parent = ppObj->parent;
-        if (ppObj->parent != cabeca->null && ppObj->parent->left == ppObj)
-            x_esquerda = 1;
-        else
-            x_esquerda = 0;
-        
-    } else if (ppObj->left == cabeca->null && ppObj->right != cabeca->null) {
+PosicTree getRbtreeMinValue(Rbtree tree, PosicTree pNo){
+    head *newHead = (head*)tree;
+    node *no = (node*)pNo;
+    if (no->left == newHead->null)
+        return no;
+    getRbtreeMinValue(tree, no->left);
+}
 
-        y = ppObj->right;
-        x = ppObj->right;
-        x->parent = ppObj->parent;
-        x_esquerda = 0;
-    } else if (ppObj->left != cabeca->null && ppObj->right == cabeca->null) {
-        y = ppObj->left;
-        x = ppObj->left;
-        x->parent = ppObj->parent;
-        x_esquerda = 1;
-    } else {
-        y = ppObj->right;
-        while (y->left != cabeca->null)
-            y = y->left;
-        x = y->right;
-        if (y != ppObj->right) {
-            y->left = ppObj->left;
-            y->right = ppObj->right;
-            y->left->parent = y;
-            y->right->parent = y;
-            x->parent = y->parent;
-            x->parent->left = x;
-            x_esquerda = 1;
-        } else {
-            x->parent = y;
-            y->left = ppObj->left;
-            ppObj->left->parent = y;
-            x_esquerda = 0;
-        }
-    }
-
-    if (ppObj->parent != cabeca->null) {
-        if (ppObj->parent->left == ppObj)
-            ppObj->parent->left = y;
-        else
-            ppObj->parent->right = y;
-    } else {
-        (cabeca->root) = y;
-    }
-
-    if (y != cabeca->null) {
-        y->parent = ppObj->parent;
-    }
-
-	
-    if (ppObj->color == 'R' && (y->color == 'R' || y == cabeca->null))
-        return;
-    else if (ppObj->color == 'R' && y->color == 'B') {
-        y->color = 'R';
-    } else if (ppObj->color == 'B' && y->color == 'R') {
-        y->color = 'B';
-        return;
-    }
-
-    while (x != (cabeca->root)) {
-        if (x_esquerda)
+void deleteFixUp(Rbtree tree, PosicTree p){
+    head *newHead = (head*)tree;
+    node *x = (node*)p, *w;
+    
+    while (x != newHead->null && x->color == 'B'){
+        if (x == x->parent->left)
             w = x->parent->right;
         else
             w = x->parent->left;
-        
-        if (x->color == 'R') {
-            x->color = 'B';
-            return;
-        } else {
-            if (w->color == 'R') {
-                w->color = 'B';
-                x->parent->color = 'R';
-                if (x_esquerda) {
-                    LeftRotate(cabeca->root, x->parent);
-                    w = x->parent->right;
-                } else {
-                    rightRotate(cabeca->root, x->parent);
-                    w = x->parent->left;
-                }
-            }
-			
-            if (w->color == 'B') {
-                if (w->left->color == 'B' && w->right->color == 'B') {
-                    w->color = 'R';
-                    x = x->parent;
-                    x_esquerda = x->parent == cabeca->null ? 0 : x == x->parent->left;
-                    if (x->color == 'R') {
-                        x->color = 'B';
-                        return;
-                    }
-                    continue;
-                } else if (x_esquerda && w->left->color == 'R' && w->right->color == 'B'
-                        || !x_esquerda && w->right->color == 'R' && w->left->color == 'B') {
-                    w->color = 'R';
-                    if (x_esquerda) {
-                        w->left->color = 'B';
-                        rightRotate(cabeca->root, w);
-                        w = x->parent->right;
-                    } else {
-                        w->right->color = 'B';
-                        LeftRotate(cabeca->root, w);
-                        w = x->parent->left;
-                    }
-                }
-                w->color = x->parent->color;
-                x->parent->color = 'B';
-                if (x->parent->left == x) {
-                    w->right->color = 'B';
-                    LeftRotate(cabeca->root, x->parent);
-                } else {
-                    w->left->color = 'B';
-                    rightRotate(cabeca->root, x->parent);
-                }
-                return;
-            }
+        if (w->color == 'R'){
+            w->color = 'B';
+            x->parent->color = 'R';
+            leftRotate(tree, x->parent);
+            w = x->parent->right;
+        }
+        if (w->left->color == 'B' && w->right->color == 'B'){
+            w->color = 'R';
+            x = x->parent;
+        } else if (w->right->color == 'B'){
+            w->left->color = 'B';
+            w->color = 'R';
+            rightRotate(tree, w);
+            w = x->parent->right;
         }
     }
+}
+
+void removeRbtree(Rbtree tree, PosicTree pObj){
+    head *newHead = (head*)tree;
+    node *z = (node*)pObj, *y, *x;
+    y = z;
+    char y_cor_original = y->color;
+    if (z->left == newHead->null){
+        x = z->right;
+        rbtreeTransplant(tree, z, z->right);
+    } else if (z->right == newHead->null){
+        x = z->left;
+        rbtreeTransplant(tree, z, z->left);
+    } else {
+        y = getRbtreeMinValue(tree, z->right);
+        y_cor_original = y->color;
+        x = y->right;
+        if (y->parent == z)
+            x->parent = y;
+        else {
+            rbtreeTransplant(tree, y, y->right);
+            y->right = z->right;
+            y->right->parent = y;
+        }
+        rbtreeTransplant(tree, z, y);
+        y->left = z->left;
+        y->left->parent = y;
+        y->color = z->color;
+    }
+    if (y_cor_original == 'B')
+        deleteFixUp(tree, x);
+}
+
+// void removeRbtree(Rbtree tree, PosicTree pObj){
+//     struct node *x, *y, *w, *ppObj;
+//     ppObj = (node*)pObj;
+//     head *cabeca = (head*)tree;
+//     int x_esquerda;
+//     if (ppObj == cabeca->null)
+//         return;
+//     if (ppObj->left == cabeca->null && ppObj->right == cabeca->null) {
+
+//         y = cabeca->null;
+//         x = cabeca->null;
+//         x->parent = ppObj->parent;
+//         if (ppObj->parent != cabeca->null && ppObj->parent->left == ppObj)
+//             x_esquerda = 1;
+//         else
+//             x_esquerda = 0;
+        
+//     } else if (ppObj->left == cabeca->null && ppObj->right != cabeca->null) {
+
+//         y = ppObj->right;
+//         x = ppObj->right;
+//         x->parent = ppObj->parent;
+//         x_esquerda = 0;
+//     } else if (ppObj->left != cabeca->null && ppObj->right == cabeca->null) {
+//         y = ppObj->left;
+//         x = ppObj->left;
+//         x->parent = ppObj->parent;
+//         x_esquerda = 1;
+//     } else {
+//         y = ppObj->right;
+//         while (y->left != cabeca->null)
+//             y = y->left;
+//         x = y->right;
+//         if (y != ppObj->right) {
+//             y->left = ppObj->left;
+//             y->right = ppObj->right;
+//             y->left->parent = y;
+//             y->right->parent = y;
+//             x->parent = y->parent;
+//             x->parent->left = x;
+//             x_esquerda = 1;
+//         } else {
+//             x->parent = y;
+//             y->left = ppObj->left;
+//             ppObj->left->parent = y;
+//             x_esquerda = 0;
+//         }
+//     }
+
+//     if (ppObj->parent != cabeca->null) {
+//         if (ppObj->parent->left == ppObj)
+//             ppObj->parent->left = y;
+//         else
+//             ppObj->parent->right = y;
+//     } else {
+//         (cabeca->root) = y;
+//     }
+
+//     if (y != cabeca->null) {
+//         y->parent = ppObj->parent;
+//     }
+
+	
+//     if (ppObj->color == 'R' && (y->color == 'R' || y == cabeca->null))
+//         return;
+//     else if (ppObj->color == 'R' && y->color == 'B') {
+//         y->color = 'R';
+//     } else if (ppObj->color == 'B' && y->color == 'R') {
+//         y->color = 'B';
+//         return;
+//     }
+
+//     while (x != (cabeca->root)) {
+//         if (x_esquerda)
+//             w = x->parent->right;
+//         else
+//             w = x->parent->left;
+        
+//         if (x->color == 'R') {
+//             x->color = 'B';
+//             return;
+//         } else {
+//             if (w->color == 'R') {
+//                 w->color = 'B';
+//                 x->parent->color = 'R';
+//                 if (x_esquerda) {
+//                     leftRotate(cabeca->root, x->parent);
+//                     w = x->parent->right;
+//                 } else {
+//                     rightRotate(cabeca->root, x->parent);
+//                     w = x->parent->left;
+//                 }
+//             }
+			
+//             if (w->color == 'B') {
+//                 if (w->left->color == 'B' && w->right->color == 'B') {
+//                     w->color = 'R';
+//                     x = x->parent;
+//                     x_esquerda = x->parent == cabeca->null ? 0 : x == x->parent->left;
+//                     if (x->color == 'R') {
+//                         x->color = 'B';
+//                         return;
+//                     }
+//                     continue;
+//                 } else if (x_esquerda && w->left->color == 'R' && w->right->color == 'B'
+//                         || !x_esquerda && w->right->color == 'R' && w->left->color == 'B') {
+//                     w->color = 'R';
+//                     if (x_esquerda) {
+//                         w->left->color = 'B';
+//                         rightRotate(cabeca->root, w);
+//                         w = x->parent->right;
+//                     } else {
+//                         w->right->color = 'B';
+//                         leftRotate(cabeca->root, w);
+//                         w = x->parent->left;
+//                     }
+//                 }
+//                 w->color = x->parent->color;
+//                 x->parent->color = 'B';
+//                 if (x->parent->left == x) {
+//                     w->right->color = 'B';
+//                     leftRotate(cabeca->root, x->parent);
+//                 } else {
+//                     w->left->color = 'B';
+//                     rightRotate(cabeca->root, x->parent);
+//                 }
+//                 return;
+//             }
+//         }
+//     }
     
    
-}
+// }
 
 
 // void delete(Rbtree tree, int data){
@@ -661,7 +611,6 @@ void inorder(Rbtree tree, struct node *root) {
     inorder(tree, root->left);
     printf("%.2lf cor %C\n", ((forma *)root->data)->x,root->color);
     inorder(tree, root->right);
-    printf("%.2lf cor %C\n", ((forma *)root->data)->x,root->color);
 }
 /* FIM DA IMPRESSAO DA ARVORE*/
 
@@ -739,7 +688,7 @@ int cmpData(Item x, Item y){
         } else {
             return -1;
         }
-    } else if (a->x > b->x){
+    } else if (a->x >= b->x){
         return 1;
     } else {
         return -1;
@@ -764,51 +713,67 @@ int countt(Rbtree tree){
     return c;
 }
 
-void printNodeSvg(FILE *svg, Rbtree tree, PosicTree root, int width, int height, double x_ant, double y_ant, int *es){
+void printNodeSvg(FILE *svg, Rbtree tree, PosicTree root, double width, double height, double x_ant, double y_ant, int es){
     head *newHead = (head*)tree;
     node *no = (node*)root;
     char cor[20];
-    int lar = 15;
+    int lar = 15, a, b;
     if (posicTreeVazio(tree, root))
         return;
-    if (*es){
-        printNodeSvg(svg, tree, getRbtreeLeft(tree, root), width -1, height + 40, width*(lar+0.1), height*(1.1), es);
-    } else {
-        if (no == newHead->root)
-            printNodeSvg(svg, tree, getRbtreeLeft(tree, root), width - 1, height + 40, width*(lar+0.1), height*(1.1), es);
-        else
-            printNodeSvg(svg, tree, getRbtreeLeft(tree, root), width, height + 40, width*(lar+0.1), height*(1.1), es);
-    }
-    if (no == newHead->root)
-        *es = 0;
-    if (*es){
-        if (no == newHead->root)
-            printNodeSvg(svg, tree, getRbtreeRight(tree, root), width + 1, height + 40, width*(lar+0.1), height*(1.1), es);
-        else
-            printNodeSvg(svg, tree, getRbtreeRight(tree, root), width, height + 40, width*(lar+0.1), height*(1.1), es);
-    } else {
-        printNodeSvg(svg, tree, getRbtreeRight(tree, root), width + 1, height + 40, width*(lar+0.1), height*(1.1), es);
-    }
+    printNodeSvg(svg, tree, getRbtreeLeft(tree, root), width - (es)/2, height + 40, (width + 1)*lar, height, es/2);  
+    printNodeSvg(svg, tree, getRbtreeRight(tree, root), width + (es)/2, height + 40, (width + 1)*lar, height, es/2);
     if(no->color == 'R')
         strcpy(cor, "red");
     else
-        strcpy(cor, "black");
-    printf("%d\n", lar);
-    fprintf(svg, "<circle cx = \"%f\" cy = \"%f\" r = \"5\" fill = \"%s\" stroke=\"%s\" stroke-width=\"1\" fill-opacity = \"1\"/>\n", width*(lar+0.1), height*(1.1), cor, cor);
-    fprintf(svg, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"4\" stroke=\"darkgreen\" />\n", width*(lar+0.1), height*(1.1), x_ant, y_ant);
-    if (no == newHead->root){
-        fprintf(svg, "<text x=\"%f\" y=\"%f\" font-family= \"Verdana\"  font-size=\"40\">root</text>\n", width*(lar+0.1) + 10, height*(1.1));
-        printf("aki\n");
-        *es = 0;
-    }
+        strcpy(cor, "black");    
+    fprintf(svg, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"4\" stroke=\"darkgreen\" />\n", (width + 1.0)*lar, height, x_ant, y_ant);
+    fprintf(svg, "<circle cx = \"%f\" cy = \"%f\" r = \"10\" fill = \"%s\" stroke=\"%s\" stroke-width=\"1\" fill-opacity = \"1\"/>\n", (width + 1.0)*lar, height, cor, cor);
+
+    // if (*es){
+    //     printNodeSvg(svg, tree, getRbtreeLeft(tree, root), (width -1)/2, height + 40, width*(lar+0.1), height*(1.1), es);
+    // } else {
+    //     if (no == newHead->root)
+    //         printNodeSvg(svg, tree, getRbtreeLeft(tree, root), (width - 1)/2, height + 40, width*(lar+0.1), height*(1.1), es);
+    //     else
+    //         printNodeSvg(svg, tree, getRbtreeLeft(tree, root), width/2, height + 40, width*(lar+0.1), height*(1.1), es);
+    // }
+    // if (no == newHead->root)
+    //     *es = 0;
+    // if (*es){
+    //     if (no == newHead->root)
+    //         printNodeSvg(svg, tree, getRbtreeRight(tree, root), (width + 1)/2, height + 40, width*(lar+0.1), height*(1.1), es);
+    //     else
+    //         printNodeSvg(svg, tree, getRbtreeRight(tree, root), width/2, height + 40, width*(lar+0.1), height*(1.1), es);
+    // } else {
+    //     printNodeSvg(svg, tree, getRbtreeRight(tree, root), (width + 1)/2, height + 40, width*(lar+0.1), height*(1.1), es);
+    // }
+    // if(no->color == 'R')
+    //     strcpy(cor, "red");
+    // else
+    //     strcpy(cor, "black");
+    // printf("%d\n", lar);
+    // fprintf(svg, "<circle cx = \"%f\" cy = \"%f\" r = \"5\" fill = \"%s\" stroke=\"%s\" stroke-width=\"1\" fill-opacity = \"1\"/>\n", width*(lar+0.1), height*(1.1), cor, cor);
+    // fprintf(svg, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"4\" stroke=\"darkgreen\" />\n", width*(lar+0.1), height*(1.1), x_ant, y_ant);
+    // if (no == newHead->root){
+    //     fprintf(svg, "<text x=\"%f\" y=\"%f\" font-family= \"Verdana\"  font-size=\"40\">root</text>\n", width*(lar+0.1) + 10, height*(1.1));
+    //     printf("aki\n");
+    //     *es = 0;
+    // }
 }
 
 void printTreeSvg(FILE *svg, Rbtree tree){
     head *newHead = (head*)tree;
     node *atual = (node*)newHead->root;
-    int width = getMaxWidth(tree), height = getMaxHeight(tree), es = 1;
-    
-    printNodeSvg(svg, tree, getRoot(tree), width/2 + 1, 30, (width/2 + 1)*(10), 30*(1.1), &es);
+    int width = getMaxWidth(tree), height = getMaxHeight(tree), es;
+    if (width%2 == 1){
+        width++;
+    }
+    if (height%2==1){
+        height++;
+    }
+    width  *= ceil(height/2);
+    es = width;
+    printNodeSvg(svg, tree, getRoot(tree), width, 30, (width + 1)*(15), 30, es);
 }
 
 void deletaTudo(Rbtree tree, PosicTree root, int *count){
@@ -829,7 +794,7 @@ int main() {
     Forma coisa;
     PosicTree p1;
     FILE *arq;
-    for (i=0; i<200; ++i){
+    for (i=0; i<100; ++i){
         // printf("1\n");
         coisa = createForma(random()/100000000.123,random()/100000000.43412);
 		insertRbtree(head,coisa, cmpData);
@@ -843,13 +808,17 @@ int main() {
         return 0;
     }
         
-    fprintf(arq, "<svg>\n");    
-    printTreeSvg(arq, head);
-    fprintf(arq, "</svg>\n");    
+    // fprintf(arq, "<svg>\n");    
+    // printTreeSvg(arq, head);
+    // fprintf(arq, "</svg>\n");    
     // getchar();
     fclose(arq);
     // getchar();
     // printf("antes\n");
+    removeRbtree(head, getRbtreeLeft(head, getRbtreeLeft(head, getRoot(head))));
+    removeRbtree(head, getRoot(head));
+    getchar();
+    printTree(head);
     // deletaTudo(head, getRoot(head), &count);
     // deletaTudo(head, getRoot(head));
     // printf("depois\n");
