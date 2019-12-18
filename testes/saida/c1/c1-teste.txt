@@ -1,303 +1,4 @@
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_AndarNome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_AndarNome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_AndarNome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_AndarNome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_AndarNome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_AndarNome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_AndarNome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_AndarNome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_AndarNome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
+o? 3 4
 NÃO
 Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
 Comando m?
@@ -314,145 +15,7 @@ Nome: Mart_Marit Cpf: 000.001.421-40
 Endereço novo
 Cep: b01.3 Face: N numero: 10
 Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
-NÃO
-comando fh: hneb01.1
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
 comando fh: hnob09.1
 comando fh: hnob010.10
 comando fh: hob010.10
@@ -474,7 +37,9 @@ comando fh: hob08.7
 comando fh: hnb09.8
 comando fh: hnb08.7
 comando fh: hnb09.7
-Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
+NÃO
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
 Comando m?
 Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
 Nome: Mart_Marit Cpf: 000.001.421-40
@@ -489,9 +54,7 @@ Nome: Mart_Marit Cpf: 000.001.421-40
 Endereço novo
 Cep: b01.3 Face: N numero: 10
 Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
-NÃO
-comando fh: hneb01.1
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
 comando fh: hnob09.1
 comando fh: hnob010.10
 comando fh: hob010.10
@@ -513,7 +76,9 @@ comando fh: hob08.7
 comando fh: hnb09.8
 comando fh: hnb08.7
 comando fh: hnb09.7
-Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
+NÃO
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
 Comando m?
 Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
 Nome: Mart_Marit Cpf: 000.001.421-40
@@ -528,9 +93,7 @@ Nome: Mart_Marit Cpf: 000.001.421-40
 Endereço novo
 Cep: b01.3 Face: N numero: 10
 Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
-NÃO
-comando fh: hneb01.1
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
 comando fh: hnob09.1
 comando fh: hnob010.10
 comando fh: hob010.10
@@ -552,7 +115,9 @@ comando fh: hob08.7
 comando fh: hnb09.8
 comando fh: hnb08.7
 comando fh: hnb09.7
-Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
+NÃO
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
 Comando m?
 Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
 Nome: Mart_Marit Cpf: 000.001.421-40
@@ -567,9 +132,7 @@ Nome: Mart_Marit Cpf: 000.001.421-40
 Endereço novo
 Cep: b01.3 Face: N numero: 10
 Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
-NÃO
-comando fh: hneb01.1
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
 comando fh: hnob09.1
 comando fh: hnob010.10
 comando fh: hob010.10
@@ -591,7 +154,9 @@ comando fh: hob08.7
 comando fh: hnb09.8
 comando fh: hnb08.7
 comando fh: hnb09.7
-Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
+NÃO
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
 Comando m?
 Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
 Nome: Mart_Marit Cpf: 000.001.421-40
@@ -606,9 +171,85 @@ Nome: Mart_Marit Cpf: 000.001.421-40
 Endereço novo
 Cep: b01.3 Face: N numero: 10
 Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andaro? 3 4
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
+comando fh: hnob09.1
+comando fh: hnob010.10
+comando fh: hob010.10
+comando fh: hnb010.10
+comando fh: hnob09.10
+comando fh: hob09.10
+comando fh: hneb010.10
+comando fh: hnob010.9
+comando fh: hnb09.10
+comando fh: hnob08.10
+comando fh: hob010.9
+comando fh: hob09.7
+comando fh: hneb08.8
+comando fh: hnob08.7
+comando fh: hneb09.8
+comando fh: hnob09.7
+comando fh: hnb08.8
+comando fh: hob08.7
+comando fh: hnb09.8
+comando fh: hnb08.7
+comando fh: hnb09.7
+Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
 NÃO
-comando fh: hneb01.1
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: N numero: 10
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
+comando fh: hnob09.1
+comando fh: hnob010.10
+comando fh: hob010.10
+comando fh: hnb010.10
+comando fh: hnob09.10
+comando fh: hob09.10
+comando fh: hneb010.10
+comando fh: hnob010.9
+comando fh: hnb09.10
+comando fh: hnob08.10
+comando fh: hob010.9
+comando fh: hob09.7
+comando fh: hneb08.8
+comando fh: hnob08.7
+comando fh: hneb09.8
+comando fh: hnob09.7
+comando fh: hnb08.8
+comando fh: hob08.7
+comando fh: hnb09.8
+comando fh: hnb08.7
+comando fh: hnb09.7
+Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
+NÃO
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: N numero: 10
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
 comando fh: hnob09.1
 comando fh: hnob010.10
 comando fh: hob010.10
@@ -907,131 +548,6 @@ Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | F
 NÃO
 Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
 Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3o? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
-comando fh: hnob09.1
-comando fh: hnob010.10
-comando fh: hob010.10
-comando fh: hnb010.10
-comando fh: hnob09.10
-comando fh: hob09.10
-comando fh: hneb010.10
-comando fh: hnob010.9
-comando fh: hnb09.10
-comando fh: hnob08.10
-comando fh: hob010.9
-comando fh: hob09.7
-comando fh: hneb08.8
-comando fh: hnob08.7
-comando fh: hneb09.8
-comando fh: hnob09.7
-comando fh: hnb08.8
-comando fh: hob08.7
-comando fh: hnb09.8
-comando fh: hnb08.7
-comando fh: hnb09.7
-Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
-comando fh: hnob09.1
-comando fh: hnob010.10
-comando fh: hob010.10
-comando fh: hnb010.10
-comando fh: hnob09.10
-comando fh: hob09.10
-comando fh: hneb010.10
-comando fh: hnob010.9
-comando fh: hnb09.10
-comando fh: hnob08.10
-comando fh: hob010.9
-comando fh: hob09.7
-comando fh: hneb08.8
-comando fh: hnob08.7
-comando fh: hneb09.8
-comando fh: hnob09.7
-comando fh: hnb08.8
-comando fh: hob08.7
-comando fh: hnb09.8
-comando fh: hnb08.7
-comando fh: hnb09.7
-Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: O numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço antigo
-Cep: b01.3 Face: S numero: 10
-Comando "mud"
-Nome: Mart_Marit Cpf: 000.001.421-40
-Endereço novo
-Cep: b01.3 Face: N numero: 10
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
-comando fh: hnob09.1
-comando fh: hnob010.10
-comando fh: hob010.10
-comando fh: hnb010.10
-comando fh: hnob09.10
-comando fh: hob09.10
-comando fh: hneb010.10
-comando fh: hnob010.9
-comando fh: hnb09.10
-comando fh: hnob08.10
-comando fh: hob010.9
-comando fh: hob09.7
-comando fh: hneb08.8
-comando fh: hnob08.7
-comando fh: hneb09.8
-comando fh: hnob09.7
-comando fh: hnb08.8
-comando fh: hob08.7
-comando fh: hnb09.8
-comando fh: hnb08.7
-comando fh: hnb09.7
-Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3o? 3 4
-NÃO
-Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
-Comando m?
 Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
 Nome: Mart_Marit Cpf: 000.001.421-40
 Endereço novo
@@ -1194,10 +710,248 @@ Endereço novo
 Cep: b01.3 Face: O numero: 10
 Comando "mud"
 Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
 Endereço novo
 Cep: b01.3 Face: N numero: 10
 Comando m?
-Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3comando fh: hneb01.1
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
+comando fh: hnob09.1
+comando fh: hnob010.10
+comando fh: hob010.10
+comando fh: hnb010.10
+comando fh: hnob09.10
+comando fh: hob09.10
+comando fh: hneb010.10
+comando fh: hnob010.9
+comando fh: hnb09.10
+comando fh: hnob08.10
+comando fh: hob010.9
+comando fh: hob09.7
+comando fh: hneb08.8
+comando fh: hnob08.7
+comando fh: hneb09.8
+comando fh: hnob09.7
+comando fh: hnb08.8
+comando fh: hob08.7
+comando fh: hnb09.8
+comando fh: hnb08.7
+comando fh: hnb09.7
+Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
+NÃO
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: N numero: 10
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
+comando fh: hnob09.1
+comando fh: hnob010.10
+comando fh: hob010.10
+comando fh: hnb010.10
+comando fh: hnob09.10
+comando fh: hob09.10
+comando fh: hneb010.10
+comando fh: hnob010.9
+comando fh: hnb09.10
+comando fh: hnob08.10
+comando fh: hob010.9
+comando fh: hob09.7
+comando fh: hneb08.8
+comando fh: hnob08.7
+comando fh: hneb09.8
+comando fh: hnob09.7
+comando fh: hnb08.8
+comando fh: hob08.7
+comando fh: hnb09.8
+comando fh: hnb08.7
+comando fh: hnb09.7
+Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
+NÃO
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: N numero: 10
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
+comando fh: hnob09.1
+comando fh: hnob010.10
+comando fh: hob010.10
+comando fh: hnb010.10
+comando fh: hnob09.10
+comando fh: hob09.10
+comando fh: hneb010.10
+comando fh: hnob010.9
+comando fh: hnb09.10
+comando fh: hnob08.10
+comando fh: hob010.9
+comando fh: hob09.7
+comando fh: hneb08.8
+comando fh: hnob08.7
+comando fh: hneb09.8
+comando fh: hnob09.7
+comando fh: hnb08.8
+comando fh: hob08.7
+comando fh: hnb09.8
+comando fh: hnb08.7
+comando fh: hnb09.7
+Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
+NÃO
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: N numero: 10
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
+comando fh: hnob09.1
+comando fh: hnob010.10
+comando fh: hob010.10
+comando fh: hnb010.10
+comando fh: hnob09.10
+comando fh: hob09.10
+comando fh: hneb010.10
+comando fh: hnob010.9
+comando fh: hnb09.10
+comando fh: hnob08.10
+comando fh: hob010.9
+comando fh: hob09.7
+comando fh: hneb08.8
+comando fh: hnob08.7
+comando fh: hneb09.8
+comando fh: hnob09.7
+comando fh: hnb08.8
+comando fh: hob08.7
+comando fh: hnb09.8
+comando fh: hnb08.7
+comando fh: hnb09.7
+Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
+NÃO
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: N numero: 10
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
+comando fh: hnob09.1
+comando fh: hnob010.10
+comando fh: hob010.10
+comando fh: hnb010.10
+comando fh: hnob09.10
+comando fh: hob09.10
+comando fh: hneb010.10
+comando fh: hnob010.9
+comando fh: hnb09.10
+comando fh: hnob08.10
+comando fh: hob010.9
+comando fh: hob09.7
+comando fh: hneb08.8
+comando fh: hnob08.7
+comando fh: hneb09.8
+comando fh: hnob09.7
+comando fh: hnb08.8
+comando fh: hob08.7
+comando fh: hnb09.8
+comando fh: hnb08.7
+comando fh: hnb09.7
+Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
+NÃO
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: N numero: 10
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
+comando fh: hnob09.1
+comando fh: hnob010.10
+comando fh: hob010.10
+comando fh: hnb010.10
+comando fh: hnob09.10
+comando fh: hob09.10
+comando fh: hneb010.10
+comando fh: hnob010.9
+comando fh: hnb09.10
+comando fh: hnob08.10
+comando fh: hob010.9
+comando fh: hob09.7
+comando fh: hneb08.8
+comando fh: hnob08.7
+comando fh: hneb09.8
+comando fh: hnob09.7
+comando fh: hnb08.8
+comando fh: hob08.7
+comando fh: hnb09.8
+comando fh: hnb08.7
+comando fh: hnb09.7
+Nome: Fossa_septica_M1-0 | Cnpj: 00000123/0001-29 | Tipo: fssep | Cep: b04.6 | Face: L | Numero: 40Nome: Ensino_fundamental_M7-0 | Cnpj: 00000118/0001-92 | Tipo: ef | Cep: b07.8 | Face: N | Numero: 80o? 3 4
+NÃO
+Nome: Kees_Francisco | Cpf: 000.001.081-20 | Sexo: M | Data de Nascimento: 28/03/2012
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face S numero 10 complemento ap-3Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: O numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço antigo
+Cep: b01.3 Face: S numero: 10
+Comando "mud"
+Nome: Mart_Marit Cpf: 000.001.421-40
+Endereço novo
+Cep: b01.3 Face: N numero: 10
+Comando m?
+Nome 000.001.421-40 cpf 000.001.421-40 cep b01.3 face N numero 10 complemento 3o_Andarcomando fh: hneb01.1
 comando fh: hnob09.1
 comando fh: hnob010.10
 comando fh: hob010.10

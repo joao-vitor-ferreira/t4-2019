@@ -112,7 +112,7 @@ int cmpSemaforoTree(Semaforo s1, Semaforo s2){
 
 	if (doubleEquals(getSemaforoX(s1), getSemaforoX(s2))){
 		if (getSemaforoY(s1) > getSemaforoY(s2)){
-			return 1
+			return 1;
 		} else {
 			return -1;
 		}

@@ -9,8 +9,8 @@
 
 char *funcIn(int argc, char **argv, char *str);
 char *concatena(char *str1, char *str2);
-void leituraGeo(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain, Cidade *city, Lista lseg, Vector vetVert);
-void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain, Cidade *city, Lista lseg, Vector vetVert);
+void leituraGeo(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain, Cidade *city);
+void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry, Cidade *city);
 void funcFree(char **a);
 char *colocaBarra(char *str);
 char *pegaParametro(int argc, char *argv[], char *str);

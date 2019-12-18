@@ -13,6 +13,7 @@ typedef void *Item;
 typedef void *Forma;
 typedef int (*RbtreeCompare)(Item a, Item b);
 typedef void (*SvgTree)(FILE **, Item);
+typedef char *(*InfoElement)(Item);
 
 // Cria a arvoree retora um Rbtree (void pointer)
 Rbtree createTree();
@@ -31,7 +32,10 @@ void insertRbtree(Rbtree tree, Item data, RbtreeCompare comp);
 void printTree(Rbtree tree);
 
 // Retorna o numero total de elementos
-int qtdRbtree(Rbtree tree);
+int getQtdRbtree(Rbtree tree);
+
+/*escreve no arquivo svg a arvore no estado atual, escrevedo em cada nó da arvore o retorno da função func, relevante ao nó*/
+void printTreeSvg(FILE *svg, Rbtree tree, InfoElement func);
 
 /* Dada uma árvore de pesquisa binária e uma chave, essa função exclui a chave
     e retorna a nova raiz */

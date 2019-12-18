@@ -314,6 +314,11 @@ PosicTree getRbtreeMinValue(Rbtree tree, PosicTree pNo){
     getRbtreeMinValue(tree, no->left);
 }
 
+int getQtdRbtree(Rbtree tree){
+    head *newHead = (head*)tree;
+    return newHead->qtd;
+}
+
 void deleteFixUp(Rbtree tree, PosicTree p){
     head *newHead = (head*)tree;
     node *x = (node*)p, *w;
@@ -667,24 +672,37 @@ int countt(Rbtree tree){
     return c;
 }
 
-void printNodeSvg(FILE *svg, Rbtree tree, PosicTree root, double width, double height, double x_ant, double y_ant, int es){
+void printNodeSvg(FILE *svg, Rbtree tree, PosicTree root, double width, double height, double x_ant, double y_ant, int es, InfoElement func){
     head *newHead = (head*)tree;
     node *no = (node*)root;
     char cor[20];
-    int lar = 15, a, b;
+    int lar = 6, a, b;
     if (posicTreeVazio(tree, root))
         return;
-    printNodeSvg(svg, tree, getRbtreeLeft(tree, root), width - (es)/2, height + 40, (width + 1)*lar, height, es/2);  
-    printNodeSvg(svg, tree, getRbtreeRight(tree, root), width + (es)/2, height + 40, (width + 1)*lar, height, es/2);
+    printNodeSvg(svg, tree, getRbtreeLeft(tree, root), width - (es)/2, (height + 100), (width + 1)*lar, height, es/2, func);  
+    printNodeSvg(svg, tree, getRbtreeRight(tree, root), width + (es)/2, (height + 100), (width + 1)*lar, height, es/2, func);
     if(no->color == 'R')
         strcpy(cor, "red");
     else
         strcpy(cor, "black");    
     fprintf(svg, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke-width=\"4\" stroke=\"darkgreen\" />\n", (width + 1.0)*lar, height, x_ant, y_ant);
     fprintf(svg, "<circle cx = \"%f\" cy = \"%f\" r = \"10\" fill = \"%s\" stroke=\"%s\" stroke-width=\"1\" fill-opacity = \"1\"/>\n", (width + 1.0)*lar, height, cor, cor);
+    if (func != NULL)
+        fprintf(svg, "<text x=\"%f\" y=\"%f\" font-family= \"Verdana\" font-size=\"7\" fill = \"yellow\">%s</text>\n", (width + 1.0)*lar, height ,func(getObjRbtree(tree, no)));
 }
 
-void printTreeSvg(FILE *svg, Rbtree tree){
+int funcLog2(int value){
+    int i = 2, j = 1;
+    while(1){
+        if (value <= i){
+            return i;
+        }
+        j++;
+        i = pow(2, j);
+    }
+    return 2;
+}
+void printTreeSvg(FILE *svg, Rbtree tree, InfoElement func){
     head *newHead = (head*)tree;
     node *atual = (node*)newHead->root;
     int width = getMaxWidth(tree), height = getMaxHeight(tree), es;
@@ -694,9 +712,10 @@ void printTreeSvg(FILE *svg, Rbtree tree){
     if (height%2==1){
         height++;
     }
-    width  *= ceil(height/2);
+    width *= funcLog2(height);
+    printf("%d\n", funcLog2(height));
     es = width;
-    printNodeSvg(svg, tree, getRoot(tree), width, 30, (width + 1)*(15), 30, es);
+    printNodeSvg(svg, tree, getRoot(tree), width, 30, (width + 1)*(4), 30, es, func);
 }
 
 void deletaTudo(Rbtree tree, PosicTree root, int *count){
@@ -717,7 +736,7 @@ void printSvgRbtree(Rbtree tree, PosicTree root, FILE *svg, SvgTree func){
     if (posicTreeVazio(tree, root))
         return;
     printSvgRbtree(tree, getRbtreeLeft(tree, root), svg, func);
-    printSvgRbtree(tree, getRbtreeLeft(tree, root), svg, func);
+    printSvgRbtree(tree, getRbtreeRight(tree, root), svg, func);
     func(&svg, getObjRbtree(tree, root));
 }
 

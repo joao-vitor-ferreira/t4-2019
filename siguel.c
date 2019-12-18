@@ -15,13 +15,11 @@ int main (int argc, char **argv){
 	Cidade city;
 	Item obj;
 	Circulo c;
-	Lista lseg;
 	Retangulo r;
-	Vector *vetVert;
 	int a, b;
 	double  svgW, svgH;
 	char *str = NULL, *str2 = NULL;	
-	svgMain = NULL; 
+	svgMain = NULL;
 	svgW = 0.0;
 	svgH = 0.0;
 	str = pegaParametro(argc, argv, "-o");
@@ -38,7 +36,7 @@ int main (int argc, char **argv){
 	svgMain = fopen(str, "w");
 	funcFree(&str);
 	fprintf(svgMain, "                                                                  ");
-	leituraGeo(argc, argv, &svgH, &svgW, svgMain, &city, lseg, vetVert);
+	leituraGeo(argc, argv, &svgH, &svgW, svgMain, &city);
 	funcFree(&str);
 	str = pegaParametro(argc, argv, "-ec");
 	if (str != NULL)
@@ -60,7 +58,7 @@ int main (int argc, char **argv){
 		svgQry = fopen(str, "w");
 		funcFree(&str);
 		fprintf(svgQry, "                                                                  ");
-		leituraQry(argc, argv, &svgH, &svgW, svgQry, &city, lseg, vetVert);
+		leituraQry(argc, argv, &svgH, &svgW, svgQry, &city);
 		printSvgCidade(city, svgQry);
 		fprintf(svgQry, "</svg>");
 		rewind(svgQry);

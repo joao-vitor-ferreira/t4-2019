@@ -250,7 +250,7 @@ Semaforo getObjSemaforo(Cidade city, PosicTree p){
 
 Torre getObjTorre(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
-    return getObjList(newCity->aTor, p);
+    return getObjRbtree(newCity->aTor, p);
 }
 
 Predio getObjPredio(Cidade city, PosicTree p){
@@ -378,7 +378,7 @@ Posic searchForma(Cidade city, int id, int *type){
 }
 */
 
-int searchQA(Rbtree tree, PosicTree atual, PosicTree *search, char cep){
+int searchQA(Rbtree tree, PosicTree atual, PosicTree *search, char *cep){
     int i = 0;
     if (posicTreeVazio(tree, atual))
         return -1;
@@ -505,14 +505,15 @@ PosicTree searchHidrante(Cidade city, char *id){
 
 PosicTree searchEquipUrban(Cidade city, char *id, char *type){
     PosicTree p1;
+    cidade *newCity = (cidade*)city;
     p1 = searchHidrante(city, id);
-    if(p1<0){
+    if(posicTreeVazio(newCity->aHid, p1)){
         p1 = searchSemaforo(city, id);
-        if(p1<0){
+        if(posicTreeVazio(newCity->aSem, p1)){
             p1 = searchTorre(city, id);
-            if (p1<0){
+            if (posicTreeVazio(newCity->aTor, p1)){
                 *type = 'z';
-                return -1;
+                return getNullTree(getTree(city, 't')); // vou usar o nó vazio da arvore de torres pra referenciar vazio nos comandos
             }
             else {
                 *type = 't';
@@ -526,7 +527,7 @@ PosicTree searchEquipUrban(Cidade city, char *id, char *type){
         *type = 'h';
         return p1;
     }
-    return -1;
+    return getNullTree(getTree(city, 't'));
 }
 
 void removeForma(Cidade city, PosicTree p){
@@ -567,7 +568,7 @@ void removeQuadra(Cidade city, PosicTree p){
             free(getQuadraCorPreenchimento(q1));
         free(q1);
     // removeList(newCity->lQua, p);
-    removeQuadra(newCity->aQua, p);
+    removeRbtree(newCity->aQua, p);
 }
 
 void removeTorre(Cidade city, PosicTree p){
@@ -663,8 +664,8 @@ void freeCidade(Cidade city){
 void printForma(Rbtree tree, PosicTree root, FILE *svg, SvgTree funcCir, SvgTree funcRet){
     if (posicTreeVazio(tree, root))
         return;
-    printForma(tree, getRbtreeLeft(tree, root), funcCir, svg, funcRet);
-    printForma(tree, getRbtreeRight(tree, root), funcCir, svg, funcRet);
+    printForma(tree, getRbtreeLeft(tree, root), svg, funcCir, funcRet);
+    printForma(tree, getRbtreeRight(tree, root), svg, funcCir, funcRet);
     forms *forma = (forms*)getObjRbtree(tree, root);
     if (forma->type == 0)
         funcCir(&svg, forma->thing);
@@ -676,13 +677,13 @@ void printSvgCidade(Cidade city, FILE *svg){
     cidade *newCity = (cidade*)city;
     forms *forma;
     Posic p1, type;
-    printSvgRbtree(newCity->aHid, svg, getRoot(newCity->aHid), printSvgHidrante);
-    printSvgRbtree(newCity->aQua, svg, getRoot(newCity->aQua), printSvgQuadra);
-    printSvgRbtree(newCity->aSem, svg, getRoot(newCity->aSem), printSvgSemaforo);
-    printSvgRbtree(newCity->aTor, svg, getRoot(newCity->aTor), printSvgTorre);
-    printSvgRbtree(newCity->aPre, svg, getRoot(newCity->aPre), printSvgPredio);
-    printSvgRbtree(newCity->aMur, svg, getRoot(newCity->aMur), printSvgMuro);
-    printForma(newCity->aFor, getRoot(newCity->aFor), svg, printSvgCirculo, printSvgRbtree);
+    printSvgRbtree(newCity->aHid, getRoot(newCity->aHid), svg, printSvgHidrante);
+    printSvgRbtree(newCity->aQua, getRoot(newCity->aQua), svg, printSvgQuadra);
+    printSvgRbtree(newCity->aSem, getRoot(newCity->aSem), svg, printSvgSemaforo);
+    printSvgRbtree(newCity->aTor, getRoot(newCity->aTor), svg, printSvgTorre);
+    printSvgRbtree(newCity->aPre, getRoot(newCity->aPre), svg, printSvgPredio);
+    printSvgRbtree(newCity->aMur, getRoot(newCity->aMur), svg, printSvgMuro);
+    printForma(newCity->aFor, getRoot(newCity->aFor), svg, printSvgCirculo, printSvgRetangulo);
 }
 
 void a(Lista list, Function f, int forma, va_list *ap){

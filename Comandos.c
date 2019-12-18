@@ -312,12 +312,12 @@ void calcViewBoxSvg(Cidade city, double *svgW, double *svgH){
 // 	pos++;
 // }
 
-void leituraGeo(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain, Cidade *city, Lista lseg, Vector vetVert){
+void leituraGeo(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain, Cidade *city){
 	int NQ = 1000, NS = 10000, NH = 10000, NR = 10000, NF = 10000, NP = 10000, NM = 10000, i, type;
 	*city = createCidade(NF, NQ, NH, NS, NR, NP, NM);
 	FILE *entrada = NULL;
 	Circulo c1 = NULL;
-	Posic p1;
+	PosicTree p1;
 	Retangulo r1 = NULL;
 	Quadra q1;
 	Semaforo s1;
@@ -558,7 +558,7 @@ void leituraPM(int argc, char **argv, Cidade *city){
 	Predio pr1;
 	Morador mr1;
 	Quadra q1;
-	Posic p1, p2;
+	PosicTree p1, p2;
 	int num;
 	char face;
 	char line[200], word[30], cep[20], suf[20], cnpj[20], cpf[20], codt[20], nome[20], sexo, nasc[20], *aux = NULL, *aux2 = NULL, *aux3 = NULL, *aux4 = NULL, *aux5 = NULL;
@@ -604,7 +604,7 @@ void leituraPM(int argc, char **argv, Cidade *city){
 				pr1 = getObjPredio(*city, pa1);
 			mr1 = createMorador(ps1, pr1, aux2, aux3, face, num, aux);
 			p1 = searchQuadra(*city, cep);
-			if (!posicVazio(p1)){
+			if (!posicTreeVazio(getTree(*city, 'q'), p1)){
 				q1 = getObjQuadra(*city, p1);
 				addQuadraMorador(q1, mr1);
 			}
@@ -664,7 +664,7 @@ void dqL1(Quadra q, ...){
 	FILE *txt;
 	va_list ap1, *ap2, ap3;
 	double raio, x, y, dist;
-	Posic p1;
+	PosicTree p1;
 	Cidade city;
 	va_start(ap1, q);
 	ap2 = va_arg(ap1, va_list*);
@@ -700,7 +700,7 @@ void dqL2(Quadra q, ...){
 		FILE *txt;
 	va_list ap1, *ap2, ap3;
 	double raio, x, y, dist;
-	Posic p1;
+	PosicTree p1;
 	Cidade city;
 	va_start(ap1, q);
 	ap2 = va_arg(ap1, va_list*);
@@ -891,7 +891,7 @@ void cmdFiHid(Hidrante h, ...){
 }
 
 Ponto endereco(Cidade city, char *cep, char face, int numero){
-	Posic p1 = searchQuadra(city, cep);
+	PosicTree p1 = searchQuadra(city, cep);
 	Quadra q1 = getObjQuadra(city, p1);
 	double xq, yq, width, height, x, y;
 	xq = getQuadraX(q1);
@@ -1267,7 +1267,7 @@ int cmd_M(Rbtree tree, PosicTree p1, FILE *txt){
 	return 0;
 }
 
-void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry, Cidade *city, Lista lseg, Vector vetVert){
+void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry, Cidade *city){
 	FILE *entrada = NULL, *txt = NULL, *svgBb;
 	Item it;
 	int i, j, var, tipo1, tipo2;
@@ -1277,7 +1277,7 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 	Quadra q1, q2;
 	Semaforo s1, s2;
 	Torre t1, t2;
-	Posic p1, p2;
+	PosicTree p1, p2;
 	PosicTree pa, pb;
 	char *line = NULL, *word = NULL, *cor = NULL, *suf = NULL, 
 	*aux = NULL, *aux2 = NULL, *aux3 = NULL, *text = NULL, *id = NULL, cpf[20], cnpj[20], compl[20], face, cep[20];
@@ -1575,7 +1575,7 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 			throughCity(*city, &trnsTor, 't', x, y, width, height, dx, dy, txt);
 		} else if (strcmp(word, "fi") == 0){
 			sscanf(line, "%s %lf %lf %d %lf", word, &x, &y, &var, &raio);
-			int indice = 0, qtd = qtdList(getList(*city, 's'));
+			int indice = 0, qtd = getQtdRbtree(getTree(*city, 's'));
 			Vector vet1 = createVector(qtd), vet2;
 			qtd = qtdList(getList(*city, 'h'));
 			vet2 = createVector(qtd);
@@ -1615,7 +1615,7 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 		} else if (strcmp(word, "fh") == 0){
 			char face;
 			sscanf(line, "%s %d %s %c %d", word, &var, suf, &face, &i);
-			int indice = 0, qtd = qtdList(getList(*city, 'h'));
+			int indice = 0, qtd = getQtdRbtree(getTree(*city, 'h'));
 			Vector vet = createVector(qtd);
 			Distance d1;
 			Ponto point = endereco(*city, suf, face, i);
@@ -1644,7 +1644,7 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 		} else if (strcmp(word, "fs") == 0){
 			char face;
 			sscanf(line, "%s %d %s %c %d", word, &var, suf, &face, &i);
-			int indice = 0, qtd = qtdList(getList(*city, 's'));
+			int indice = 0, qtd = getQtdRbtree(getTree(*city, 's'));			
 			Vector vet = createVector(qtd);
 			Distance d1;
 			Ponto point = endereco(*city, suf, face, i);		
@@ -1740,7 +1740,7 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 		} else if (strcmp(word, "m?") == 0){
 			sscanf(line, "%s %s", word, cep);
 			p1 = searchQuadra(*city, cep);
-			if (!posicVazio(p1)){
+			if (!posicTreeVazio(getTree(*city, 'q'), p1)){
 				q1 = getObjQuadra(*city, p1);
 				if (txt == NULL){
 					aux = funcTxt(argc, argv);
@@ -1749,6 +1749,29 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 				}			
 				cmd_M(getQuadraArvoreMorador(q1), getRoot(getQuadraArvoreMorador(q1)), txt);
 			}
+		} else if (strcmp(word, "dmprbt") == 0){
+			char tipo;
+			sscanf(line, "%s %c %s", word, &tipo, suf);
+			aux = colocaBarra(pegaParametro(argc, argv, "-o"));
+			aux2 = concatena(aux, suf);
+			FILE *svg = fopen(aux2, "w");
+			fprintf(svg, "<svg>");
+			funcFree(&aux);
+			funcFree(&aux2);
+			if (tipo == 'q')
+				printTreeSvg(svg, getTree(*city, 'q'), getQuadraCep);
+			else if (tipo == 'h')
+				printTreeSvg(svg, getTree(*city, 'h'), getHidranteId);
+			else if (tipo == 't')
+				printTreeSvg(svg, getTree(*city, 't'), getTorreId);
+			else if (tipo == 's')
+				printTreeSvg(svg, getTree(*city, 's'), getSemaforoId);
+			else if (tipo == 'm')
+				printTreeSvg(svg, getTree(*city, 'm'), NULL);
+			else if (tipo == 'p')
+				printTreeSvg(svg, getTree(*city, 'p'), getPredioCep);
+			fprintf(svg, "</svg>");
+			fclose(svg);
 		}
 	}
 	calcViewBoxSvg(*city, svgW, svgH);
