@@ -20,5 +20,7 @@ void setHidranteY(Hidrante h, double y);
 int hidranteInternoRetangulo(FILE **txt, Hidrante h, Retangulo r);
 int hidranteInternoCirculo(FILE **txt, Hidrante h, Circulo c);
 void freeHidrante(Hidrante h);
+/*função de comparação de dois hidrante para arvore, retorna 1 se s1 >= que s2, senão retorna -1*/
+int cmpHidranteTree(Hidrante h1, Hidrante h2);
 
 #endif

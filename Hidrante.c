@@ -98,6 +98,19 @@ int hidranteInternoCirculo(FILE **txt, Hidrante h, Circulo c){
 	return 0;
 }
 
+int cmpHidranteTree(Hidrante h1, Hidrante h2){
+
+	if (doubleEquals(getHidranteX(h1), getHidranteX(h2))){
+		if (getHidranteY(h1) >= getHidranteY(h2))
+			return 1;
+		else
+			return -1;
+	} else if (getHidranteX(h1) > getHidranteX(h2))
+		return 1;
+	else
+		return -1;
+}
+
 void freeHidrante(Hidrante h){
 	hidrante *newHidrante = (hidrante*)h;
 	if (newHidrante->corContorno != NULL){

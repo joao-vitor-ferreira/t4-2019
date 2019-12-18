@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "Calculos.h"
 #include "Retangulo.h"
+#include "Calculos.h"
 
 typedef struct{
 	double x;
@@ -105,4 +106,19 @@ void freeSemaforo(Semaforo s){
 		free(newSemaforo->corPreenchimento);
 	if (newSemaforo->id != NULL)
 		free(newSemaforo->id);
+}
+
+int cmpSemaforoTree(Semaforo s1, Semaforo s2){
+
+	if (doubleEquals(getSemaforoX(s1), getSemaforoX(s2))){
+		if (getSemaforoY(s1) > getSemaforoY(s2)){
+			return 1
+		} else {
+			return -1;
+		}
+	} else if (getSemaforoX(s1) > getSemaforoX(s2)){
+		return 1;
+	} else {
+		return -1;
+	}
 }

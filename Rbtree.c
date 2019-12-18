@@ -711,6 +711,16 @@ void deletaTudo(Rbtree tree, PosicTree root, int *count){
     printf("%d\n", *count);
 }
 
+typedef void (*SvgTree)(FILE **, Item);
+
+void printSvgRbtree(Rbtree tree, PosicTree root, FILE *svg, SvgTree func){
+    if (posicTreeVazio(tree, root))
+        return;
+    printSvgRbtree(tree, getRbtreeLeft(tree, root), svg, func);
+    printSvgRbtree(tree, getRbtreeLeft(tree, root), svg, func);
+    func(&svg, getObjRbtree(tree, root));
+}
+
 // int main() {
 //     int i, count = 0;
 //     Rbtree head = createTree();

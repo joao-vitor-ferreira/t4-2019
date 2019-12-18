@@ -20,4 +20,6 @@ void setSemaforoCorContorno(Semaforo h, char *cor);
 int semaforoInternoRetangulo(FILE **txt, Semaforo s, Retangulo r);
 int semaforoInternoCirculo(FILE **txt, Semaforo s, Circulo c);
 void freeSemaforo(Semaforo s);
+/*função de comparação de dois semaforos para arvore, retorna 1 se s1 >= que s2, senão retorna -1*/
+int cmpSemaforoTree(Semaforo s1, Semaforo s2);
 #endif

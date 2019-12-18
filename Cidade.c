@@ -196,7 +196,7 @@ void addForma(Cidade city, Item info, int type){
 
 void addMuro(Cidade city, Muro m){
     cidade *newCity = (cidade*)city;
-    insertList(newCity->lMur, m);
+    // insertList(newCity->lMur, m);
     insertRbtree(newCity->aMur, m, cmpMuroTree);
 }
 
@@ -207,28 +207,25 @@ void addPredio(Cidade city, Predio p){
 }
 
 void addQuadra(Cidade city, Quadra q){
-    Posic p;
     cidade *newCity = (cidade*)city;
-    p = insertList(newCity->lQua, q);
+    // p = insertList(newCity->lQua, q);
     insertRbtree(newCity->aQua, q, cmpQuadraTree);
 }
 
 void addSemaforo(Cidade city, Semaforo s){
     cidade *newCity = (cidade*)city;
-    insertList(newCity->lSem, s);
-    // insertRbtree(newCity->aSem, s, NULL);
+    // insertList(newCity->lSem, s);
+    insertRbtree(newCity->aSem, s, cmpSemaforoTree);
 }
 
 void addTorre(Cidade city, Torre t){
     cidade *newCity = (cidade*)city;
-    insertList(newCity->lTor, t);
-    // insertRbtree(newCity->aTor, t, torreCompare);
+    insertRbtree(newCity->aTor, t, cmpTorreTree);
 }
 
 void addHidrante(Cidade city, Hidrante h){
     cidade *newCity = (cidade*)city;
-    insertList(newCity->lHid, h);
-    // insertRbtree(newCity->aHid, h, NULL);
+    insertRbtree(newCity->aHid, h, cmpHidranteTree);
 }
 
 Item getObjForma(Cidade city, PosicTree p){
@@ -236,25 +233,24 @@ Item getObjForma(Cidade city, PosicTree p){
     forms *forma = /*getObjList(newCity->lFor, p);*/getObjRbtree(newCity->aFor, p);
     return forma->thing;
 }
-;
-Item getObjQuadra(Cidade city, Posic p){
+Quadra getObjQuadra(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
-    return getObjList(newCity->lQua, p);
+    return getObjRbtree(newCity->aQua, p);
 }
 
-Item getObjHidrante(Cidade city, Posic p){
+Hidrante getObjHidrante(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
-    return getObjList(newCity->lHid, p);
+    return getObjRbtree(newCity->aHid, p);
 }
 
-Item getObjSemaforo(Cidade city, Posic p){
+Semaforo getObjSemaforo(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
-    return getObjList(newCity->lSem, p);
+    return getObjRbtree(newCity->aSem, p);
 }
 
-Item getObjTorre(Cidade city, Posic p){
+Torre getObjTorre(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
-    return getObjList(newCity->lTor, p);
+    return getObjList(newCity->aTor, p);
 }
 
 Predio getObjPredio(Cidade city, PosicTree p){
@@ -382,11 +378,30 @@ Posic searchForma(Cidade city, int id, int *type){
 }
 */
 
+int searchQA(Rbtree tree, PosicTree atual, PosicTree *search, char cep){
+    int i = 0;
+    if (posicTreeVazio(tree, atual))
+        return -1;
+    i = searchQA(tree, getRbtreeLeft(tree, atual), search, cep);
+    if (i == 0)
+        return 0;
+    i = searchQA(tree, getRbtreeRight(tree, atual), search, cep);
+    if (i == 0)
+        return 0;
+    Quadra q1 = getObjRbtree(tree, atual);
+    if (strcmp(cep, getQuadraCep(q1)) == 0){
+        *search = atual;
+        return 0;
+    }
+    return -1;
+}
+
 PosicTree searchQuadra(Cidade city, char *cep){
     cidade *newCity = (cidade*)city;
     Quadra q1;
-    PosicTree pt1;
-    
+    PosicTree pt1 = getRoot(newCity->aQua), search;
+    searchQA(newCity->aQua, pt1, &search, cep);
+    return search;
     // Posic p1;
     // for (p1 = getFirst(newCity->lQua); p1 >= 0; p1 = getNext(newCity->lQua, p1)){
     //     q1 = getObjList(newCity->lQua, p1);
@@ -397,24 +412,56 @@ PosicTree searchQuadra(Cidade city, char *cep){
     // return -1;
 }
 
-Posic searchSemaforo(Cidade city, char *id){
-    cidade *newCity = (cidade*)city;
-    Semaforo s1;
-    Posic p1;
-    for (p1 = getFirst(newCity->lSem); p1 >= 0; p1 = getNext(newCity->lSem, p1)){
-        s1 = getObjList(newCity->lSem, p1);
-        if (strcmp(getSemaforoId(s1), id) == 0){
-            return p1;
-        }
+int searchSA(Rbtree tree, PosicTree atual, PosicTree *search, char *id){
+    int i;
+    if (posicTreeVazio(tree, atual))
+        return -1;
+    searchSA(tree, getRbtreeLeft(tree, atual), search, id);
+    searchSA(tree, getRbtreeRight(tree, atual), search, id);
+    Semaforo s1 = getObjRbtree(tree, atual);
+    if (strcmp(id, getSemaforoId(s1)) == 0){
+        *search = atual;
+        return 0;
     }
     return -1;
 }
 
-Posic searchTorre(Cidade city, char *id){
+PosicTree searchSemaforo(Cidade city, char *id){
+    cidade *newCity = (cidade*)city;
+    Semaforo s1;
+    PosicTree pt1, search;
+    searchSA(newCity->aSem, getRoot(newCity->aSem), &search, id);
+    return search;
+    // Posic p1;
+    // for (p1 = getFirst(newCity->lSem); p1 >= 0; p1 = getNext(newCity->lSem, p1)){
+    //     s1 = getObjList(newCity->lSem, p1);
+    //     if (strcmp(getSemaforoId(s1), id) == 0){
+    //         return p1;
+    //     }
+    // }
+    // return -1;
+}
+
+int searchTA(Rbtree tree, PosicTree atual, PosicTree *search, char *id){
+        int i;
+    if (posicTreeVazio(tree, atual))
+        return -1;
+    searchSA(tree, getRbtreeLeft(tree, atual), search, id);
+    searchSA(tree, getRbtreeRight(tree, atual), search, id);
+    Torre t1 = getObjRbtree(tree, atual);
+    if (strcmp(id, getTorreId(t1)) == 0){
+        *search = atual;
+        return 0;
+    }
+    return -1;
+}
+
+PosicTree searchTorre(Cidade city, char *id){
     cidade *newCity = (cidade*)city;
     Torre t1;
-    PosicTree p1;
-    
+    PosicTree p1, search;
+    searchTA(newCity->aTor, getRoot(newCity->aTor), &search, id);
+    return search;
     // Posic p1;
     // for (p1 = getFirst(newCity->lTor); p1 >= 0; p1 = getNext(newCity->lTor, p1)){
     //     t1 = getObjList(newCity->lTor, p1);
@@ -425,21 +472,39 @@ Posic searchTorre(Cidade city, char *id){
     // return -1;
 }
 
-Posic searchHidrante(Cidade city, char *id){
-    cidade *newCity = (cidade*)city;
-    Hidrante h1;
-    Posic p1;
-    for (p1 = getFirst(newCity->lHid); p1 >= 0; p1 = getNext(newCity->lHid, p1)){
-        h1 = getObjList(newCity->lHid, p1);
-        if (strcmp(getHidranteId(h1), id) == 0){
-            return p1;
-        }
+int searchHA(Rbtree tree, PosicTree atual, PosicTree *search, char *id){
+    int i;
+    if (posicTreeVazio(tree, atual))
+        return -1;
+    searchSA(tree, getRbtreeLeft(tree, atual), search, id);
+    searchSA(tree, getRbtreeRight(tree, atual), search, id);
+    Hidrante h1 = getObjRbtree(tree, atual);
+    if (strcmp(id, getHidranteId(h1)) == 0){
+        *search = atual;
+        return 0;
     }
     return -1;
 }
 
-Posic searchEquipUrban(Cidade city, char *id, char *type){
-    Posic p1;
+PosicTree searchHidrante(Cidade city, char *id){
+    cidade *newCity = (cidade*)city;
+    
+    PosicTree p1, search;
+    searchHA(newCity->aHid, getRoot(newCity->aHid), &search, id);
+    return search;
+
+    // Posic p1;
+    // for (p1 = getFirst(newCity->lHid); p1 >= 0; p1 = getNext(newCity->lHid, p1)){
+    //     h1 = getObjList(newCity->lHid, p1);
+    //     if (strcmp(getHidranteId(h1), id) == 0){
+    //         return p1;
+    //     }
+    // }
+    // return -1;
+}
+
+PosicTree searchEquipUrban(Cidade city, char *id, char *type){
+    PosicTree p1;
     p1 = searchHidrante(city, id);
     if(p1<0){
         p1 = searchSemaforo(city, id);
@@ -491,9 +556,9 @@ void removeForma(Cidade city, PosicTree p){
     removeRbtree(newCity->aFor, p);
 }
 
-void removeQuadra(Cidade city, Posic p){
+void removeQuadra(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
-    Quadra q1 = getObjList(newCity->lQua, p);
+    Quadra q1 =/* getObjList(newCity->lQua, p);*/getObjRbtree(newCity->aQua, p);
         if (getQuadraCep(q1) != NULL)
             free(getQuadraCep(q1));
         if (getQuadraCorContorno(q1) != NULL)
@@ -501,12 +566,13 @@ void removeQuadra(Cidade city, Posic p){
         if (getQuadraCorPreenchimento(q1) != NULL)
             free(getQuadraCorPreenchimento(q1));
         free(q1);
-    removeList(newCity->lQua, p);
+    // removeList(newCity->lQua, p);
+    removeQuadra(newCity->aQua, p);
 }
 
-void removeTorre(Cidade city, Posic p){
+void removeTorre(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
-    Torre t1 = getObjList(newCity->lTor, p);
+    Torre t1 = /*getObjList(newCity->lTor, p);*/getObjRbtree(newCity->aTor, p);
     if (getTorreCorContorno(t1) != NULL)
         free(getTorreCorContorno(t1));
     if (getTorreCorPreenchimento(t1) != NULL)
@@ -514,12 +580,12 @@ void removeTorre(Cidade city, Posic p){
     if (getTorreId(t1) != NULL)
         free(getTorreId(t1));
     free(t1);
-    removeList(newCity->lTor, p);
+    removeRbtree(newCity->aTor, p);
 }
 
-void removeSemaforo(Cidade city, Posic p){
+void removeSemaforo(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
-    Semaforo s1 = getObjList(newCity->lSem, p);
+    Semaforo s1 = /*getObjList(newCity->lSem, p);*/getObjRbtree(newCity->aSem, p);
     if (getSemaforoCorContorno(s1) != NULL)
         free(getSemaforoCorContorno(s1));
     if (getSemaforoCorPreenchimento(s1) != NULL)
@@ -527,12 +593,13 @@ void removeSemaforo(Cidade city, Posic p){
     if (getSemaforoId(s1) != NULL)
         free(getSemaforoId(s1));
     free(s1);
-    removeList(newCity->lSem, p);
+    // removeList(newCity->lSem, p);
+    removeRbtree(newCity->aSem, p);
 }
 
-void removeHidrante(Cidade city, Posic p){
+void removeHidrante(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
-    Hidrante h1 = getObjList(newCity->lHid, p);
+    Hidrante h1 = /*getObjList(newCity->lHid, p);*/getObjRbtree(newCity->aHid, p);
     if (getHidranteCorContorno(h1) != NULL)
         free(getHidranteCorContorno(h1));
     if (getHidranteCorPreenchimento(h1) != NULL)
@@ -540,7 +607,7 @@ void removeHidrante(Cidade city, Posic p){
     if (getHidranteId(h1) != NULL)
         free(getHidranteId(h1));
     free(h1);
-    removeList(newCity->lHid, p);
+    removeRbtree(newCity->aHid, p);
 }
 
 void removePredio(Cidade city, PosicTree p){
@@ -579,38 +646,43 @@ void deleteTreeCity(Cidade city, Rbtree tree, removeElementTree func){
 void freeCidade(Cidade city){
     cidade *newCity = (cidade*)city;
     // printf("lista for\n");
-    // deleteListCity(city, newCity->lFor, &removeForma);
     deleteTreeCity(city, newCity->aFor, &removeForma);
     deleteTreeCity(city, newCity->aPre, &removePredio);
     // printf("lista hid\n");
-    deleteListCity(city, newCity->lHid, &removeHidrante);
+    deleteTreeCity(city, newCity->aHid, &removeHidrante);
     // printf("lista qua\n");
-    deleteListCity(city, newCity->lQua, &removeQuadra);
+    deleteTreeCity(city, newCity->aQua, &removeQuadra);
     // printf("lista sem\n");
-    deleteListCity(city, newCity->lSem, &removeSemaforo);
+    deleteTreeCity(city, newCity->aSem, &removeSemaforo);
     // printf("lista tor\n");
-    deleteListCity(city, newCity->lTor, &removeTorre);
+    deleteTreeCity(city, newCity->aTor, &removeTorre);
     if (newCity != NULL)
         free(newCity);
+}
+
+void printForma(Rbtree tree, PosicTree root, FILE *svg, SvgTree funcCir, SvgTree funcRet){
+    if (posicTreeVazio(tree, root))
+        return;
+    printForma(tree, getRbtreeLeft(tree, root), funcCir, svg, funcRet);
+    printForma(tree, getRbtreeRight(tree, root), funcCir, svg, funcRet);
+    forms *forma = (forms*)getObjRbtree(tree, root);
+    if (forma->type == 0)
+        funcCir(&svg, forma->thing);
+    else
+        funcRet(&svg, forma->thing);
 }
 
 void printSvgCidade(Cidade city, FILE *svg){
     cidade *newCity = (cidade*)city;
     forms *forma;
     Posic p1, type;
-    printSvgList(newCity->lHid, svg, printSvgHidrante);
-    printSvgList(newCity->lQua, svg, printSvgQuadra);
-    printSvgList(newCity->lSem, svg, printSvgSemaforo);
-    printSvgList(newCity->lTor, svg, printSvgTorre);
-    printSvgList(newCity->lPre, svg, printSvgPredio);
-    printSvgList(newCity->lMur, svg, printSvgMuro);
-    for(p1 = getFirst(newCity->lFor); p1 >= 0; p1 = getNext(newCity->lFor, p1)){
-        forma = getObjList(newCity->lFor, p1);
-        if (forma->type == 0)
-            printSvgCirculo(&svg, forma->thing);
-        else
-            printSvgRetangulo(&svg, forma->thing);
-    }
+    printSvgRbtree(newCity->aHid, svg, getRoot(newCity->aHid), printSvgHidrante);
+    printSvgRbtree(newCity->aQua, svg, getRoot(newCity->aQua), printSvgQuadra);
+    printSvgRbtree(newCity->aSem, svg, getRoot(newCity->aSem), printSvgSemaforo);
+    printSvgRbtree(newCity->aTor, svg, getRoot(newCity->aTor), printSvgTorre);
+    printSvgRbtree(newCity->aPre, svg, getRoot(newCity->aPre), printSvgPredio);
+    printSvgRbtree(newCity->aMur, svg, getRoot(newCity->aMur), printSvgMuro);
+    printForma(newCity->aFor, getRoot(newCity->aFor), svg, printSvgCirculo, printSvgRbtree);
 }
 
 void a(Lista list, Function f, int forma, va_list *ap){
@@ -634,6 +706,22 @@ void a(Lista list, Function f, int forma, va_list *ap){
     }
 }
 
+void b(Rbtree tree, PosicTree root, Function f, int forma, va_list *ap){
+    if (posicTreeVazio(tree, root))
+        return;
+    b(tree, getRbtreeLeft(tree, root), f, forma, ap);
+    b(tree, getRbtreeRight(tree, root), f, forma, ap);
+    if(forma){
+        forms *fm = (forms*)getObjRbtree(tree, root);
+        if (fm->type == 1)
+            f(fm->thing, 1, ap);
+        else
+            f(fm->thing, 0, ap);
+        
+    } else
+        f(getObjRbtree(tree, root), ap);
+}
+
 void throughCity (Cidade city, Function f, ...){
     char t;
     va_list ap;
@@ -641,19 +729,26 @@ void throughCity (Cidade city, Function f, ...){
     t = va_arg(ap, int);
     cidade *newCity = (cidade*)city;
     if (t == 'q'){
-        a(newCity->lQua, f, 0, &ap);
+        // a(newCity->lQua, f, 0, &ap);
+        b(newCity->aQua, getRoot(newCity->aQua), f, 0, &ap);
     } else if (t == 't'){
-        a(newCity->lTor, f, 0, &ap);
+        // a(newCity->lTor, f, 0, &ap);
+        b(newCity->aTor, getRoot(newCity->aTor), f, 0, &ap);
     } else if (t == 'h'){
-        a(newCity->lHid, f, 0, &ap);
+        // a(newCity->lHid, f, 0, &ap);
+        b(newCity->aHid, getRoot(newCity->aHid), f, 0, &ap);
     } else if (t == 's'){
-        a(newCity->lSem, f, 0, &ap);
+        // a(newCity->lSem, f, 0, &ap);
+        b(newCity->aSem, getRoot(newCity->aSem), f, 0, &ap);
     } else if (t == 'f'){
-        a(newCity->lFor, f, 1, &ap);
+        // a(newCity->lFor, f, 1, &ap);
+        b(newCity->aFor, getRoot(newCity->aFor), f, 1, &ap);
     } else if (t == 'p'){
-        a(newCity->lPre, f, 0, &ap);
+        // a(newCity->lPre, f, 0, &ap);
+        b(newCity->aPre, getRoot(newCity->aPre), f, 0, &ap);
     } else if (t == 'm'){
-        a(newCity->lMur, f, 0, &ap);
+        // a(newCity->lMur, f, 0, &ap);
+        b(newCity->aMur, getRoot(newCity->aMur), f, 0, &ap);
     }
     va_end(ap);
 }

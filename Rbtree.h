@@ -12,6 +12,7 @@ typedef void *PosicTree;
 typedef void *Item;
 typedef void *Forma;
 typedef int (*RbtreeCompare)(Item a, Item b);
+typedef void (*SvgTree)(FILE **, Item);
 
 // Cria a arvoree retora um Rbtree (void pointer)
 Rbtree createTree();
@@ -43,6 +44,8 @@ int posicTreeVazio(Rbtree tree, PosicTree p);
 PosicTree getNullTree(Rbtree tree);
 
 void freeTree(Rbtree tree);
-
+/*remove o elemento de posição p da arvore*/
 void removeRbtree(Rbtree tree, PosicTree p);
+/*printa no arquivo svg todos os elemento da arvore tree, dado a função de imprimir no svg do elemento*/
+void printSvgRbtree(Rbtree tree, PosicTree root, FILE *svg, SvgTree func);
 
