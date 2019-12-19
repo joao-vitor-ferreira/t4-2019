@@ -3,10 +3,7 @@
 #include <time.h>
 
 #define NB_ELEMS 5
-#define false 0;
-#define true 1;
 
-typedef int bool;
 typedef void *Rbtree;
 typedef void *PosicTree;
 typedef void *Item;

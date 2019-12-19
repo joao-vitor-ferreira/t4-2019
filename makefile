@@ -1,5 +1,5 @@
-siguel: siguel.o Vector.o Retangulo.o Circulo.o Calculos.o Comandos.o Svg.o Cidade.o Lista.o Quadra.o Semaforo.o Hidrante.o Torre.o Segmento.o Vertice.o Ponto.o Predio.o Muro.o Ordenacao.o ListaDinamica.o EstabelecimentoComercial.o TipoEC.o Morador.o Pessoa.o Hash.o Rbtree.o Poligono.o
-	gcc -o siguel siguel.o Vector.o Circulo.o Retangulo.o Calculos.o Comandos.o Svg.o Cidade.o Lista.o Quadra.o Semaforo.o Hidrante.o Torre.o Segmento.o Vertice.o Ponto.o  Predio.o Muro.o Ordenacao.o ListaDinamica.o EstabelecimentoComercial.o TipoEC.o Morador.o Pessoa.o Hash.o Rbtree.o Poligono.o -lm -std=c99 -fstack-protector-all
+siguel: siguel.o Vector.o Retangulo.o Circulo.o Calculos.o Comandos.o Svg.o Cidade.o Lista.o Quadra.o Semaforo.o Hidrante.o Torre.o Segmento.o Vertice.o Ponto.o Predio.o Muro.o Ordenacao.o ListaDinamica.o EstabelecimentoComercial.o TipoEC.o Morador.o Pessoa.o Hash.o Rbtree.o Poligono.o GrafoDirecionado.o
+	gcc -o siguel siguel.o Vector.o Circulo.o Retangulo.o Calculos.o Comandos.o Svg.o Cidade.o Lista.o Quadra.o Semaforo.o Hidrante.o Torre.o Segmento.o Vertice.o Ponto.o  Predio.o Muro.o Ordenacao.o ListaDinamica.o EstabelecimentoComercial.o TipoEC.o Morador.o Pessoa.o Hash.o Rbtree.o Poligono.o GrafoDirecionado.o -lm -std=c99 -fstack-protector-all
 siguel.o: siguel.c
 	gcc -o siguel.o -c siguel.c -g -std=c99 -fstack-protector-all
 Cidade.o: Cidade.c Cidade.h
@@ -54,5 +54,7 @@ Rbtree.o: Rbtree.c Rbtree.h
 	gcc -o Rbtree.o -c Rbtree.c -lm -g -std=c99 -fstack-protector-all
 Poligono.o: Poligono.c Poligono.h
 	gcc -o Poligono.o -c Poligono.c -lm -g -std=c99 -fstack-protector-all
+GrafoDirecionado.o: GrafoDirecionado.c GrafoDirecionado.h
+	gcc -o GrafoDirecionado.o -c GrafoDirecionado.c -lm -g -std=c99 -fstack-protector-all
 clear:
 	rm -rf *.o vgcore*
