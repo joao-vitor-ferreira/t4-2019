@@ -713,7 +713,6 @@ void printTreeSvg(FILE *svg, Rbtree tree, InfoElement func){
         height++;
     }
     width *= funcLog2(height);
-    printf("%d\n", funcLog2(height));
     es = width;
     printNodeSvg(svg, tree, getRoot(tree), width, 30, (width + 1)*(4), 30, es, func);
 }

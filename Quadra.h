@@ -17,6 +17,7 @@ void setQuadraCorPreenchimento(Quadra q, char *cor);
 void setQuadraCorContorno(Quadra q, char *cor);
 void setQuadraX(Quadra q, double x);
 void setQuadraY(Quadra q, double y);
+void setQuadraSW(Quadra q, double sw);
 char *getQuadraCep(Quadra q);
 double getQuadraX(Quadra q);
 double getQuadraSW(Quadra q);

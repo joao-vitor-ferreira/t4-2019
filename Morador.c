@@ -73,7 +73,7 @@ Pessoa getMoradorPessoa(Morador m){
     return newMorador->ps;
 }
 
-Pessoa getMoradorPredio(Morador m){
+Predio getMoradorPredio(Morador m){
     morador *newMorador = (morador*)m;
     return newMorador->pr;
 }

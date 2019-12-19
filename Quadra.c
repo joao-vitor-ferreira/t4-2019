@@ -103,6 +103,11 @@ void setQuadraY(Quadra q, double y){
 	newQuadra->y = y;
 }
 
+void setQuadraSW(Quadra q, double sw){
+	quadra *newQuadra = (quadra*)q;
+	newQuadra->especura_borda = sw;
+}
+
 int quadraInternaRetangulo(FILE **txt, Quadra q, Retangulo r){
 	int var = 0;
 	var = pontoInternoRetangulo(r, getQuadraX(q), getQuadraY(q));

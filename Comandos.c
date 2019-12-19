@@ -1267,6 +1267,40 @@ int cmd_M(Rbtree tree, PosicTree p1, FILE *txt){
 	return 0;
 }
 
+void mmplg(Morador m, ...){
+	int i;
+	va_list ap1, *ap2, ap3;
+	va_start(ap1, m);
+	ap2 = va_arg(ap1, va_list*);
+	va_copy(ap3, *ap2);
+	Poligono pol = va_arg(ap3, Poligono);
+	FILE svg = va_arg(ap3, FILE);
+	Predio p = getMoradorPredio(m);
+	if (p == NULL)
+		return;
+	Ponto p1 = getPredioPoint(p, 1);
+	i = pontoInternoPoligono(pol, p1);
+	if (i){
+		freePonto(p1);
+		Ponto p1 = getPredioPoint(p, 2);
+		i = pontoInternoPoligono(pol, p1);
+		if (i)		{
+			freePonto(p1);
+			Ponto p1 = getPredioPoint(p, 3);
+			i = pontoInternoPoligono(pol, p1);			
+			if (i){
+				freePonto(p1);
+				Ponto p1 = getPredioPoint(p, 4);
+				i = pontoInternoPoligono(pol, p1);
+				if (i){
+					Quadra q1 = getPredioQuadra(p);
+					setQuadraSW(q1, getQuadraSW(q1) + 2);
+				}
+			}
+		}
+	}
+}
+
 void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry, Cidade *city){
 	FILE *entrada = NULL, *txt = NULL, *svgBb;
 	Item it;
@@ -1733,9 +1767,11 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 			funcFree(&aux);
 			FILE *arq_pol = fopen(aux2, "r");
 			Poligono pol1 = createPoligono(arq_pol);
-			Ponto p1 = createPonto(350, 250);
+			// throughCity(*city, mplg, 'p', pol1, arq_pol);
 			fclose(arq_pol);
-			i = pontoInternoPoligono(pol1, p1);
+			// i = pontoInternoPoligono(pol1, p1);
+			printf("i %d\n", i);
+			getchar();
 			printPoligono(svgQry, pol1);
 		} else if (strcmp(word, "m?") == 0){
 			sscanf(line, "%s %s", word, cep);

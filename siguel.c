@@ -59,7 +59,7 @@ int main (int argc, char **argv){
 		funcFree(&str);
 		fprintf(svgQry, "                                                                  ");
 		leituraQry(argc, argv, &svgH, &svgW, svgQry, &city);
-		printSvgCidade(city, svgQry);
+		// printSvgCidade(city, svgQry);
 		fprintf(svgQry, "</svg>");
 		rewind(svgQry);
 		svgH += 10.0;
@@ -67,5 +67,6 @@ int main (int argc, char **argv){
 		fprintf(svgQry, "<svg width=\"%f\" height=\"%f\">\n", svgW, svgH);
 		fclose(svgQry);
 	}
+
 	freeCidade(city);
 }

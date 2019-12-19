@@ -361,9 +361,11 @@ int auxUp(Rbtree tree, PosicTree atual, Ponto point, int *sentido){
 			Segmento s1 = getObjRbtree(tree, atual);
 			if (*sentido == -39){
 				*sentido = funcLado(getVerticePonto(getSegmentoVerticeInicial(s1)), getVerticePonto(getSegmentoVerticeFinal(s1)), point);
+				printf("sentido %d\n", *sentido);
 				cmp = 1;
 			} else {
 				sentido_atual = funcLado(getVerticePonto(getSegmentoVerticeInicial(s1)), getVerticePonto(getSegmentoVerticeFinal(s1)), point);
+				printf("sent %d sentAtu %d\n", *sentido, sentido_atual);
 				if (sentido_atual == *sentido)
 					cmp = 1;
 				else 
