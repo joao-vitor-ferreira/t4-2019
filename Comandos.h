@@ -22,5 +22,6 @@ char *funcSvg(int argc, char **argv);
 int cmpRaio(Vector vet, int indice, double raio);
 void leituraPM(int argc, char **argv, Cidade *city);
 void leituraEC(int argc, char **argv, Cidade *city);
+void leituraInterativa(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry, Cidade *city);
 
 #endif

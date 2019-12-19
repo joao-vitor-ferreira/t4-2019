@@ -67,6 +67,11 @@ int main (int argc, char **argv){
 		fprintf(svgQry, "<svg width=\"%f\" height=\"%f\">\n", svgW, svgH);
 		fclose(svgQry);
 	}
-
+	str = pegaParametro(argc, argv, "-i");
+	if (str != NULL){
+		// funcFree(&str);
+		leituraInterativa(argc, argv, &svgH, &svgW, svgQry, &city);
+		return 0;
+	}
 	freeCidade(city);
 }

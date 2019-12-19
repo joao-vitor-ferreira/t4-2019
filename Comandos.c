@@ -74,7 +74,10 @@ char *pegaParametro(int argc, char *argv[], char *str){
 	int i;
 	for (i = 0; i<argc; i++){
 		if (strcmp(str, argv[i]) == 0){
-			return argv[i+1];
+			if(strcmp(argv[i], str) == 0)
+				return argv[i];
+			else
+				return argv[i+1];
 		}
 	}
 	return NULL;
@@ -1819,4 +1822,117 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 	funcFree(&cor);
 	funcFree(&suf);
 	fclose(entrada);
+}
+
+void leituraInterativa(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry, Cidade *city){
+	char *line = NULL,*word = NULL,*arq=NULL;
+	char tipo;
+	Rbtree tree;
+	PosicTree root;
+	FILE *svg = NULL;
+	line = (char*)malloc(sizeof(char)*200);
+	word =(char*)malloc(sizeof(char)*30);
+	arq =(char*)malloc(sizeof(char)*30);
+
+	while(strcmp(line,"sai") != 0){
+		printf("Entre com um comando: ");
+		scanf("%[^\n]",line);
+		getchar();
+		if(strcmp(line,"sai") == 0 ){ // sai da execução 
+			return;
+		}
+		sscanf(line, "%s", word);
+		if(strcmp(word, "nav") == 0){ // nav t (navega pela arvore t (t indica qual arvore vai ser navegada))
+			sscanf(line, "%s", word);
+            if(strcmp(word, "t") == 0){
+				printf("entrou no t");
+                tree = getTree(city,'t');
+            }
+            else if(strcmp(word, "q") == 0){
+                tree = getTree(city,'q');
+            }
+            else if(strcmp(word, "s") == 0){
+                tree = getTree(city,'s');
+            }
+            else if(strcmp(word, "h") == 0){
+                tree = getTree(city,'h');
+            }
+            else if(strcmp(word, "f") == 0){
+                tree = getTree(city,'f');
+            }
+            else if(strcmp(word, "p") == 0){
+                tree = getTree(city,'p');
+            }
+            else if(strcmp(word, "m") == 0){
+                tree = getTree(city,'m');
+            }
+            root = getRoot(tree);
+			while(strcmp(line,"x") != 0){
+				printf("Entre com um comando de navegação: ");
+				scanf("%s",line);
+				getchar();
+				sscanf(line, "%s", word);
+
+				if(strcmp(word,"e") != 0){  // Desce para sub-árvore esquerda. Imprime dados do nó.
+					root = getRbtreeLeft(tree,root);
+				}
+				else if(strcmp(word,"d") != 0){ // Desce para sub-árvore direita.
+					root = getRbtreeRight(tree,root);
+				}
+				else if(strcmp(word,"p") != 0){ // Volta para o pai.
+                    root = getRbtreeParent(tree,root);
+				}
+				else if(strcmp(word,"x") != 0){ // Sai da navegação
+					break;
+				}
+                if(root != NULL){
+                    printf("Valores da arvore\n");
+						// printf("X: %lf\n",root->x);
+						// printf("Y: %lf\n",root->y);
+						// printf("Cor: %c\n\n",root->color);
+                }
+                else{
+                    printf("Valor nulo\n\n");
+                }
+			}
+		}
+		else if(strcmp(word, "d") == 0){ // dmprbt t arq: imprime o estado atual da arvore t no arq.svg
+			sscanf(line, "%s", word);
+			if(strcmp(word, "t") == 0){
+				root = getCidadeRbtree(city,'t');
+            }
+            else if(strcmp(word, "q") == 0){
+				root = getCidadeRbtree(city,'q');
+            }
+            else if(strcmp(word, "s") == 0){
+				root = getCidadeRbtree(city,'s');
+
+            }
+            else if(strcmp(word, "h") == 0){
+				root = getCidadeRbtree(city,'h');
+
+            }
+            else if(strcmp(word, "f") == 0){
+				root = getCidadeRbtree(city,'f');
+
+            }
+            else if(strcmp(word, "p") == 0){
+				root = getCidadeRbtree(city,'p');
+
+            }
+            else if(strcmp(word, "m") == 0){
+				root = getCidadeRbtree(city,'m');
+
+            }
+			sscanf(line, "%s", word);
+			arq = word;
+			svg = fopen(arq,"w");
+			// printTreeSvg(svg, )
+			fclose(svg);
+		}
+		else if(strcmp(word, "q") == 0){ // q arq.qry: lê e executa o arquivo de consultas arq.qry 
+			sscanf(line, "%s", word);
+            // leituraQry(argc, argv, &svgH, &svgW, svgQry, &city); tem que arrumar
+		}
+	}
 }
