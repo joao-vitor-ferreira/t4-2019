@@ -16,13 +16,13 @@
 #include "EstabelecimentoComercial.h"
 #include "Svg.h"
 #include "Rbtree.h"
-
+#include "GrafoDirecionado.h"
     typedef void *Cidade;
     typedef void (*Function)(void *, ...);
 
 /* Uma cidade é uma estrutura na qual armazena todas as informações, tal como quadras, hidantes, semaforos, radio-bases, predios, muros e outras formas*/
 
-Cidade createCidade(int i, int nq, int nh, int ns, int nt, int np, int nm);
+Cidade createCidade();
 Lista getList(Cidade city, char t);
 Rbtree getTree(Cidade city, char t);
 int posicVazio(Posic p);
@@ -37,6 +37,8 @@ void addTipoEC(Cidade city, TipoEC tp);
 void addEstabCom(Cidade city, Estab ec);
 void addPessoa(Cidade city, Pessoa ps);
 void addMorador(Cidade city, Morador m);
+/*retorna o grafo da cidade*/
+GrafoD getGrafo(Cidade city);
 Item getObjForma(Cidade city, PosicTree p);
 Item getObjQuadra(Cidade city, PosicTree p);
 Item getObjHidrante(Cidade city, PosicTree p);
@@ -61,11 +63,11 @@ PosicTree searchTorre(Cidade city, char *id);
 PosicTree searchForma(Cidade city, int id, int *type);
 PosicTree searchPredio(Cidade city, char *cep, char face, int num);
 PosicTree searchEquipUrban(Cidade city, char *id, char *type);
-
+/*escreve no arquivo svg todos os equipamentos urbanos, quadras circulos e retangulos da cidade*/
 void printSvgCidade(Cidade city, FILE *svg);
-void throughCity (Cidade city, Function f, ...);
 /* Dado uma cidade esta função percorre-a elemento por elemento e faz a função determinada func, a partir de alguma das listas determinnadas por t */
-void freeCidade(Cidade city);
+void throughCity (Cidade city, Function f, ...);
 /* Desaloca remove todos os equipamentos urbanos e quadras e formas da cidade*/
+void freeCidade(Cidade city);
 
 #endif

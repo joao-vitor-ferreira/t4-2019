@@ -1,0 +1,15 @@
+o? 3 4
+dm? 000.001.081-20
+m? b01.3
+mud 000.001.421-40 b01.3 O 10 3o_Andar
+mud 000.001.421-40 b01.3 N 10 3o_Andar
+m? b01.3
+mplg? c1/eg21.pol
+fh +1 b010.7 N 60
+fh -1 b010.1 N 110
+fh +10 b03.4 N 84
+fh -10 b09.8 O 25
+de? 00000123/0001-29
+de? 00000118/0001-92
+dmprbt p arv1
+dmprbt m arv2

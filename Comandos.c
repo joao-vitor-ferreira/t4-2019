@@ -21,6 +21,7 @@
 #include "Pessoa.h"
 #include "Rbtree.h"
 #include "Poligono.h"
+#include "GrafoDirecionado.h"
 
 void funcFree(char **a){
 	if (a == NULL){
@@ -74,7 +75,7 @@ char *pegaParametro(int argc, char *argv[], char *str){
 	int i;
 	for (i = 0; i<argc; i++){
 		if (strcmp(str, argv[i]) == 0){
-			if(strcmp(argv[i], str) == 0)
+			if(strcmp(argv[i], "-i") == 0)
 				return argv[i];
 			else
 				return argv[i+1];
@@ -317,7 +318,7 @@ void calcViewBoxSvg(Cidade city, double *svgW, double *svgH){
 
 void leituraGeo(int argc, char **argv, double *svgH, double *svgW, FILE *svgMain, Cidade *city){
 	int NQ = 1000, NS = 10000, NH = 10000, NR = 10000, NF = 10000, NP = 10000, NM = 10000, i, type;
-	*city = createCidade(NF, NQ, NH, NS, NR, NP, NM);
+	*city = createCidade();
 	FILE *entrada = NULL;
 	Circulo c1 = NULL;
 	PosicTree p1;
@@ -553,6 +554,7 @@ void leituraEC(int argc, char **argv, Cidade *city){
 			addEstabCom(*city, ec);
 		}
 	}
+	fclose(entrada);
 }
 
 void leituraPM(int argc, char **argv, Cidade *city){
@@ -614,6 +616,7 @@ void leituraPM(int argc, char **argv, Cidade *city){
 			addMorador(*city, mr1);
 		}
 	}
+	fclose(entrada);
 }
 
 char *funcSvgBb(int argc, char **argv, char *suf){
@@ -1304,6 +1307,70 @@ void mmplg(Morador m, ...){
 	}
 }
 
+void leituraVia(int argc, char **argv, Cidade *city){
+	FILE *arq_via;
+	char id[20], id2[20], ldir[20], lesq[20], nome[20], line[100], word[20], *aux1, *aux2, *aux3, *aux4, *aux5;
+	double x, y, comprimento, vel_med;
+	aux1 = colocaBarra(pegaParametro(argc, argv, "-e"));
+	aux2 = concatena(aux1, pegaParametro(argc, argv, "-v"));
+	arq_via = fopen(aux2, "r");
+	funcFree(&aux1);
+	funcFree(&aux2);
+	if (arq_via == NULL)
+		return;
+	while(!feof(arq_via)){
+		fscanf(arq_via, "%[^\n]\n", line);
+		sscanf(line, "%s", word);
+		if (strcmp(word, "v") == 0){
+			sscanf(line, "%s %s %lf %lf", word, id, &x, &y);
+			aux1 = (char*)malloc(sizeof(char)*(strlen(id) + 1));
+			strcpy(aux1, id);
+			VerticeG v1 = createVerticeGrafo(aux1, x, y);
+			insertVerticeDoGrafo(getGrafo(*city), v1);
+		} else if (strcmp(word, "e") == 0){
+			sscanf(line, "%s %s %s %s %s %lf %lf %s", word, id, id2, ldir, lesq, &comprimento, &vel_med, nome);
+			// aux1 = (char*)malloc(sizeof(char)*(strlen(id) + 1));
+			// strcpy(aux1, id);
+			// aux2 = (char*)malloc(sizeof(char)*(strlen(id2) + 1));
+			// strcpy(aux2, id2);
+			aux3 = (char*)malloc(sizeof(char)*(strlen(ldir) + 1));
+			strcpy(aux3, ldir);											
+			aux4 = (char*)malloc(sizeof(char)*(strlen(lesq) + 1));
+			strcpy(aux4, lesq);
+			aux5 = (char*)malloc(sizeof(char)*(strlen(nome) + 1));
+			strcpy(aux5, nome);			
+			Aresta a = createAresta(id, id2, aux3, aux4, comprimento, vel_med, aux5, getGrafo(*city));
+			// funcFree(&aux1);
+			// funcFree(&aux2);
+		}
+	}
+	fclose(arq_via);
+}
+
+int verificaRegistrador(char *str){
+	if (strcmp(str, "R0") == 0)
+		return 0;
+	else if (strcmp(str, "R1") == 0)
+		return 1;
+	else if (strcmp(str, "R2") == 0)
+		return 2;
+	else if (strcmp(str, "R3") == 0)
+		return 3;
+	else if (strcmp(str, "R4") == 0)
+		return 4;
+	else if (strcmp(str, "R5") == 0)
+		return 5;								
+	else if (strcmp(str, "R7") == 0)
+		return 7;
+	else if (strcmp(str, "R8") == 0)
+		return 8;
+	else if (strcmp(str, "R9") == 0)
+		return 9;
+	else if (strcmp(str, "R10") == 0)
+		return 10;
+	return 0;												
+}
+
 void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry, Cidade *city){
 	FILE *entrada = NULL, *txt = NULL, *svgBb;
 	Item it;
@@ -1316,8 +1383,12 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 	Torre t1, t2;
 	PosicTree p1, p2;
 	PosicTree pa, pb;
+	Ponto *registrador = (Ponto*)malloc(sizeof(Ponto)*11);
+	for (i = 0; i < 11; i++){
+		registrador[i] = createPonto(0.0, 0.0);
+	}
 	char *line = NULL, *word = NULL, *cor = NULL, *suf = NULL, 
-	*aux = NULL, *aux2 = NULL, *aux3 = NULL, *text = NULL, *id = NULL, cpf[20], cnpj[20], compl[20], face, cep[20];
+	*aux = NULL, *aux2 = NULL, *aux3 = NULL, *text = NULL, *id = NULL, cpf[20], cnpj[20], compl[20], face, cep[20], regis[4];
 	double raio, x, y, height, width, dx, dy;
 	id = (char*)malloc(sizeof(char)*20);
 	line = (char*)malloc(sizeof(char)*200);
@@ -1811,6 +1882,88 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 				printTreeSvg(svg, getTree(*city, 'p'), getPredioCep);
 			fprintf(svg, "</svg>");
 			fclose(svg);
+		} else if (strcmp(word, "@m?") == 0){
+			sscanf (line, "%s %s %s", word, regis, cpf);
+			i = verificaRegistrador(regis);
+			Morador mor = searchMoradorCpf(*city, cpf);
+			if (mor != NULL){
+					Ponto pt = endereco(*city, getMoradorCep(mor), getMoradorFace(mor), getMoradorNumero(mor));
+					setPontoX(registrador[i], getPontoX(pt));
+					setPontoY(registrador[i], getPontoY(pt));
+					freePonto(pt);
+			} else
+				printf("sem morador\n");
+		} else if (strcmp(word, "@e?") == 0){
+			sscanf(line, "%s %s %s %c %d", word, regis, cep, &face, &j);
+			i = verificaRegistrador(regis);
+			Ponto pt = endereco(*city, cep, face, j);
+			if (pt != NULL){
+				setPontoX(registrador[i], getPontoX(pt));
+				setPontoY(registrador[i], getPontoY(pt));
+				freePonto(pt);				
+			} else 
+				printf("sem ponto\n");
+		} else if (strcmp(word, "@g?") == 0){
+			sscanf(line, "%s %s %s", word, regis, cep);
+			i = verificaRegistrador(regis);
+			face = 'b';
+			pa = searchEquipUrban(*city, cep, &face);
+			if (face == 't' && !posicTreeVazio(getTree(*city, 't'), pa)){
+				t1 = getObjTorre(*city, pa);
+				setPontoX(registrador[i], getTorreX(t1));
+				setPontoY(registrador[i], getTorreY(t1));
+			} else if (face == 'h' && !posicTreeVazio(getTree(*city, 't'), pa)){
+				h1 = getObjHidrante(*city, pa);
+				setPontoX(registrador[i], getHidranteX(h1));
+				setPontoY(registrador[i], getHidranteY(h1));
+			} else if (face == 's' && !posicTreeVazio(getTree(*city, 't'), pa)){
+				s1 = getObjSemaforo(*city, pa);
+				setPontoX(registrador[i], getSemaforoX(s1));
+				setPontoY(registrador[i], getSemaforoY(s1));
+			} else
+				printf("não acho\n");
+		} else if (strcmp(word, "@xy?") == 0){
+			sscanf(line, "%s %s %lf %lf", word, regis, &x, &y);
+			i = verificaRegistrador(regis);
+			setPontoX(registrador[i], x);
+			setPontoY(registrador[i], y);			
+		} else if (strcmp(word, "p?") == 0){
+			sscanf(line, "%s %s %d %d %s %s", word, suf, &i, &j, cor, compl);
+			PosicLD p1, p2;
+			VerticeG v_origem, v_destino, v1, v2;
+			GrafoD graph = getGrafo(*city);
+			v_origem = findNearestVertice(graph, registrador[i]);
+			v_destino = findNearestVertice(graph, registrador[j]);
+			ListaDinamica mais_curto = dijkstra(getGrafo(*city), v_origem, v_destino, 'c');
+			ListaDinamica mais_rapido = dijkstra(getGrafo(*city), v_origem, v_destino, 'v');
+			aux = colocaBarra(pegaParametro(argc, argv, "-o"));
+			aux2 = concatena(aux, "cmd_p.svg");
+			printf("%s\n", aux2);
+			getchar();
+			FILE *svg_p = fopen(aux2, "w");
+			fprintf(svg_p, "<svg>\n");
+			printSvgCidade(*city, svg_p);
+			printf("%d\n", DinamicListlength(mais_curto));
+			for (p1 = getFirstDinamicList(mais_curto); p1 != NULL; p1 = getNextDinamicList(p1)){
+				p2 = getPreviousDinamicList(p1);
+				v1 = getObjtDinamicList(p1);
+				if (p2 != NULL){
+					v2 = getObjtDinamicList(p2);
+					fprintf(svg_p, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"%s\" stroke-width=\"5\"  />\n", getVerticePosicX(v1)-2, getVerticePosicY(v1)-2, getVerticePosicX(v2)-2, getVerticePosicY(v2)-2, cor);
+				}
+			}
+			printf("%d\n", DinamicListlength(mais_rapido));
+			for (p1 = getFirstDinamicList(mais_rapido); p1 != NULL; p1 = getNextDinamicList(p1)){
+				p2 = getPreviousDinamicList(p1);
+				v1 = getObjtDinamicList(p1);
+				if (p2 != NULL){
+					v2 = getObjtDinamicList(p2);
+					fprintf(svg_p, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"%s\" stroke-width=\"5\"  />\n", getVerticePosicX(v1)+2, getVerticePosicY(v1)+2, getVerticePosicX(v2)+2, getVerticePosicY(v2)+2, compl);
+				}
+			}			
+			fprintf(svg_p, "</svg>\n");
+			printf("calmae");
+			getchar();
 		}
 	}
 	calcViewBoxSvg(*city, svgW, svgH);

@@ -22,6 +22,7 @@ int main (int argc, char **argv){
 	svgMain = NULL;
 	svgW = 0.0;
 	svgH = 0.0;
+
 	str = pegaParametro(argc, argv, "-o");
 	if (str == NULL){
 		printf("Diretório de saída não informado\n");
@@ -43,6 +44,10 @@ int main (int argc, char **argv){
 		leituraEC(argc, argv, &city);
 	if (str != NULL)
 		leituraPM(argc, argv, &city);
+	str = pegaParametro(argc, argv, "-v");
+	if (str != NULL){
+		leituraVia(argc, argv, &city);
+	}	
 	printSvgCidade(city, svgMain);
 	fprintf(svgMain, "</svg>");
 	rewind(svgMain);
@@ -67,6 +72,7 @@ int main (int argc, char **argv){
 		fprintf(svgQry, "<svg width=\"%f\" height=\"%f\">\n", svgW, svgH);
 		fclose(svgQry);
 	}
+
 	str = pegaParametro(argc, argv, "-i");
 	if (str != NULL){
 		// funcFree(&str);

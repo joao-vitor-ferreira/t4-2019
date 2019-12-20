@@ -18,6 +18,7 @@
 #include "Hash.h"
 #include "Rbtree.h"
 #include "Calculos.h"
+#include "GrafoDirecionado.h"
 
 typedef struct {
     Lista lQua;
@@ -43,6 +44,8 @@ typedef struct {
     Rbtree aPre;
     Rbtree aMur;
 
+    GrafoD graph;
+
 }cidade;
 
 typedef struct {
@@ -52,25 +55,18 @@ typedef struct {
 
 
 
-Cidade createCidade(int i, int nq, int nh, int ns, int nt, int np, int nm){
+Cidade createCidade(){
     cidade *city;
     city = (cidade*)malloc(sizeof(cidade));
-    city->lQua = createList(nq);
-    city->lSem = createList(ns);
-    city->lTor = createList(nt);
-    city->lHid = createList(nh);
-    city->lFor = createList(i);
-    city->lPre = createList(np);
-    city->lMur = createList(nm);
     city->cirQntd = 0;
     city->retQntd = 0;
 
-    city->hMoradorXCpf = createHash(10000);
-    city->hPessoaXCpf = createHash(10000);
-    city->hTipoECXCodt = createHash(10000);
-    city->hTipoEcXEC = createHash(10000);
-    city->hECXCnpj = createHash(10000);
-    city->hECXTipoEC = createHash(10000);
+    city->hMoradorXCpf = createHash(5000);
+    city->hPessoaXCpf = createHash(5000);
+    city->hTipoECXCodt = createHash(5000);
+    city->hTipoEcXEC = createHash(5000);
+    city->hECXCnpj = createHash(5000);
+    city->hECXTipoEC = createHash(5000);
 
     city->aTor = createTree();
     city->aSem = createTree();
@@ -79,6 +75,7 @@ Cidade createCidade(int i, int nq, int nh, int ns, int nt, int np, int nm){
     city->aPre = createTree();
     city->aMur = createTree();
     city->aFor = createTree();
+    city->graph = createGrafo();
 
     return city;
 }
@@ -228,6 +225,11 @@ void addHidrante(Cidade city, Hidrante h){
     insertRbtree(newCity->aHid, h, cmpHidranteTree);
 }
 
+GrafoD getGrafo(Cidade city){
+    cidade *newCity = (cidade*)city;
+    return newCity->graph;
+}
+
 Item getObjForma(Cidade city, PosicTree p){
     cidade *newCity = (cidade*)city;
     forms *forma = /*getObjList(newCity->lFor, p);*/getObjRbtree(newCity->aFor, p);
@@ -265,6 +267,16 @@ Rbtree getCidadeRbtree(Cidade city, char type){
         return (Rbtree)newCity->aTor;
     else if (type == 'p')
         return(Rbtree)newCity->aPre;
+    else if (type == 'm')
+        return newCity->aMur;
+    else if (type == 'q')
+        return newCity->aQua;
+    else if (type == 'h')
+        return newCity->aHid;
+    else if (type == 's')
+        return newCity->aSem;
+    else if (type == 'f')
+        return newCity->aFor;
     return NULL;
 }
 
