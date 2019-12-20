@@ -1788,7 +1788,8 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 				txt = fopen(aux, "a");
 				funcFree(&aux);
 			}	
-			fprintf(txt, "Nome: %s | Cpf: %s | Sexo: %c | Data de Nascimento: %s\n", getPessoaNome(getMoradorPessoa(mr1)), getMoradorCpf(mr1), getPessoaSexo(getMoradorPessoa(mr1)), getPessoaNasc(getMoradorPessoa(mr1)));
+			if (mr1 != NULL)
+				fprintf(txt, "Nome: %s | Cpf: %s | Sexo: %c | Data de Nascimento: %s\n", getPessoaNome(getMoradorPessoa(mr1)), getMoradorCpf(mr1), getPessoaSexo(getMoradorPessoa(mr1)), getPessoaNasc(getMoradorPessoa(mr1)));
 		} else if (strcmp(word, "de?") == 0){
 			sscanf(line, "%s %s", word, suf);
 			Estab ec = searchEstabCom(*city, suf);
