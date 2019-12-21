@@ -239,12 +239,12 @@ ListaDinamica dijkstra(GrafoD graph, VerticeG v0, VerticeG vEnd, char vm_ou_cpm)
 	PosicLD p1, p2;
 	Aresta a;
 	while (verificaAberto(lVert)){
-		printf("ver %d\n", verificaAberto(lVert));
+		// printf("ver %d\n", verificaAberto(lVert));
 		menorDist = INT_MAX/2;
 		for(p1 = getFirstDinamicList(lVert); p1 != NULL; p1 = getNextDinamicList(p1)){
 			teste = getObjtDinamicList(p1);
 			if (verticeIsOpen(teste) && getVerticeBestRoute(teste) < menorDist){
-				printf("teste %f menor %f\n", getVerticeBestRoute(teste), menorDist);
+				// printf("teste %f menor %f\n", getVerticeBestRoute(teste), menorDist);
 				u = teste;
 				menorDist = getVerticeBestRoute(teste);
 			}
@@ -256,37 +256,33 @@ ListaDinamica dijkstra(GrafoD graph, VerticeG v0, VerticeG vEnd, char vm_ou_cpm)
 			a = getObjtDinamicList(p2);
 			v = getV2FromAresta(a);
 			if (v == v0)
-				printf("lalalalal\n");
+				// printf("lalalalal\n");
 			if (verticeIsOpen(v)){
-				printf("v %f u %f\n", getVerticeBestRoute(v), getVerticeBestRoute(u) + getVelMediaAresta(a));
+				// printf("v %f u %f\n", getVerticeBestRoute(v), getVerticeBestRoute(u) + getVelMediaAresta(a));
 				if (vm_ou_cpm == 'v'){
 					if (getVerticeBestRoute(v) > getVerticeBestRoute(u) + getVelMediaAresta(a)){
 						setVerticeBestRoute(v, getVerticeBestRoute(u) + getVelMediaAresta(a));
 						setVerticePrevious(v, u);
-						printf("entra\n");					
+						// printf("entra\n");					
 					}
 				} else if (vm_ou_cpm == 'c'){
 					if (getVerticeBestRoute(v) > getVerticeBestRoute(u) + getArestaCompr(a)){
 						setVerticeBestRoute(v, getVerticeBestRoute(u) + getArestaCompr(a));
 						setVerticePrevious(v, u);
-						printf("entra\n");					
+						// printf("entra\n");					
 					}
 				}				
 			}
 		}
 	}
-	printf("ver %d\n", verificaAberto(lVert));
+	// printf("ver %d\n", verificaAberto(lVert));
 
 	ListaDinamica listCaminho = createDinamicList();
 	u = vEnd;
-	if (getVerticePrevious == NULL){
-		printf("fudeu\n");
-		getchar();
-	}
 	while(u != v0 && u != NULL){
 		insertDinamicList(listCaminho, u);
 		u = getVerticePrevious(u);
-		printf("123\n");
+		// printf("123\n");
 	}
 	insertDinamicList(listCaminho, v0);
 

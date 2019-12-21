@@ -1936,34 +1936,32 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 			v_destino = findNearestVertice(graph, registrador[j]);
 			ListaDinamica mais_curto = dijkstra(getGrafo(*city), v_origem, v_destino, 'c');
 			ListaDinamica mais_rapido = dijkstra(getGrafo(*city), v_origem, v_destino, 'v');
-			aux = colocaBarra(pegaParametro(argc, argv, "-o"));
-			aux2 = concatena(aux, "cmd_p.svg");
-			printf("%s\n", aux2);
-			getchar();
-			FILE *svg_p = fopen(aux2, "w");
-			fprintf(svg_p, "<svg>\n");
-			printSvgCidade(*city, svg_p);
-			printf("%d\n", DinamicListlength(mais_curto));
-			for (p1 = getFirstDinamicList(mais_curto); p1 != NULL; p1 = getNextDinamicList(p1)){
-				p2 = getPreviousDinamicList(p1);
-				v1 = getObjtDinamicList(p1);
-				if (p2 != NULL){
-					v2 = getObjtDinamicList(p2);
-					fprintf(svg_p, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"%s\" stroke-width=\"5\"  />\n", getVerticePosicX(v1)-2, getVerticePosicY(v1)-2, getVerticePosicX(v2)-2, getVerticePosicY(v2)-2, cor);
-				}
-			}
-			printf("%d\n", DinamicListlength(mais_rapido));
-			for (p1 = getFirstDinamicList(mais_rapido); p1 != NULL; p1 = getNextDinamicList(p1)){
-				p2 = getPreviousDinamicList(p1);
-				v1 = getObjtDinamicList(p1);
-				if (p2 != NULL){
-					v2 = getObjtDinamicList(p2);
-					fprintf(svg_p, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"%s\" stroke-width=\"5\"  />\n", getVerticePosicX(v1)+2, getVerticePosicY(v1)+2, getVerticePosicX(v2)+2, getVerticePosicY(v2)+2, compl);
-				}
-			}			
-			fprintf(svg_p, "</svg>\n");
-			printf("calmae");
-			getchar();
+			// aux = colocaBarra(pegaParametro(argc, argv, "-o"));
+			// aux2 = concatena(aux, "cmd_p.svg");
+			// printf("%s\n", aux2);
+			// getchar();
+			// FILE *svg_p = fopen(aux2, "w");
+			// fprintf(svg_p, "<svg>\n");
+			// printSvgCidade(*city, svg_p);
+			// printf("%d\n", DinamicListlength(mais_curto));
+			// for (p1 = getFirstDinamicList(mais_curto); p1 != NULL; p1 = getNextDinamicList(p1)){
+			// 	p2 = getPreviousDinamicList(p1);
+			// 	v1 = getObjtDinamicList(p1);
+			// 	if (p2 != NULL){
+			// 		v2 = getObjtDinamicList(p2);
+			// 		fprintf(svg_p, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"%s\" stroke-width=\"5\"  />\n", getVerticePosicX(v1)-2, getVerticePosicY(v1)-2, getVerticePosicX(v2)-2, getVerticePosicY(v2)-2, cor);
+			// 	}
+			// }
+			// printf("%d\n", DinamicListlength(mais_rapido));
+			// for (p1 = getFirstDinamicList(mais_rapido); p1 != NULL; p1 = getNextDinamicList(p1)){
+			// 	p2 = getPreviousDinamicList(p1);
+			// 	v1 = getObjtDinamicList(p1);
+			// 	if (p2 != NULL){
+			// 		v2 = getObjtDinamicList(p2);
+			// 		fprintf(svg_p, "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"%s\" stroke-width=\"5\"  />\n", getVerticePosicX(v1)+2, getVerticePosicY(v1)+2, getVerticePosicX(v2)+2, getVerticePosicY(v2)+2, compl);
+			// 	}
+			// }			
+			// fprintf(svg_p, "</svg>\n");
 		}
 	}
 	calcViewBoxSvg(*city, svgW, svgH);
