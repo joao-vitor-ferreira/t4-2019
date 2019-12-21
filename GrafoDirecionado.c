@@ -40,8 +40,8 @@ typedef struct {
 typedef struct {//a aresta tem sentido v1---->v2
 	VerticeG *v1;//vertice de origem de aresta
 	VerticeG *v2;//vertice de destino da aresta
-	char *ldir; //quadra ao lado direito (hifen = nenhuma)
-	char *lesq; //quadra ao lado esquerdo (hifen = nenhuma)
+	char *ldir; //quadra ao lado direito (hashtag = nenhuma)
+	char *lesq; //quadra ao lado esquerdo (hashtag = nenhuma)
 	double cmp; //comprimento da rua(aresta)
 	double vm; //velocidade media na rua
 	char *nome; //nome da rua
@@ -60,9 +60,28 @@ GrafoD createGrafo(){ //grafo possui vertices, que por sua vez possuem arestas(o
 
 void createListaAdjacencia(GrafoD graph){
 	grafoD *newGrafoD = (grafoD *)graph;
+	newGrafoD->lAdjac = (ListaDinamica*)malloc(sizeof(ListaDinamica)*newGrafoD->size_vert);
 	int i;
-	for(i = 0; i < newGrafoD->size_vert; i++)
-		newGrafoD->lAdjac[i] = createDinamicList();
+	for(i = 0; i < newGrafoD->size_vert; i++){
+		(*newGrafoD).lAdjac[i] = createDinamicList();
+	}
+}
+
+int addGrafoListaDeAdjacencia(GrafoD graph, Aresta a){
+	grafoD *newGrafo = (grafoD*)graph;
+	insertDinamicList((*newGrafo).lAdjac[(newGrafo->ind_count_lArest)], a);
+	int t = newGrafo->ind_count_lArest;
+	(newGrafo->ind_count_lArest)++;
+	return t;
+}
+
+ListaDinamica getVerticeGListaAdjacencia(GrafoD graph, VerticeG vert){
+	grafoD *newGraph = (grafoD*)graph;
+	vertice *newVertice = (vertice*)vert;
+	if (newVertice->indice == -1){
+		return (*newGraph).lAdjac[newVertice->indice];
+	}
+	return NULL;
 }
 
 VerticeG createVerticeGrafo(char *id, double x, double y){
@@ -70,7 +89,7 @@ VerticeG createVerticeGrafo(char *id, double x, double y){
 	newVertice->id = id;
 	newVertice->x = x;
 	newVertice->y = y;
-	newVertice->arestas = createDinamicList();
+	// newVertice->arestas = createDinamicList();
 	newVertice->isOpen = true;
 	newVertice->previous = NULL;
 	newVertice->bestRoute = LONG_MAX/2;
@@ -81,12 +100,18 @@ VerticeG createVerticeGrafo(char *id, double x, double y){
 
 Aresta createAresta(char *i, char *j, char *ldir, char *lesq, double cmp, double vm, char *nome, GrafoD grafoDir){
 	aresta *newAresta = malloc(sizeof(aresta));
-	// GrafoD *newGrafoD = grafoDir;
+	grafoD *newGraph = (grafoD*)grafoDir;
 	VerticeG v;
 	PosicLD p;
+	
 	newAresta->v1 = searchVerticeGrafo(getGrafoRbtreeVertices(grafoDir), getRoot(getGrafoRbtreeVertices(grafoDir)), i);
 	if (newAresta->v1 != NULL){
-		
+		vertice *newVertice = (vertice*)newAresta->v1;
+		if(newVertice->indice == -1){
+			int ind = addGrafoListaDeAdjacencia(grafoDir, newAresta);
+			setGrafoVerticeIndice(newAresta->v1, ind);
+			(newGraph->size_arest)++;
+		}
 	}else{
 		printf("vertice não encontrado\n");
 	}
@@ -250,49 +275,72 @@ int verificaAberto(ListaDinamica lVert){
 	return 0;
 }
 
+VerticeG encontraMenorDistancia(ListaDinamica list){
+	PosicLD p1;
+	VerticeG v1 = NULL, vr = NULL;
+	double menorDist = INT_MAX/2;
+	for (p1 = getFirstDinamicList(list); p1!= NULL; p1 = getNextDinamicList(p1)){
+		v1 = getObjtDinamicList(p1);
+		if (verticeIsOpen(v1) && getVerticeBestRoute(v1) < menorDist){
+			vr = v1;
+			menorDist = getVerticeBestRoute(v1);
+		}
+	}
+	printf("menor %f", menorDist);
+	return vr;
+}
+
 ListaDinamica dijkstra(GrafoD graph, VerticeG v0, VerticeG vEnd, char vm_ou_cpm){
 	Rbtree aVert = getGrafoRbtreeVertices(graph);
 	inicializaDijkstra(aVert, getRoot(aVert));
 	setVerticeBestRoute(v0, 0);
 	VerticeG u, v, teste;
 	double menorDist, distTest;
-	ListaDinamica lVert = getGrafoListaVertices(graph);
+	ListaDinamica lVert = getGrafoListaVertices(graph), lAdj;
 	PosicLD p1, p2;
 	Aresta a;
-	while (verificaAberto(lVert)){
-		// printf("ver %d\n", verificaAberto(lVert));
-		menorDist = INT_MAX/2;
-		for(p1 = getFirstDinamicList(lVert); p1 != NULL; p1 = getNextDinamicList(p1)){
-			teste = getObjtDinamicList(p1);
-			if (verticeIsOpen(teste) && getVerticeBestRoute(teste) < menorDist){
-				// printf("teste %f menor %f\n", getVerticeBestRoute(teste), menorDist);
-				u = teste;
-				menorDist = getVerticeBestRoute(teste);
-			}
-		}
-		if (menorDist == INT_MAX/2)
-			break;
+	if (getVerticeGListaAdjacencia(graph, v0) != NULL){
+		int len = DinamicListlength(getVerticeGListaAdjacencia(graph, v0));
+		if (len == 0)
+			return NULL;
+	}else
+		return NULL;
+	for(p1 = getFirstDinamicList(lVert); p1 != NULL; p1 = getNextDinamicList(p1)){
+		u = getObjtDinamicList(p1);
+		vertice *newVertice = (vertice*)u;
+		printf("v[i].indice = %d\n", newVertice->indice);
+	}
+	getchar();
+	while (verificaAberto(lVert) && getVerticeGListaAdjacencia(graph, v0) != NULL){
+		u = encontraMenorDistancia(lVert);
 		closeVertice(u);
-		for (p2 = getFirstDinamicList(getVerticeListaArestas(u)); p2 != NULL; p2 = getNextDinamicList(p2)){//processo de relaxamento
-			a = getObjtDinamicList(p2);
-			v = getV2FromAresta(a);
-			if (v == v0)
-				// printf("lalalalal\n");
-			if (verticeIsOpen(v)){
-				// printf("v %f u %f\n", getVerticeBestRoute(v), getVerticeBestRoute(u) + getVelMediaAresta(a));
-				if (vm_ou_cpm == 'v'){
-					if (getVerticeBestRoute(v) > getVerticeBestRoute(u) + getVelMediaAresta(a)){
-						setVerticeBestRoute(v, getVerticeBestRoute(u) + getVelMediaAresta(a));
-						setVerticePrevious(v, u);
-						// printf("entra\n");					
+		lAdj = getVerticeGListaAdjacencia(graph, u);
+		if (lAdj != NULL){
+			if (DinamicListlength(lAdj) > 0){
+				for (p2 = getFirstDinamicList(lAdj); p2 != NULL; p2 = getNextDinamicList(p2)){//processo de relaxamento
+					a = getObjtDinamicList(p2);
+					v = getV2FromAresta(a);
+					if (v == v0)
+						// printf("lalalalal\n");
+					if (verticeIsOpen(v)){
+						// printf("v %f u %f\n", getVerticeBestRoute(v), getVerticeBestRoute(u) + getVelMediaAresta(a));
+						if (vm_ou_cpm == 'v'){
+							if (getVerticeBestRoute(v) > getVerticeBestRoute(u) + getVelMediaAresta(a)){
+								setVerticeBestRoute(v, getVerticeBestRoute(u) + getVelMediaAresta(a));
+								setVerticePrevious(v, u);
+								setVerticePreviousAresta(v, a);
+								// printf("entra\n");					
+							}
+						} else if (vm_ou_cpm == 'c'){
+							if (getVerticeBestRoute(v) > getVerticeBestRoute(u) + getArestaCompr(a)){
+								setVerticeBestRoute(v, getVerticeBestRoute(u) + getArestaCompr(a));
+								setVerticePrevious(v, u);
+								setVerticePreviousAresta(v, a);
+								// printf("entra\n");					
+							}
+						}				
 					}
-				} else if (vm_ou_cpm == 'c'){
-					if (getVerticeBestRoute(v) > getVerticeBestRoute(u) + getArestaCompr(a)){
-						setVerticeBestRoute(v, getVerticeBestRoute(u) + getArestaCompr(a));
-						setVerticePrevious(v, u);
-						// printf("entra\n");					
-					}
-				}				
+				}
 			}
 		}
 	}
@@ -306,90 +354,16 @@ ListaDinamica dijkstra(GrafoD graph, VerticeG v0, VerticeG vEnd, char vm_ou_cpm)
 		// printf("123\n");
 	}
 	insertDinamicList(listCaminho, v0);
-
-}
-
-ListaDinamica calculaMelhorCaminho(GrafoD grafoDir, VerticeG v0, VerticeG vEnd, char vm_ou_cpm){
-	grafoD *newGrafoD = grafoDir;
-	setVerticePrevious(v0, NULL);
-	setVerticeBestRoute(v0, 0);
-
-	VerticeG verticeTest, verticeAtual;
-	VerticeG v1, v2;
-	PosicLD p, p2, p3;
-	Aresta a;
-	
-	int n = 0, i = 0, j = 0;
-	double routeTest;
-
-	double menorRota;
-	bool finished = false;
-	while(!finished){
-		menorRota = LONG_MAX / 2;
-		for(p2 = getFirstDinamicList(getGrafoListaVertices(grafoDir)); p2 != NULL; p2 = getNextDinamicList(p2)){ //enquanto houver VerticeG aberto, verifica (algoritmo de Djikstra)
-			verticeTest = getObjtDinamicList(p2);
-
-			if(verticeIsOpen(verticeTest) && getVerticeBestRoute(verticeTest) < menorRota) { //pega o VerticeG com a melhor estimativa atual
-				menorRota = getVerticeBestRoute(verticeTest);
-				verticeAtual = verticeTest;
-			}
-		}
-		if(menorRota == LONG_MAX / 2){
-			finished = true;
-			break;
-		}
-		closeVertice(verticeAtual);	
-		for(p = getFirstDinamicList(getVerticeListaArestas(verticeAtual)); p != NULL; p = getNextDinamicList(p)){ //verifica cada aresta do VerticeG atual
-			a = getObjtDinamicList(p);
-			
-			if(interditado(a)){
-				continue;
-			}
-			v2 = getV2FromAresta(a);
-
-			if(verticeIsOpen(v2)){
-				if(i == 0){ //apenas na primeira iteracao		
-					v1 = getV1FromAresta(a);
-					i++;
-				}
-				if (vm_ou_cpm == 'v')
-					routeTest = getVelMediaAresta(a);
-				else
-					routeTest = getArestaCompr(a);
-				routeTest = routeTest + getVerticeBestRoute(v1);
-				if(routeTest < getVerticeBestRoute(v2)){ // rota de v1 a v2 melhor do que a anterior
-					setVerticeBestRoute(v2, routeTest);
-					setVerticePrevious(v2, v1);
-					printf("entra\n");
-				}
-			}
-		}
-		i = 0;
-	}
-
-	ListaDinamica listCaminho = createDinamicList();
-	verticeAtual = vEnd;
-	while(verticeAtual != v0){
-		insertDinamicList(listCaminho, verticeAtual);
-		n++;
-		verticeAtual = getVerticePrevious(verticeAtual);
-		printf("123\n");
-	}
-	insertDinamicList(listCaminho, v0);
-
-	return listCaminho;
-}
-
-void insertVerticeGrafo(GrafoD grafoDir, VerticeG vert){
-	grafoD *newGrafoD = grafoDir;
-	insertDinamicList(newGrafoD->vertices, vert);
-	return;
+	if (getVerticePrevious(v0) == NULL)
+		printf("tanocaminho\n");
+	getchar();
 }
 
 void insertVerticeDoGrafo(GrafoD grafoDir, VerticeG vert){
 	grafoD *newGrafoD = (grafoD*)grafoDir;
 	insertDinamicList(newGrafoD->vertices, vert);
 	insertRbtree(newGrafoD->aVertices, vert, cmpVerticeDoGrafoTree);
+	(newGrafoD->size_vert)++;
 }
 
 void insertArestaVertice(VerticeG v, Aresta a){
@@ -408,7 +382,7 @@ void closeVertice(VerticeG v){
 }
 
 void setVerticePrevious(VerticeG v, VerticeG vPrev){
-	vertice *newVertice= v;
+	vertice *newVertice = v;
 	newVertice->previous = vPrev;
 }
 

@@ -619,6 +619,51 @@ void leituraPM(int argc, char **argv, Cidade *city){
 	fclose(entrada);
 }
 
+void leituraVia(int argc, char **argv, Cidade *city){
+	FILE *arq_via;
+	char id[30], id2[30], ldir[20], lesq[30], nome[30], line[100], word[30], *aux1, *aux2, *aux3, *aux4, *aux5;
+	double x, y, comprimento, vel_med;
+	aux1 = colocaBarra(pegaParametro(argc, argv, "-e"));
+	aux2 = concatena(aux1, pegaParametro(argc, argv, "-v"));
+	arq_via = fopen(aux2, "r");
+	int comeco_comando_e = 1;
+	funcFree(&aux1);
+	funcFree(&aux2);
+	if (arq_via == NULL)
+		return;
+	while(!feof(arq_via)){
+		fscanf(arq_via, "%[^\n]\n", line);
+		sscanf(line, "%s", word);
+		if (strcmp(word, "v") == 0){
+			sscanf(line, "%s %s %lf %lf", word, id, &x, &y);
+			aux1 = (char*)malloc(sizeof(char)*(strlen(id) + 1));
+			strcpy(aux1, id);
+			VerticeG v1 = createVerticeGrafo(aux1, x, y);
+			insertVerticeDoGrafo(getGrafo(*city), v1);
+		} else if (strcmp(word, "e") == 0){
+			if (comeco_comando_e){
+				createListaAdjacencia(getGrafo(*city));
+				comeco_comando_e = 0;
+			}
+			sscanf(line, "%s %s %s %s %s %lf %lf %s", word, id, id2, ldir, lesq, &comprimento, &vel_med, nome);
+			// aux1 = (char*)malloc(sizeof(char)*(strlen(id) + 1));
+			// strcpy(aux1, id);
+			// aux2 = (char*)malloc(sizeof(char)*(strlen(id2) + 1));
+			// strcpy(aux2, id2);
+			aux3 = (char*)malloc(sizeof(char)*(strlen(ldir) + 1));
+			strcpy(aux3, ldir);											
+			aux4 = (char*)malloc(sizeof(char)*(strlen(lesq) + 1));
+			strcpy(aux4, lesq);
+			aux5 = (char*)malloc(sizeof(char)*(strlen(nome) + 1));
+			strcpy(aux5, nome);			
+			Aresta a = createAresta(id, id2, aux3, aux4, comprimento, vel_med, aux5, getGrafo(*city));
+			// funcFree(&aux1);
+			// funcFree(&aux2);
+		}
+	}
+	fclose(arq_via);
+}
+
 char *funcSvgBb(int argc, char **argv, char *suf){
 	char *dir, *qry, *bb, *aux, *geo;
 	dir = colocaBarra(pegaParametro(argc, argv, "-o"));
@@ -1307,46 +1352,6 @@ void mmplg(Morador m, ...){
 	}
 }
 
-void leituraVia(int argc, char **argv, Cidade *city){
-	FILE *arq_via;
-	char id[20], id2[20], ldir[20], lesq[20], nome[20], line[100], word[20], *aux1, *aux2, *aux3, *aux4, *aux5;
-	double x, y, comprimento, vel_med;
-	aux1 = colocaBarra(pegaParametro(argc, argv, "-e"));
-	aux2 = concatena(aux1, pegaParametro(argc, argv, "-v"));
-	arq_via = fopen(aux2, "r");
-	funcFree(&aux1);
-	funcFree(&aux2);
-	if (arq_via == NULL)
-		return;
-	while(!feof(arq_via)){
-		fscanf(arq_via, "%[^\n]\n", line);
-		sscanf(line, "%s", word);
-		if (strcmp(word, "v") == 0){
-			sscanf(line, "%s %s %lf %lf", word, id, &x, &y);
-			aux1 = (char*)malloc(sizeof(char)*(strlen(id) + 1));
-			strcpy(aux1, id);
-			VerticeG v1 = createVerticeGrafo(aux1, x, y);
-			insertVerticeDoGrafo(getGrafo(*city), v1);
-		} else if (strcmp(word, "e") == 0){
-			sscanf(line, "%s %s %s %s %s %lf %lf %s", word, id, id2, ldir, lesq, &comprimento, &vel_med, nome);
-			// aux1 = (char*)malloc(sizeof(char)*(strlen(id) + 1));
-			// strcpy(aux1, id);
-			// aux2 = (char*)malloc(sizeof(char)*(strlen(id2) + 1));
-			// strcpy(aux2, id2);
-			aux3 = (char*)malloc(sizeof(char)*(strlen(ldir) + 1));
-			strcpy(aux3, ldir);											
-			aux4 = (char*)malloc(sizeof(char)*(strlen(lesq) + 1));
-			strcpy(aux4, lesq);
-			aux5 = (char*)malloc(sizeof(char)*(strlen(nome) + 1));
-			strcpy(aux5, nome);			
-			Aresta a = createAresta(id, id2, aux3, aux4, comprimento, vel_med, aux5, getGrafo(*city));
-			// funcFree(&aux1);
-			// funcFree(&aux2);
-		}
-	}
-	fclose(arq_via);
-}
-
 int verificaRegistrador(char *str){
 	if (strcmp(str, "R0") == 0)
 		return 0;
@@ -1388,13 +1393,13 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 		registrador[i] = createPonto(0.0, 0.0);
 	}
 	char *line = NULL, *word = NULL, *cor = NULL, *suf = NULL, 
-	*aux = NULL, *aux2 = NULL, *aux3 = NULL, *text = NULL, *id = NULL, cpf[20], cnpj[20], compl[20], face, cep[20], regis[4];
+	*aux = NULL, *aux2 = NULL, *aux3 = NULL, *text = NULL, *id = NULL, cpf[30], cnpj[30], compl[30], face, cep[30], regis[4];
 	double raio, x, y, height, width, dx, dy;
-	id = (char*)malloc(sizeof(char)*20);
+	id = (char*)malloc(sizeof(char)*30);
 	line = (char*)malloc(sizeof(char)*200);
 	word =(char*)malloc(sizeof(char)*30);
-	cor = (char*)malloc(sizeof(char)*20);
-	suf = (char*)malloc(sizeof(char)*20);
+	cor = (char*)malloc(sizeof(char)*30);
+	suf = (char*)malloc(sizeof(char)*30);
 	aux = colocaBarra(pegaParametro(argc, argv, "-e"));
 	aux2 = concatena(aux, pegaParametro(argc, argv, "-q"));
 	entrada = fopen(aux2, "r");
@@ -1934,9 +1939,15 @@ void leituraQry(int argc, char **argv, double *svgH, double *svgW, FILE *svgQry,
 			VerticeG v_origem, v_destino, v1, v2;
 			GrafoD graph = getGrafo(*city);
 			v_origem = findNearestVertice(graph, registrador[i]);
+			// printf("%f %f\n", getVerticePosicX(v_origem), getVerticePosicY(v_origem));
 			v_destino = findNearestVertice(graph, registrador[j]);
+			// printf("%f %f\n", getVerticePosicX(v_destino), getVerticePosicY(v_destino));
 			ListaDinamica mais_curto = dijkstra(getGrafo(*city), v_origem, v_destino, 'c');
+			if (mais_curto != NULL)
+				printf("%d\n", DinamicListlength(mais_curto));
 			ListaDinamica mais_rapido = dijkstra(getGrafo(*city), v_origem, v_destino, 'v');
+			if (mais_rapido != NULL)
+				printf("%d\n", DinamicListlength(mais_rapido));
 			// aux = colocaBarra(pegaParametro(argc, argv, "-o"));
 			// aux2 = concatena(aux, "cmd_p.svg");
 			// printf("%s\n", aux2);

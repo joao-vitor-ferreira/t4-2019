@@ -13,8 +13,6 @@ double calculaRotaPontos(double x1, double y1, double x2, double y2, double vm);
 Aresta createAresta(char *i, char *j, char *ldir, char *lesq, double cmp, double vm, char *nome, GrafoD grafoDir);
 /*adiciona no grafo grafoDir o vertice vert na arvore de vertices do grafo*/
 void insertVerticeDoGrafo(GrafoD grafoDir, VerticeG vert);
-/*adiciona no vertice v do grafo a aresta a na lista de adjacencia do vertice*/
-void insertArestaVertice(VerticeG v, Aresta a);
 /*seta o vertice como aberto para o algoritmo de dijkstra*/
 void openVertice(VerticeG v);
 /*seta o vertice como fechado para o algoritmo de dijkstra*/
@@ -73,4 +71,8 @@ Rbtree *getGrafoRbtreeVertices(GrafoD grafoDir);
 VerticeG findNearestVertice(GrafoD graph, Ponto pt);
 /*algoritmo de dijkstra*/
 ListaDinamica dijkstra(GrafoD graph, VerticeG v0, VerticeG vEnd, char vm_ou_cpm);
+/*escreve no valor de indice no vertice indice*/
+void setGrafoVerticeIndice(VerticeG vert, int indice);
+/*cria uma lista de adjacencia para o grafo graph*/
+void createListaAdjacencia(GrafoD graph);
 #endif

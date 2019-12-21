@@ -3,6 +3,8 @@
         "vector.h": "c",
         "tipoec.h": "c",
         "estabelecimentocomercial.h": "c",
-        "quadra.h": "c"
+        "quadra.h": "c",
+        "listadinamica.h": "c",
+        "math.h": "c"
     }
 }
