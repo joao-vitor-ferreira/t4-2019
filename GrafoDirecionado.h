@@ -29,12 +29,18 @@ char *getVerticeId(VerticeG v);
 double getVerticePosicX(VerticeG v);
 /*retorna a posição do vertice no eixo y*/
 double getVerticePosicY(VerticeG v);
-/*verifica se o vertice v esta aberto ou fechado para o algoritmo de dijkstra*/
+/*retorna o numero de vertices no grafo*/
+int getGrafoQtdVertice(GrafoD graph);
+/*retorna o numero de aresta no grafo*/
+int getGrafoQtdAresta(GrafoD graph);
+/*retorna true se o vertice ja foi aberto no algoritmo dde dijkstra, senão retorna falso*/
 bool verticeIsOpen(VerticeG v);
 /*dado um vertice v, aponta v para o vertice anterior no algoritmo de dijjkstra*/
 void setVerticePrevious(VerticeG v, VerticeG vPrev);
 void setVerticePreviousAresta(VerticeG v, Aresta aPrev);
+/*escreve o valor smallestDist na variavel bestRoute do vertice*/
 void setVerticeBestRoute(VerticeG v, double smallestDist);
+/*dado um vertice v, retorna o vertice anterior no algoritmo de dijkstra, caso não tenha executao o algoritmo aponta pra NULL*/
 VerticeG getVerticePrevious(VerticeG v);
 /*retorna a aresta para o*/
 Aresta getVerticePreviousAresta(VerticeG v);

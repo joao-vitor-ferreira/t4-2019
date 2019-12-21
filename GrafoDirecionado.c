@@ -11,8 +11,12 @@
 #include "Ponto.h"
 
 typedef struct{
+	ListaDinamica *lAdjac; //Lista de adjacencia
 	ListaDinamica vertices;
 	Rbtree aVertices;
+	int size_vert;
+	int size_arest;
+	int ind_count_lArest;
 }grafoD;
 
 double calculaRotaPontos(double x1, double y1, double x2, double y2, double vm){
@@ -22,6 +26,7 @@ double calculaRotaPontos(double x1, double y1, double x2, double y2, double vm){
 }
 
 typedef struct {
+	int indice; // indice do vertice na lista de adjacencia
 	char *id;
 	double x;
 	double y;
@@ -32,9 +37,9 @@ typedef struct {
 	ListaDinamica *arestas;
 }vertice;
 
-typedef struct {
-	VerticeG *v1;
-	VerticeG *v2;
+typedef struct {//a aresta tem sentido v1---->v2
+	VerticeG *v1;//vertice de origem de aresta
+	VerticeG *v2;//vertice de destino da aresta
 	char *ldir; //quadra ao lado direito (hifen = nenhuma)
 	char *lesq; //quadra ao lado esquerdo (hifen = nenhuma)
 	double cmp; //comprimento da rua(aresta)
@@ -47,7 +52,17 @@ GrafoD createGrafo(){ //grafo possui vertices, que por sua vez possuem arestas(o
 	grafoD *newGrafoD = malloc(sizeof(grafoD));
 	newGrafoD->vertices = createDinamicList();
 	newGrafoD->aVertices = createTree();
+	newGrafoD->ind_count_lArest = 0;// o indice do vetor da lista de adjacencia, toda vez que adicionar um vertice o indic eh incrementado
+	newGrafoD->size_arest = 0;
+	newGrafoD->size_vert = 0;
 	return newGrafoD;
+}
+
+void createListaAdjacencia(GrafoD graph){
+	grafoD *newGrafoD = (grafoD *)graph;
+	int i;
+	for(i = 0; i < newGrafoD->size_vert; i++)
+		newGrafoD->lAdjac[i] = createDinamicList();
 }
 
 VerticeG createVerticeGrafo(char *id, double x, double y){
@@ -60,7 +75,40 @@ VerticeG createVerticeGrafo(char *id, double x, double y){
 	newVertice->previous = NULL;
 	newVertice->bestRoute = LONG_MAX/2;
 	newVertice->previousAresta = NULL;
+	newVertice->indice = -1;
 	return newVertice;
+}
+
+Aresta createAresta(char *i, char *j, char *ldir, char *lesq, double cmp, double vm, char *nome, GrafoD grafoDir){
+	aresta *newAresta = malloc(sizeof(aresta));
+	// GrafoD *newGrafoD = grafoDir;
+	VerticeG v;
+	PosicLD p;
+	newAresta->v1 = searchVerticeGrafo(getGrafoRbtreeVertices(grafoDir), getRoot(getGrafoRbtreeVertices(grafoDir)), i);
+	if (newAresta->v1 != NULL){
+		
+	}else{
+		printf("vertice não encontrado\n");
+	}
+	
+	newAresta->v2 = searchVerticeGrafo(getGrafoRbtreeVertices(grafoDir), getRoot(getGrafoRbtreeVertices(grafoDir)), j);
+	newAresta->ldir = ldir;
+	newAresta->lesq = lesq;
+	newAresta->cmp = cmp;
+	newAresta->vm = vm;
+	newAresta->nome = nome;
+	newAresta->interditado = false;
+	return newAresta;
+}
+
+int getGrafoQtdVertice(GrafoD graph){
+	grafoD *newGrafo = (grafoD*)graph;
+	return newGrafo->size_vert;
+}
+
+int getGrafoQtdAresta(GrafoD graph){
+	grafoD *newGrafo = (grafoD*)graph;
+	return newGrafo->size_arest;
 }
 
 VerticeG getV1FromAresta(Aresta a){
@@ -100,36 +148,9 @@ VerticeG searchVerticeGrafo(Rbtree tree, PosicTree root, char *id){
 		return NULL;
 }
 
-Aresta createAresta(char *i, char *j, char *ldir, char *lesq, double cmp, double vm, char *nome, GrafoD grafoDir){
-	aresta *newAresta = malloc(sizeof(aresta));
-	// GrafoD *newGrafoD = grafoDir;
-	VerticeG v;
-	PosicLD p;
-	newAresta->v1 = searchVerticeGrafo(getGrafoRbtreeVertices(grafoDir), getRoot(getGrafoRbtreeVertices(grafoDir)), i);
-	if (newAresta->v1 != NULL)
-		insertArestaVertice(newAresta->v1, newAresta);
-	
-	newAresta->v2 = searchVerticeGrafo(getGrafoRbtreeVertices(grafoDir), getRoot(getGrafoRbtreeVertices(grafoDir)), j);
-	// insertArestaVertice(newAresta->v2, newAresta);
-	// int n = 0;
-	// for(p = getFirstDinamicList(getGrafoListaVertices(grafoDir)); n < 2; p = getNextDinamicList(p)){
-	// 	v = getObjtDinamicList(p);
-	// 	if(strcmp(getVerticeId(v), i) == 0){
-	// 		newAresta->v1 = v;
-	// 		n++;
-	// 	}
-	// 	else if(strcmp(getVerticeId(v), j) == 0){
-	// 		newAresta->v2 = v;
-	// 		n++;
-	// 	}
-	// }
-	newAresta->ldir = ldir;
-	newAresta->lesq = lesq;
-	newAresta->cmp = cmp;
-	newAresta->vm = vm;
-	newAresta->nome = nome;
-	newAresta->interditado = false;
-	return newAresta;
+void setGrafoVerticeIndice(VerticeG vert, int indice){
+	vertice *newVertice = (vertice*)vert;
+	newVertice->indice = indice;
 }
 
 void resetAux(Rbtree tree, PosicTree root){
